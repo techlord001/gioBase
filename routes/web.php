@@ -26,3 +26,12 @@ Route::get('/labels/{label}', 'LabelController@show')->name('labels.show');
 Route::get('/labels/{label}/edit', 'LabelController@edit')->name('labels.edit');
 Route::patch('/labels/{label}', 'LabelController@update')->name('labels.update');
 Route::delete('/labels/{label}', 'LabelController@destroy')->name('labels.destroy');
+
+/********** Artists Routes **********/
+Route::get('/artists', 'ArtistController@index')->name('artists.index');
+Route::get('/artists/create', 'ArtistController@create')->name('artists.create');
+Route::post('/artists', 'ArtistController@store')->name('artists.store');
+Route::get('/artists/{artist}', 'ArtistController@show')->name('artists.show');
+Route::get('/artists/{artist}/edit', 'ArtistController@edit')->name('artists.edit');
+Route::patch('/artists/{artist}', 'ArtistController@update')->name('artists.update');
+Route::delete('/artists/{artist}', 'ArtistController@destroy')->name('artists.destroy');

@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Label extends Model
+class Artist extends Model
 {
     protected $guarded = [];
 
-    public function artist()
+    public function label()
     {
-        return $this->hasMany(Artist::class);
+        return $this->belongsTo(Label::class);
     }
 }

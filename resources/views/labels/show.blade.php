@@ -7,6 +7,12 @@
 <p>{{ $label->description }}</p>
 @endif
 
+@forelse ($label->artist as $artist)
+    <p>{{ $artist->name }}</p>
+@empty
+    <p>No artists signed!</p>
+@endforelse
+
 @if ($label->image)
     <img src="{{ asset('storage/' . $label->image) }}" alt="">
 @endif

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLabelsTable extends Migration
+class CreateArtistsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateLabelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('labels', function (Blueprint $table) {
+        Schema::create('artists', function (Blueprint $table) {
             $table->id('id');
-            $table->string('name', 50)->unique();
-            $table->string('location')->nullable();
-            $table->text('description')->nullable();
+            $table->string('name', 40)->unique();
+            $table->string('history')->nullable();
+            $table->foreignId('label_id')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CreateLabelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('labels');
+        Schema::dropIfExists('artists');
     }
 }

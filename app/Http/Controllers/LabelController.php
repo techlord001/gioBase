@@ -13,6 +13,7 @@ class LabelController extends Controller
         return request()->validate([
             'name' => 'required',
             'description' => 'nullable',
+            'artist_id' => 'nullable',
             'image' => 'sometimes|file|image|max:2048'
         ]);
     }
