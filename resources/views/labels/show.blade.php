@@ -7,7 +7,7 @@
 <p>{{ $label->description }}</p>
 @endif
 
-@forelse ($label->artist as $artist)
+@forelse ($label->artists as $artist)
     <p>{{ $artist->name }}</p>
 @empty
     <p>No artists signed!</p>

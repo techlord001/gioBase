@@ -34,9 +34,7 @@ class LabelController extends Controller
     {
         $labels = Label::all();
 
-        return view('labels.index', [
-            'labels' => $labels
-        ]);
+        return view('labels.index', compact('labels'));
     }
 
     public function create()

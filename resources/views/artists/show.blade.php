@@ -11,6 +11,12 @@
 <p>{{ $artist->label->name }}</p>
 @endif
 
+@forelse ($artist->records as $record)
+    <p>{{ $record->title }}</p>
+@empty
+    <p>No records yet!</p>
+@endforelse
+
 @if ($artist->image)
     <img src="{{ asset('storage/' . $artist->image) }}" alt="">
 @endif

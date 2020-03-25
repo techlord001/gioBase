@@ -8,7 +8,7 @@ class Label extends Model
 {
     protected $guarded = [];
 
-    public function artist()
+    public function artists()
     {
         return $this->hasMany(Artist::class);
     }

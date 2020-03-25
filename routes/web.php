@@ -35,3 +35,12 @@ Route::get('/artists/{artist}', 'ArtistController@show')->name('artists.show');
 Route::get('/artists/{artist}/edit', 'ArtistController@edit')->name('artists.edit');
 Route::patch('/artists/{artist}', 'ArtistController@update')->name('artists.update');
 Route::delete('/artists/{artist}', 'ArtistController@destroy')->name('artists.destroy');
+
+/********** Records Routes **********/
+Route::get('/records', 'RecordController@index')->name('records.index');
+Route::get('/records/create', 'RecordController@create')->name('records.create');
+Route::post('/records', 'RecordController@store')->name('records.store');
+Route::get('/records/{record}', 'RecordController@show')->name('records.show');
+Route::get('/records/{record}/edit', 'RecordController@edit')->name('records.edit');
+Route::patch('/records/{record}', 'RecordController@update')->name('records.update');
+Route::delete('/records/{record}', 'RecordController@destroy')->name('records.destroy');

@@ -35,9 +35,7 @@ class ArtistController extends Controller
     {
         $artists = Artist::all();
 
-        return view('artists.index', [
-            'artists' => $artists
-        ]);
+        return view('artists.index', compact('artists'));
     }
 
     public function create()
