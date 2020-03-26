@@ -3,9 +3,9 @@
 <form action="/records" method="post" enctype="multipart/form-data">
     @csrf
     <div>
-        <label for="title">Title:</label>
-        <input type="text" name="title" id="title" autocomplete="off" value="{{ old('title') }}">
-        @error('title')
+        <label for="name">Title:</label>
+        <input type="text" name="name" id="name" autocomplete="off" value="{{ old('name') }}">
+        @error('name')
             <p>{{ $message }}</p>
         @enderror
     </div>
@@ -16,6 +16,9 @@
             <option value="{{ $artist->id }}">{{ $artist->name }}</option>
             @endforeach
         </select>
+        @error('artist_id')
+            <p>{{ $message }}</p>
+        @enderror
     </div>
     <div>
         <label for="format_id">Format:</label>
@@ -24,20 +27,32 @@
             <option value="{{ $format->id }}">{{ $format->format }}</option>
             @endforeach
         </select>
+        @error('format_id')
+            <p>{{ $message }}</p>
+        @enderror
     </div>
     <div>
         <label for="colour_id">Colours:</label>
-        @foreach ($colours as $colour)
-            <input type="checkbox" name="colour_id[]" id="colour_id" value="{{ $colour->id }}">{{ $colour->colour }}
-        @endforeach
+        <select name="colour_id" id="colour_id">
+            @foreach ($colours as $colour)
+                <option value="{{ $colour->id }}">{{ $colour->colour }}</option>
+            @endforeach
+        </select>
         @error('colours')
             <p>{{ $message }}</p>
         @enderror
     </div>
     <div>
-        <label for="cover">Upload Cover:</label>
-        <input type="file" name="cover" id="cover">
-        @error('cover')
+        <label for="released">Released:</label>
+        <input type="date" name="released" id="released">
+        @error('released')
+            <p>{{ $message }}</p>
+        @enderror
+    </div>
+    <div>
+        <label for="image">Upload Cover:</label>
+        <input type="file" name="image" id="image">
+        @error('image')
             <p>{{ $message }}</p>
         @enderror
     </div>

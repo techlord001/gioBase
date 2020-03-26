@@ -4,9 +4,9 @@
     @method('patch')
     @csrf
     <div>
-        <label for="title">Title:</label>
-        <input type="text" name="title" id="title" autocomplete="off" value="{{ $record->title }}">
-        @error('title')
+        <label for="name">Title:</label>
+        <input type="text" name="name" id="name" autocomplete="off" value="{{ $record->name }}">
+        @error('name')
             <p>{{ $message }}</p>
         @enderror
     </div>
@@ -36,23 +36,30 @@
     </div>
     <div>
         <label for="colour_id">Colours:</label>
-        @foreach ($colours as $colour)
-            <input type="checkbox" name="colour_id[]" id="colour_id" value="{{ $colour->id }}"
-            @foreach ($record->colours as $colour_id)
-                @if ($colour->id === $colour_id->id)
-                    checked
-                @endif
+        <select name="colour_id" id="colour_id">
+            @foreach ($colours as $colour)
+                <option value="{{ $colour->id }}"
+                    @if ($colour->id === $record->colour_id)
+                        selected
+                    @endif
+                    >{{ $colour->colour }}</option>
             @endforeach
-            >{{ $colour->colour }}
-        @endforeach
+        </select>
         @error('colours')
             <p>{{ $message }}</p>
         @enderror
     </div>
     <div>
-        <label for="cover">Upload Cover:</label>
-        <input type="file" name="cover" id="cover">
-        @error('cover')
+        <label for="released">Released:</label>
+        <input type="date" name="released" id="released">
+        @error('released')
+            <p>{{ $message }}</p>
+        @enderror
+    </div>
+    <div>
+        <label for="image">Upload Cover:</label>
+        <input type="file" name="image" id="image">
+        @error('image')
             <p>{{ $message }}</p>
         @enderror
     </div>

@@ -6,7 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Record extends Model
 {
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'artist_id',
+        'format_id',
+        'colour_id',
+        'released',
+        'image'
+    ];
 
     protected $casts = [
         'colour_id' => 'array'
@@ -22,8 +29,8 @@ class Record extends Model
         return $this->belongsTo(Format::class);
     }
 
-    public function colours()
+    public function colour()
     {
-        return $this->belongsToMany(Colour::class, 'record_colour');
+        return $this->belongsTo(Colour::class);
     }
 }

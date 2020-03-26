@@ -14,25 +14,24 @@ class RecordController extends Controller
     protected function validateData()
     {
         return request()->validate([
-            'title' => 'required',
+            'name' => 'required',
             'artist_id' => 'required',
-            'tracks' => 'nullable',
             'format_id' => 'nullable',
             'colour_id' => 'nullable',
             'released' => 'nullable',
-            'cover' => 'sometimes|file|image|max:2048'
+            'image' => 'sometimes|file|image|max:2048'
         ]);
     }
 
     protected function storeImage($record)
     {
-        if (request()->has('cover')) {
+        if (request()->has('image')) {
             $record->update([
-                'cover' => request()->cover->store('uploads', 'public')
+                'image' => request()->image->store('uploads', 'public')
             ]);
 
-            $cover = Image::make(public_path('storage/' . $record->cover))->fit(200, 200);
-            $cover->save();
+            $image = Image::make(public_path('storage/' . $record->image))->fit(200, 200);
+            $image->save();
         }
     }
 
@@ -56,7 +55,6 @@ class RecordController extends Controller
     {
         $record = Record::create($this->validateData());
         
-        $record->colours()->sync($record->colour_id);
         $this->storeImage($record);
 
         return redirect('/records/' . $record->id);
@@ -78,17 +76,24 @@ class RecordController extends Controller
 
     public function update(Record $record)
     {
+        $oldImage = $record->image;
+
         $record->update($this->validateData());
 
-        $record->colours()->sync($record->colour_id);
         $this->storeImage($record);
+
+        if ($oldImage !== $record->image) {
+            unlink(storage_path('app/public/' . $oldImage));
+        }
 
         return redirect('/records');
     }
 
     public function destroy(Record $record)
     {
-        $record->colours()->detach($record->colour_id);
+        if ($record->image) {
+            unlink(storage_path('app/public/' . $record->image));
+        }
 
         $record->delete();
 

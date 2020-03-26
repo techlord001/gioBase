@@ -15,13 +15,12 @@ class CreateRecordsTable extends Migration
     {
         Schema::create('records', function (Blueprint $table) {
             $table->id('id');
-            $table->string('title');
+            $table->string('name');
             $table->foreignId('artist_id');
-            $table->json('tracks')->nullable();
             $table->foreignId('format_id')->nullable();
             $table->json('colour_id')->nullable();
             $table->date('released')->nullable();
-            $table->string('cover')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

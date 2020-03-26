@@ -6,7 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Label extends Model
 {
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'location',
+        'description',
+        'image'
+    ];
 
     public function artists()
     {

@@ -11,7 +11,7 @@ $factory->define(Artist::class, function (Faker $faker) {
 
     return [
         'name' => $faker->unique()->name(),
-        'history' => $faker->text(),
+        'description' => $faker->text(),
         'label_id' => $faker->randomElement($labels)
     ];
 });

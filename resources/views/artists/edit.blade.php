@@ -11,12 +11,13 @@
         @enderror
     </div>
     <div>
-        <label for="history">Brief History:</label>
-        <input type="text" name="history" id="history" autocomplete="off" value="{{ $artist->history }}">
+        <label for="description">Brief History:</label>
+        <input type="text" name="description" id="description" autocomplete="off" value="{{ $artist->description }}">
     </div>
     <div>
         <label for="label_id">Label</label>
         <select name="label_id" id="label_id">
+            <option value=""></option>
             @foreach ($labels as $label)
             <option value="{{ $label->id }}" 
                 @if ($label->id === $artist->label_id)

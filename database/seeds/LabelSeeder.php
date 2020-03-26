@@ -12,6 +12,6 @@ class LabelSeeder extends Seeder
      */
     public function run()
     {
-        factory(Label::class, 5)->create();
+        factory(Label::class, 3)->create();
     }
 }

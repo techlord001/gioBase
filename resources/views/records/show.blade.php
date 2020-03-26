@@ -1,7 +1,7 @@
 <div>
     <a href="/records"><button>Back</button></a>
 </div>
-<h1>{{ $record->title }}</h1>
+<h1>{{ $record->name }}</h1>
 
 <h2>{{ $record->artist->name }}</h2>
 
@@ -10,15 +10,15 @@
 @endif
 
 @if ($record->colour_id)
-    <ul>
-        @foreach ($record->colours as $colour)
-            <li>{{ $colour->colour }}</li>
-        @endforeach
-    </ul>
+<p>{{ $record->colour->colour }}</p>
 @endif
 
-@if ($record->cover)
-    <img src="{{ asset('storage/' . $record->cover) }}" alt="">
+@if ($record->released)
+<p>{{ $record->released }}</p>
+@endif
+
+@if ($record->image)
+    <img src="{{ asset('storage/' . $record->image) }}" alt="">
 @endif
 
 <div>

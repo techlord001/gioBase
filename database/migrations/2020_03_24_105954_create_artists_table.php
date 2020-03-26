@@ -16,7 +16,7 @@ class CreateArtistsTable extends Migration
         Schema::create('artists', function (Blueprint $table) {
             $table->id('id');
             $table->string('name', 40)->unique();
-            $table->string('history')->nullable();
+            $table->text('description')->nullable();
             $table->foreignId('label_id')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();

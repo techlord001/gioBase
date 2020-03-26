@@ -10,6 +10,6 @@ class Colour extends Model
 
     public function records()
     {
-        return $this->belongsToMany(Record::class, 'record_colour');
+        return $this->hasMany(Record::class);
     }
 }

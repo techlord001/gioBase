@@ -17,12 +17,12 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         $this->call(LabelSeeder::class);
         $this->call(ArtistSeeder::class);
-        $this->call(RecordSeeder::class);
         if (sizeof(Format::all()) === 0) {
             $this->call(FormatSeeder::class);
         }
         if (sizeof(Colour::all()) === 0) {
             $this->call(ColourSeeder::class);
         }
+        $this->call(RecordSeeder::class);
     }
 }

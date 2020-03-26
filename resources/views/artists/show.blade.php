@@ -12,7 +12,7 @@
 @endif
 
 @forelse ($artist->records as $record)
-    <p>{{ $record->title }}</p>
+    <p>{{ $record->name }}</p>
 @empty
     <p>No records yet!</p>
 @endforelse

@@ -9,14 +9,23 @@ use Intervention\Image\Facades\Image;
 
 class ArtistController extends Controller
 {
-    protected function validateData()
+    protected function validateData($command, $artist)
     {
-        return request()->validate([
-            'name' => 'required',
-            'history' => 'nullable',
-            'label_id' => 'nullable',
-            'image' => 'sometimes|file|image|max:2048'
-        ]);
+        if ($command === 'update') {
+            return request()->validate([
+                'name' => 'required|unique:App\Artist,name,' . $artist->id,
+                'description' => 'nullable',
+                'label_id' => 'nullable',
+                'image' => 'sometimes|file|image|max:2048'
+            ]);
+        } else {
+            return request()->validate([
+                'name' => 'required|unique:App\Artist,name',
+                'description' => 'nullable',
+                'label_id' => 'nullable',
+                'image' => 'sometimes|file|image|max:2048'
+            ]);
+        }
     }
 
     protected function storeImage($artist)
@@ -47,7 +56,9 @@ class ArtistController extends Controller
 
     public function store()
     {
-        $artist = Artist::create($this->validateData());
+        $artist = Artist::create($this->validateData(null, null));
+
+        $artist->label()->associate(request('label_id'))->save();
 
         $this->storeImage($artist);
 
@@ -68,15 +79,29 @@ class ArtistController extends Controller
 
     public function update(Artist $artist)
     {
-        $artist->update($this->validateData());
+        $oldImage = $artist->image;
+
+        $artist->update($this->validateData('update', $artist));
+        
+        $artist->label()->associate(request('label_id'))->save();
 
         $this->storeImage($artist);
+
+        if ($oldImage !== $artist->image) {
+            unlink(storage_path('app/public/' . $oldImage));
+        }
 
         return redirect('/artists');
     }
 
     public function destroy(Artist $artist)
     {
+        $artist->records()->delete();
+
+        if ($artist->image) {
+            unlink(storage_path('app/public/' . $artist->image));
+        }
+
         $artist->delete();
 
         return redirect('/artists');

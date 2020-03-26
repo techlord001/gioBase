@@ -16,6 +16,7 @@
     <div>
         <label for="label_id">Label</label>
         <select name="label_id" id="label_id">
+            <option value=""></option>
             @foreach ($labels as $label)
             <option value="{{ $label->id }}">{{ $label->name }}</option>
             @endforeach
