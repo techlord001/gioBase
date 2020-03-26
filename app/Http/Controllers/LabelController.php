@@ -86,8 +86,10 @@ class LabelController extends Controller
 
         $this->storeImage($label);
 
-        if ($oldImage !== $label->image) {
-            unlink(storage_path('app/public/' . $oldImage));
+        if ($oldImage) {
+            if ($oldImage !== $label->image) {
+                unlink(storage_path('app/public/' . $oldImage));
+            }
         }
 
         return redirect('/labels');

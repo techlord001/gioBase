@@ -82,8 +82,10 @@ class RecordController extends Controller
 
         $this->storeImage($record);
 
-        if ($oldImage !== $record->image) {
-            unlink(storage_path('app/public/' . $oldImage));
+        if ($oldImage) {
+            if ($oldImage !== $record->image) {
+                unlink(storage_path('app/public/' . $oldImage));
+            }
         }
 
         return redirect('/records');

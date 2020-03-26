@@ -87,8 +87,10 @@ class ArtistController extends Controller
 
         $this->storeImage($artist);
 
-        if ($oldImage !== $artist->image) {
-            unlink(storage_path('app/public/' . $oldImage));
+        if ($oldImage) {
+            if ($oldImage !== $artist->image) {
+                unlink(storage_path('app/public/' . $oldImage));
+            }
         }
 
         return redirect('/artists');
