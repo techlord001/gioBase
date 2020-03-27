@@ -3,8 +3,8 @@
 </div>
 <h1>{{ $artist->name }}</h1>
 
-@if ($artist->history)
-<p>{{ $artist->history }}</p>
+@if ($artist->description)
+<p>{{ $artist->description }}</p>
 @endif
 
 @if ($artist->label_id)

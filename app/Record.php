@@ -15,10 +15,6 @@ class Record extends Model
         'image'
     ];
 
-    protected $casts = [
-        'colour_id' => 'array'
-    ];
-
     public function artist()
     {
         return $this->belongsTo(Artist::class);
