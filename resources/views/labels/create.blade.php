@@ -1,23 +1,25 @@
-<h1>Create Label</h1>
-
 @extends('layouts.form')
 
 @section('route')
 "/labels"
 @endsection
 
+@section('title')
+Add New Label
+@endsection
+
 @section('nameLabel')
-Name:
+Name
 @endsection
 
 @section('descriptionLabel')
-Description:
+Description
 @endsection
 
 @section('imageLabel')
-Logo:
+Logo
 @endsection
 
 @section('submitLabel')
-Label
+Add Label
 @endsection

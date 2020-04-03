@@ -1,17 +1,19 @@
-<h1>Create Record</h1>
-
 @extends('layouts.form')
+
+@section('title')
+Add New Record
+@endsection
 
 @section('route')
 "/records"
 @endsection
 
 @section('nameLabel')
-Title:
+Title
 @endsection
 
 @section('imageLabel')
-Cover:
+Cover
 @endsection
 
 @section('submitLabel')

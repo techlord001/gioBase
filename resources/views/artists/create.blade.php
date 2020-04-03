@@ -1,23 +1,25 @@
-<h1>Create Artist</h1>
-
 @extends('layouts.form')
 
 @section('route')
 "/artists"
 @endsection
 
+@section('title')
+Add New Artist
+@endsection
+
 @section('nameLabel')
-Name:
+Name
 @endsection
 
 @section('descriptionLabel')
-Bio:
+Bio
 @endsection
 
 @section('imageLabel')
-Portrait:
+Portrait
 @endsection
 
 @section('submitLabel')
-Artist
+Add Artist
 @endsection
