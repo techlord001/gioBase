@@ -1,9 +1,13 @@
-<h1>Labels</h1>
+@extends('layouts.table')
 
-<a href="/labels/create"><button>Add New Label</button></a>
+@section('title')
+Labels
+@endsection
 
-@forelse ($labels as $label)
-    <p><a href="/labels/{{ $label->id }}">{{ $label->name }}</a></p>
-@empty
-    No labels!
-@endforelse
+@section('createLink')
+"/labels/create"
+@endsection
+
+@section('btnTitle')
+Label
+@endsection

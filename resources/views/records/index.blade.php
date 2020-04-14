@@ -1,9 +1,13 @@
-<h1>Records</h1>
+@extends('layouts.table')
 
-<a href="/records/create"><button>Add New Record</button></a>
+@section('title')
+Records
+@endsection
 
-@forelse ($records as $record)
-    <p><a href="/records/{{ $record->id }}">{{ $record->name }}</a></p>
-@empty
-    No records!
-@endforelse
+@section('createLink')
+"/Records/create"
+@endsection
+
+@section('btnTitle')
+Record
+@endsection

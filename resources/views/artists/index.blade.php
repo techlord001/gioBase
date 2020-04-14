@@ -1,9 +1,13 @@
-<h1>Artists</h1>
+@extends('layouts.table')
 
-<a href="/artists/create"><button>Add New Artist</button></a>
+@section('title')
+Artists
+@endsection
 
-@forelse ($artists as $artist)
-    <p><a href="/artists/{{ $artist->id }}">{{ $artist->name }}</a></p>
-@empty
-    No artists!
-@endforelse
+@section('createLink')
+"/artists/create"
+@endsection
+
+@section('btnTitle')
+Artist
+@endsection

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h2>@yield('title')</h2>
-    <form action=@yield('route')method="post" enctype="multipart/form-data">
+    <form action=@yield('route') method="post" enctype="multipart/form-data">
         @if (Request::segment(3) == 'edit')
             @method('patch')
         @endif
@@ -109,7 +109,7 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
-        <button type="submit">@yield('submitLabel')</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">@yield('submitLabel')</button>
     </form>
 </div>
 @endsection
