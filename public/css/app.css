@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: SFAlien;
-  src: url(/fonts/SFAlienEncounters.ttf?aeabf9ec279e70633271d6b36a460954) format("ttf");
+  src: url(/fonts/SFAlienEncounters.ttf?aeabf9ec279e70633271d6b36a460954);
 }
 
 @font-face {
@@ -10897,15 +10897,32 @@ a.text-dark:focus {
   }
 }
 
+@font-face {
+  font-family: SFAlien;
+  src: url(/fonts/SFAlienEncounters.ttf?aeabf9ec279e70633271d6b36a460954);
+}
+
+@font-face {
+  font-family: SFAlien-Solid;
+  src: url(/fonts/SFAlienEncountersSolid.ttf?84468c2fd5a034a76b7adbf7916760d8);
+}
+
+@font-face {
+  font-family: VT323;
+  src: url(/fonts/VT323.ttf?692c37377cd1e0f4850f47c7c0148426);
+}
+
 .font-logo {
-  font-family: "SFAliens", sans-serif;
+  font-family: SFAlien, sans-serif;
+  font-size: medium;
+  font-weight: normal;
 }
 
 .font-display {
-  font-family: "SFAliens-Solid", sans-serif;
+  font-family: SFAlien-Solid, sans-serif;
 }
 
 .font-body {
-  font-family: "VT323", monospace;
+  font-family: VT323, monospace;
 }
 

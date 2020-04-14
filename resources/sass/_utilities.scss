@@ -1,13 +1,15 @@
+@use 'variables' as var;
+
 .font-logo {
-    font-family: $font-family-sf-aliens;
+    font-family: var.$font-family-sf-aliens;
     font-size: medium;
     font-weight: normal;
 }
 
 .font-display {
-    font-family: $font-family-sf-aliens-solid;
+    font-family: var.$font-family-sf-aliens-solid;
 }
 
 .font-body {
-    font-family: $font-family-vt323;
+    font-family: var.$font-family-vt323;
 }

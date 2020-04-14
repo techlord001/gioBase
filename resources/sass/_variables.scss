@@ -2,13 +2,28 @@
 $body-bg: #f8fafc;
 
 // Typography
+@font-face {
+    font-family: SFAlien;
+    src: url('fonts/SFAlienEncounters.ttf');
+}
+
+@font-face {
+    font-family: SFAlien-Solid;
+    src: url('fonts/SFAlienEncountersSolid.ttf');
+}
+
+@font-face {
+    font-family: VT323;
+    src: url('fonts/VT323.ttf');
+}
+
 $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
-$font-family-sf-aliens: 'SFAliens', sans-serif;
-$font-family-sf-aliens-solid: 'SFAliens-Solid', sans-serif;
-$font-family-vt323: 'VT323', monospace;
+$font-family-sf-aliens: SFAlien, sans-serif;
+$font-family-sf-aliens-solid: SFAlien-Solid, sans-serif;
+$font-family-vt323: VT323, monospace;
 
 // Colors
 $blue: #3490dc;
