@@ -10926,3 +10926,7 @@ a.text-dark:focus {
   font-family: VT323, monospace;
 }
 
+.table-item-thumbnail {
+  width: 60px;
+}
+
