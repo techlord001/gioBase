@@ -109,7 +109,7 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
-        <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">@yield('submitLabel')</button>
+        <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">Save Edit</button>
     </form>
 </div>
 @endsection

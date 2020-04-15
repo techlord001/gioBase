@@ -1,5 +1,3 @@
-<h1>Edit Label</h1>
-
 @extends('layouts.form')
 
 @php
@@ -21,8 +19,4 @@ Description:
 
 @section('imageLabel')
 Logo:
-@endsection
-
-@section('submitLabel')
-Label
 @endsection

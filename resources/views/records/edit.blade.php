@@ -17,7 +17,3 @@ Title:
 @section('imageLabel')
 Cover:
 @endsection
-
-@section('submitLabel')
-Edit Record
-@endsection

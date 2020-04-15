@@ -15,6 +15,19 @@
                     @endif
 
                     You are logged in!
+                    <h3 class="text-center">Add</h3>
+                    <ul class="list-group list-group-horizontal text-center">
+                        <a href="labels/create" class="list-group-item list-group-item-action">Label</a>
+                        <a href="artists/create" class="list-group-item list-group-item-action">Artist</a>
+                        <a href="records/create" class="list-group-item list-group-item-action">Record</a>
+                    </ul>
+                    <br>
+                    <h3 class="text-center">View</h3>
+                    <ul class="list-group list-group-horizontal text-center">
+                        <a href="labels" class="list-group-item list-group-item-action">Labels</a>
+                        <a href="artists" class="list-group-item list-group-item-action">Artists</a>
+                        <a href="records" class="list-group-item list-group-item-action">Records</a>
+                    </ul>
                 </div>
             </div>
         </div>

@@ -22,7 +22,3 @@ Bio:
 @section('imageLabel')
 Portrait:
 @endsection
-
-@section('submitLabel')
-Edit Artist
-@endsection

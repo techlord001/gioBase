@@ -3,7 +3,9 @@
 @section('content')
     <div class="container">
         <h2 class="text-center">List of @yield('title')</h2>
-        <a href=@yield('createLink')><button class="btn btn-primary btn-block mb-3">Add New @yield('btnTitle')</button></a>
+        @auth
+            <a href=@yield('createLink')><button class="btn btn-primary btn-block mb-3">Add New @yield('btnTitle')</button></a>
+        @endauth
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -52,8 +54,8 @@
                                         -
                                     @endif
                                 </td>
-                                <td>{{ $label->name }}</td>
-                                <td class="text-right">
+                                <td class="align-middle">{{ $label->name }}</td>
+                                <td class="align-middle text-right">
                                     <a href="/labels/{{ $label->id }}">
                                         <button type="button" class="btn btn-secondary btn-sm">Details</button>
                                     </a>
@@ -64,7 +66,7 @@
                                     @endauth
                                 </td>
                                 @auth
-                                    <td class="text-right">
+                                    <td class="align-middle text-right">
                                         <form action="/labels/{{ $label->id }}" method="post">
                                             @method('delete')
                                             @csrf
@@ -74,7 +76,7 @@
                                 @endauth
                             </tr>
                         @empty
-                            <tr>
+                            <tr class="align-middle">
                                 <td>No labels!</td>
                             </tr>
                         @endforelse
@@ -90,15 +92,15 @@
                                         -
                                     @endif
                                 </td>
-                                <td>{{ $artist->name }}</td>
-                                <td>
+                                <td class="align-middle">{{ $artist->name }}</td>
+                                <td class="align-middle">
                                     @if ($artist->label_id)
                                         {{ $artist->label->name }}
                                     @else
                                         N/A
                                     @endif
                                 </td>
-                                <td class="text-right">
+                                <td class="align-middle text-right">
                                     <a href="/artists/{{ $artist->id }}">
                                         <button type="button" class="btn btn-secondary btn-sm">Details</button>
                                     </a>
@@ -109,7 +111,7 @@
                                     @endauth
                                 </td>
                                 @auth
-                                    <td class="text-right">
+                                    <td class="align-middle text-right">
                                         <form action="/artists/{{ $artist->id }}" method="post">
                                             @method('delete')
                                             @csrf
@@ -119,7 +121,7 @@
                                 @endauth
                             </tr>
                         @empty
-                            <tr>
+                            <tr class="align-middle">
                                 <td>No artists!</td>
                             </tr>
                         @endforelse
