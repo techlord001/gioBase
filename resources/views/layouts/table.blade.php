@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid px-5">
         <h2 class="text-center">List of @yield('title')</h2>
         @auth
             <a href=@yield('createLink')><button class="btn btn-primary btn-block mb-3">Add New @yield('btnTitle')</button></a>
@@ -166,7 +166,7 @@
                                 </td>
                                 <td class="text-center align-middle">
                                     @if ($record->released)
-                                        {{ $record->released }}
+                                        {{ date('jS M Y', strtotime($record->released)) }}
                                     @else
                                         -
                                     @endif

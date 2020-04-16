@@ -33,7 +33,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item"><a href="/labels" class="nav-link">Labels</a></li>
+                        <li class="nav-item"><a href="/artists" class="nav-link">Artists</a></li>
+                        <li class="nav-item"><a href="/records" class="nav-link">Records</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

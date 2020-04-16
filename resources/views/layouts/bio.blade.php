@@ -12,6 +12,9 @@
         <div class="row justify-content-center mt-3">
             <div class="col-5">
                 <h1>{{ $name }}</h1>
+                @if (Request::is('artists/*') && $artist->label_id)
+                    <h4><a href="/labels/{{ $artist->label->id }}">{{ $artist->label->name }}</a></h4>
+                @endif
                 @if (Request::is('labels/*') || Request::is('artists/*'))
                     @if ($description)
                         <p class="lead">{{ $description }}</p>
@@ -105,7 +108,7 @@
                         <dt class="col-6 text-right">Released</dt>
                         <dd class="col-6">
                             @if ($record->released)
-                                {{ $record->released }}
+                                {{ date('jS M Y', strtotime($record->released)) }}
                             @else
                                 -
                             @endif

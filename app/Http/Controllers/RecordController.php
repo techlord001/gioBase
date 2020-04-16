@@ -37,7 +37,7 @@ class RecordController extends Controller
 
     public function index()
     {
-        $records = Record::all();
+        $records = Record::orderBy('name')->get();
 
         return view('records.index', compact('records'));
     }

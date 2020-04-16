@@ -94,7 +94,7 @@
             </div>
             <div class="col form-group">
                 <label for="released">Released</label>
-                <input type="date" name="released" id="released" class="form-control">
+                <input type="date" name="released" id="released" class="form-control" value="{{ $record->released ?? old('released') }}">
                 @error('released')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror

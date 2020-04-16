@@ -5,7 +5,7 @@ Records
 @endsection
 
 @section('createLink')
-"/Records/create"
+"/records/create"
 @endsection
 
 @section('btnTitle')
