@@ -48,4 +48,7 @@ Route::delete('/records/{record}', 'RecordController@destroy')->name('records.de
 
 Auth::routes();
 
+/********** Home/User Routes **********/
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/home/{record}', 'HomeController@store')->name('home.store')->middleware('auth');
+Route::delete('/home/{record}', 'HomeController@destroy')->name('home.destroy')->middleware('auth');

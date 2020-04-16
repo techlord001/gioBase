@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Record;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,26 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $records = User::find(Auth::user()->id)->records()->orderBy('name')->get();
+
+        return view('home', compact('records'));
+    }    
+
+    public function store(Record $record, User $user)
+    {
+        $user = User::findOrFail(Auth::user()->id);
+
+        $user->records()->syncWithoutDetaching($record->id);
+        
+        return redirect('/records/');
+    }
+
+    public function destroy(Record $record, User $user)
+    {
+        $user = User::findOrFail(Auth::user()->id);
+
+        $user->records()->detach($record->id);
+        
+        return redirect('/home/');
     }
 }

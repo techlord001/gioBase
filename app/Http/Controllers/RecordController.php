@@ -6,7 +6,9 @@ use App\Record;
 use App\Artist;
 use App\Format;
 use App\Colour;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
 class RecordController extends Controller
@@ -39,7 +41,12 @@ class RecordController extends Controller
     {
         $records = Record::orderBy('name')->get();
 
-        return view('records.index', compact('records'));
+        if (Auth::user()) {
+            $userRecords = User::find(Auth::user()->id)->records()->get();
+            return view('records.index', compact('records'), compact('userRecords'));
+        } else {
+            return view('records.index', compact('records'));
+        }
     }
 
     public function create()
@@ -54,7 +61,7 @@ class RecordController extends Controller
     public function store()
     {
         $record = Record::create($this->validateData());
-        
+
         $this->storeImage($record);
 
         return redirect('/records/' . $record->id);

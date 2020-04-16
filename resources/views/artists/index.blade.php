@@ -1,13 +1,7 @@
 @extends('layouts.table')
 
-@section('title')
-Artists
-@endsection
-
-@section('createLink')
-"/artists/create"
-@endsection
-
-@section('btnTitle')
-Artist
-@endsection
+@php
+    $title = "Artists";
+    $link = "/artists/create";
+    $btnTitle = "Artist";
+@endphp

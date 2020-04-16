@@ -1,7 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.table')
 
-@section('content')
-<div class="container">
+@php
+    $title = "My Records";
+@endphp
+
+@section('dashboard')
+<div class="container mb-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -34,3 +38,4 @@
     </div>
 </div>
 @endsection
+

@@ -1,11 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+    @yield('dashboard')
     <div class="container-fluid px-5">
-        <h2 class="text-center">List of @yield('title')</h2>
-        @auth
-            <a href=@yield('createLink')><button class="btn btn-primary btn-block mb-3">Add New @yield('btnTitle')</button></a>
-        @endauth
+        <h2 class="text-center">List of {{ $title }}</h2>
+        @if (Request::is('labels') || Request::is('artists') || Request::is('records'))
+            @auth
+                <a href="{{ $link }}"><button class="btn btn-primary btn-block mb-3">Add New {{ $btnTitle }}</button></a>
+            @endauth
+        @endif
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -17,7 +20,7 @@
                             @case(Request::is('artists'))
                                 Portrait
                                 @break
-                            @case(Request::is('records'))
+                            @case(Request::is('records') || Request::is('home'))
                                 Cover
                                 @break
                             @default
@@ -25,13 +28,13 @@
                         @endswitch
                     </th>
                     <th>Name</th>
-                    @if (Request::is('records'))
+                    @if (Request::is('records') || Request::is('home'))
                         <th>Artist</th>
                     @endif
-                    @if (Request::is('artists') || Request::is('records'))
+                    @if (Request::is('artists') || Request::is('records') || Request::is('home'))
                     <th>Label</th>
                     @endif
-                    @if (Request::is('records'))
+                    @if (Request::is('records') || Request::is('home'))
                         <th class="text-center">Format</th>
                         <th class="text-center">Colour</th>
                         <th class="text-center">Released</th>
@@ -127,7 +130,7 @@
                         @endforelse
                         
                         @break
-                    @case(Request::is('records'))
+                    @case(Request::is('records') || Request::is('home'))
                         @forelse ($records as $record)
                             <tr>
                                 <td class="align-middle text-center">
@@ -179,15 +182,45 @@
                                         <a href="/records/{{ $record->id }}/edit">
                                             <button type="button" class="btn btn-info btn-sm">Edit</button>
                                         </a>
+                                        @if (Request::is('records'))
+                                            @php
+                                                $match = "";
+
+                                                foreach ($userRecords as $userRecord) {
+                                                    if ($userRecord->id === $record->id) {
+                                                        $match = true;
+                                                        break;
+                                                    } else {
+                                                        $match = false;
+                                                    }
+                                                }
+                                            @endphp
+                                            @if ($match)
+                                                <button type="submit" class="btn btn-success btn-sm">Added</button>
+                                            @else
+                                                <form action="/home/{{ $record->id }}" method="post">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-success btn-sm btn-dark">+</button>
+                                                </form>                                                
+                                            @endif
+                                        @endif
                                     @endauth
                                 </td>
                                 @auth
                                     <td class="text-right align-middle">
+                                        @if (Request::is('home'))
+                                        <form action="/home/{{ $record->id }}" method="post">
+                                            @method('delete')
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                        </form>
+                                        @else
                                         <form action="/records/{{ $record->id }}" method="post">
                                             @method('delete')
                                             @csrf
                                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                         </form>
+                                        @endif
                                     </td>
                                 @endauth
                             </tr>

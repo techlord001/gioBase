@@ -2,11 +2,21 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-start">
+        <div class="row justify-content-between">
             <div class="col-3">
                 <a href="{{ $url }}">
                     <button class="btn btn-outline-info btn-sm"><< {{ $section }}</button>
                 </a>
+            </div>
+            <div class="col-3 text-right">
+                @if (Request::is('records/*'))
+                    @auth
+                    <form action="/records/{{ $record->id }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-info btn-sm">Add to Collection</button>
+                    </form>
+                    @endauth
+                @endif
             </div>
         </div>
         <div class="row justify-content-center mt-3">
