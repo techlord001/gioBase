@@ -1,10 +1,12 @@
-<h1>Edit Record</h1>
-
 @extends('layouts.form')
 
 @php
     $name = $record->name;
 @endphp
+
+@section('title')
+    Edit Record
+@endsection
 
 @section('route')
 "/records/{{ $record->id }}"

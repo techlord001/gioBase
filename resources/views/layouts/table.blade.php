@@ -2,7 +2,7 @@
 
 @section('content')
     @yield('dashboard')
-    <div class="container-fluid px-5">
+    <div class="container-fluid px-5 table-responsive">
         <h2 class="text-center">List of {{ $title }}</h2>
         @if (Request::is('labels') || Request::is('artists') || Request::is('records'))
             @auth
@@ -198,7 +198,7 @@
                                             @if ($match)
                                                 <button type="submit" class="btn btn-success btn-sm">Added</button>
                                             @else
-                                                <form action="/home/{{ $record->id }}" method="post">
+                                                <form action="/home/{{ $record->id }}" method="post" class="float-right ml-1">
                                                     @csrf
                                                     <button type="submit" class="btn btn-success btn-sm btn-dark">+</button>
                                                 </form>                                                
@@ -226,7 +226,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="align-middle">No records!</td>
+                                <td class="align-middle text-center" colspan="9">No records!</td>
                             </tr>
                         @endforelse
                         

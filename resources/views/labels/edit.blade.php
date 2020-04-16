@@ -5,6 +5,10 @@
     $description = $label->description;
 @endphp
 
+@section('title')
+    Edit Label
+@endsection
+
 @section('route')
 "/labels/{{ $label->id }}"
 @endsection

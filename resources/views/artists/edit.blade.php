@@ -1,11 +1,13 @@
-<h1>Edit Artist</h1>
-
 @extends('layouts.form')
 
 @php
     $name = $artist->name;
     $description = $artist->description;
 @endphp
+
+@section('title')
+    Edit Artist
+@endsection
 
 @section('route')
 "/artists/{{ $artist->id }}"
