@@ -19,14 +19,14 @@
                     @endif
 
                     You are logged in!
-                    <h3 class="text-center">Add</h3>
+                    <h5 class="text-center">Add</h5>
                     <ul class="list-group list-group-horizontal text-center">
                         <a href="labels/create" class="list-group-item list-group-item-action">Label</a>
                         <a href="artists/create" class="list-group-item list-group-item-action">Artist</a>
                         <a href="records/create" class="list-group-item list-group-item-action">Record</a>
                     </ul>
                     <br>
-                    <h3 class="text-center">View</h3>
+                    <h5 class="text-center">View</h5>
                     <ul class="list-group list-group-horizontal text-center">
                         <a href="labels" class="list-group-item list-group-item-action">Labels</a>
                         <a href="artists" class="list-group-item list-group-item-action">Artists</a>

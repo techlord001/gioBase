@@ -3,13 +3,13 @@
 @section('content')
     @yield('dashboard')
     <div class="container-fluid px-5 table-responsive">
-        <h2 class="text-center">List of {{ $title }}</h2>
+        <h3 class="text-center">List of {{ $title }}</h3>
         @if (Request::is('labels') || Request::is('artists') || Request::is('records'))
             @auth
                 <a href="{{ $link }}"><button class="btn btn-primary btn-block mb-3">Add New {{ $btnTitle }}</button></a>
             @endauth
         @endif
-        <table class="table table-hover">
+        <table class="table table-hover gbTable">
             <thead>
                 <tr>
                     <th class="text-center">
@@ -60,7 +60,7 @@
                                 <td class="align-middle">{{ $label->name }}</td>
                                 <td class="align-middle text-right">
                                     <a href="/labels/{{ $label->id }}">
-                                        <button type="button" class="btn btn-secondary btn-sm">Details</button>
+                                        <button type="button" class="btn btn-secondary btn-sm">View</button>
                                     </a>
                                     @auth
                                         <a href="/labels/{{ $label->id }}/edit">
@@ -105,7 +105,7 @@
                                 </td>
                                 <td class="align-middle text-right">
                                     <a href="/artists/{{ $artist->id }}">
-                                        <button type="button" class="btn btn-secondary btn-sm">Details</button>
+                                        <button type="button" class="btn btn-secondary btn-sm">View</button>
                                     </a>
                                     @auth
                                         <a href="/artists/{{ $artist->id }}/edit">
@@ -176,7 +176,7 @@
                                 </td>
                                 <td class="text-right align-middle">
                                     <a href="/records/{{ $record->id }}">
-                                        <button type="button" class="btn btn-secondary btn-sm">Details</button>
+                                        <button type="button" class="btn btn-secondary btn-sm">View</button>
                                     </a>
                                     @auth
                                         <a href="/records/{{ $record->id }}/edit">

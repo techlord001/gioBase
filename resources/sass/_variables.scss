@@ -1,5 +1,6 @@
 // Body
 $body-bg: #f8fafc;
+$bg-wallpaper: url('images/gioBaseBG.jpg');
 
 // Typography
 @font-face {
@@ -13,8 +14,8 @@ $body-bg: #f8fafc;
 }
 
 @font-face {
-    font-family: VT323;
-    src: url('fonts/VT323.ttf');
+    font-family: Chargen;
+    src: url('fonts/Chargen.ttf');
 }
 
 $font-family-sans-serif: 'Nunito', sans-serif;
@@ -23,7 +24,7 @@ $line-height-base: 1.6;
 
 $font-family-sf-aliens: SFAlien, sans-serif;
 $font-family-sf-aliens-solid: SFAlien-Solid, sans-serif;
-$font-family-vt323: VT323, monospace;
+$font-family-chargen: Chargen, monospace;
 
 // Colors
 $blue: #3490dc;
@@ -36,3 +37,12 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+$soft-red: hsla(344.5, 100%, 54%, 1);
+$hot-pink: hsla(322.35, 100%, 50%, 1);
+$light-pink: hsla(300, 99%, 73%, 1);
+$violet: hsla(270.64, 97%, 47%, 1);
+$dark-violet: hsla(257.01, 90%, 44%, 1);
+$deep-blue: hsla(225.65, 100%, 27%, 1);
+$off-black: hsla(0, 0%, 10%, 1);
+$off-white: hsla(0, 100%, 99%, 1);

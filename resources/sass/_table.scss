@@ -1,0 +1,30 @@
+@use 'variables' as var;
+
+%rowHighlight {
+    color: var.$off-white;
+    background-color: scale-color(var.$violet, $alpha: -25%) !important;
+}
+
+.gbTable {
+    color: var.$off-white;
+
+    > thead {
+        background-color: scale-color(var.$soft-red, $alpha: -25%) !important;
+    }
+    
+    > tbody > tr:nth-child(odd) {
+        background-color: scale-color(var.$light-pink, $alpha: -50%) !important;
+
+        &:hover {
+            @extend %rowHighlight;
+        }
+    }
+
+    > tbody > tr:nth-child(even) {
+        background-color: scale-color(var.$hot-pink, $alpha: -50%) !important;
+
+        &:hover {
+            @extend %rowHighlight;
+        }
+    }
+}
