@@ -1,0 +1,5 @@
+@use 'variables' as var;
+
+.gbCard {
+    background-color:  scale-color(var.$deep-blue, $alpha: -50%) !important;;
+}

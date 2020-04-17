@@ -6,7 +6,7 @@
         <h3 class="text-center">List of {{ $title }}</h3>
         @if (Request::is('labels') || Request::is('artists') || Request::is('records'))
             @auth
-                <a href="{{ $link }}"><button class="btn btn-primary btn-block mb-3">Add New {{ $btnTitle }}</button></a>
+                <a href="{{ $link }}"><button class="btn btn-primary mb-3 px-2">Add New {{ $btnTitle }}</button></a>
             @endauth
         @endif
         <table class="table table-hover gbTable">
@@ -60,11 +60,19 @@
                                 <td class="align-middle">{{ $label->name }}</td>
                                 <td class="align-middle text-right">
                                     <a href="/labels/{{ $label->id }}">
-                                        <button type="button" class="btn btn-secondary btn-sm">View</button>
+                                        <button type="button" class="btn btn-secondary btn-sm">
+                                            <span class="icon">
+                                                <i class="fas fa-eye"></i>
+                                            </span>
+                                        </button>
                                     </a>
                                     @auth
                                         <a href="/labels/{{ $label->id }}/edit">
-                                            <button type="button" class="btn btn-info btn-sm">Edit</button>
+                                            <button type="button" class="btn btn-info btn-sm">
+                                                <span class="icon">
+                                                    <i class="fas fa-edit"></i>                                                    
+                                                </span>
+                                            </button>
                                         </a>
                                     @endauth
                                 </td>
@@ -73,7 +81,11 @@
                                         <form action="/labels/{{ $label->id }}" method="post">
                                             @method('delete')
                                             @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <span class="icon">
+                                                    <i class="fas fa-trash-alt"></i>                                                    
+                                                </span>
+                                            </button>
                                         </form>
                                     </td>
                                 @endauth
@@ -105,11 +117,19 @@
                                 </td>
                                 <td class="align-middle text-right">
                                     <a href="/artists/{{ $artist->id }}">
-                                        <button type="button" class="btn btn-secondary btn-sm">View</button>
+                                        <button type="button" class="btn btn-secondary btn-sm">
+                                            <span class="icon">
+                                                <i class="fas fa-eye"></i>                                                    
+                                            </span>
+                                        </button>
                                     </a>
                                     @auth
                                         <a href="/artists/{{ $artist->id }}/edit">
-                                            <button type="button" class="btn btn-info btn-sm">Edit</button>
+                                            <button type="button" class="btn btn-info btn-sm">
+                                                <span class="icon">
+                                                    <i class="fas fa-edit"></i>                                                    
+                                                </span>
+                                            </button>
                                         </a>
                                     @endauth
                                 </td>
@@ -118,7 +138,11 @@
                                         <form action="/artists/{{ $artist->id }}" method="post">
                                             @method('delete')
                                             @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <span class="icon">
+                                                    <i class="fas fa-trash-alt"></i>                                                    
+                                                </span>
+                                            </button>
                                         </form>
                                     </td>
                                 @endauth
@@ -175,36 +199,58 @@
                                     @endif
                                 </td>
                                 <td class="text-right align-middle">
-                                    <a href="/records/{{ $record->id }}">
-                                        <button type="button" class="btn btn-secondary btn-sm">View</button>
-                                    </a>
-                                    @auth
-                                        <a href="/records/{{ $record->id }}/edit">
-                                            <button type="button" class="btn btn-info btn-sm">Edit</button>
+                                    <div class="d-flex flex-row flex-nowrap justify-content-around">
+                                        <a href="/records/{{ $record->id }}">
+                                            <button type="button" class="btn btn-secondary btn-sm mx-1">
+                                                <span class="icon">
+                                                    <i class="fas fa-eye"></i>                                                    
+                                                </span>
+                                            </button>
                                         </a>
-                                        @if (Request::is('records'))
-                                            @php
-                                                $match = "";
-
-                                                foreach ($userRecords as $userRecord) {
-                                                    if ($userRecord->id === $record->id) {
-                                                        $match = true;
-                                                        break;
-                                                    } else {
-                                                        $match = false;
+                                        @auth
+                                            <a href="/records/{{ $record->id }}/edit">
+                                                <button type="button" class="btn btn-info btn-sm mx-1">
+                                                    <span class="icon">
+                                                        <i class="fas fa-edit"></i>                                                    
+                                                    </span>
+                                                </button>
+                                            </a>
+                                            @if (Request::is('records'))
+                                                @php
+                                                    $match = "";
+    
+                                                    foreach ($userRecords as $userRecord) {
+                                                        if ($userRecord->id === $record->id) {
+                                                            $match = true;
+                                                            break;
+                                                        } else {
+                                                            $match = false;
+                                                        }
                                                     }
-                                                }
-                                            @endphp
-                                            @if ($match)
-                                                <button type="submit" class="btn btn-success btn-sm">Added</button>
-                                            @else
-                                                <form action="/home/{{ $record->id }}" method="post" class="float-right ml-1">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-success btn-sm btn-dark">+</button>
-                                                </form>                                                
+                                                @endphp
+                                                @if ($match)
+                                                    <form action="/home/{{ $record->id }}" method="post" class="mx-1">
+                                                        @method('delete')
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-success btn-sm">
+                                                            <span class="icon">
+                                                                <i class="fas fa-check-square"></i>                                                    
+                                                            </span>
+                                                        </button>
+                                                    </form>
+                                                @else
+                                                    <form action="/home/{{ $record->id }}" method="post" class="mx-1">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-success btn-sm btn-dark">
+                                                            <span class="icon">
+                                                                <i class="fas fa-plus-square"></i>                                                    
+                                                            </span>
+                                                        </button>
+                                                    </form>                                                
+                                                @endif
                                             @endif
-                                        @endif
-                                    @endauth
+                                        @endauth
+                                    </div>
                                 </td>
                                 @auth
                                     <td class="text-right align-middle">
@@ -212,13 +258,21 @@
                                         <form action="/home/{{ $record->id }}" method="post">
                                             @method('delete')
                                             @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <span class="icon">
+                                                    <i class="fas fa-minus-square"></i>                                                    
+                                                </span>
+                                            </button>
                                         </form>
                                         @else
                                         <form action="/records/{{ $record->id }}" method="post">
                                             @method('delete')
                                             @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                <span class="icon">
+                                                    <i class="fas fa-trash-alt"></i>                                                    
+                                                </span>
+                                            </button>
                                         </form>
                                         @endif
                                     </td>

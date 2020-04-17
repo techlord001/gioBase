@@ -4,10 +4,17 @@
 
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "node_modules/@fortawesome/fontawesome-free/scss/regular.scss";
+@import "node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
+@import "node_modules/@fortawesome/fontawesome-free/scss/brands.scss";
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import 'bsOverrides';
 
 // Custom
 @import 'utilities';
 @import 'table';
+@import 'nav';
+@import 'card';

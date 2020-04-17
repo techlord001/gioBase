@@ -21,8 +21,8 @@
 </head>
 <body>
     <div class="background">
-        <div id="app" class="foreground">
-            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <div id="app" class="foreground d-flex flex-column flex-nowrap align-content-between justify-content-between">
+            <nav class="navbar navbar-expand-md navbar-light shadow-sm gbNav">
                 <div class="container-fluid">
                     <a class="navbar-brand font-logo font-logo-nav" href="{{ url('/') }}">
                         {{ config('app.name', 'GioBase') }}
@@ -57,7 +57,7 @@
                                         {{ Auth::user()->name }} <span class="caret"></span>
                                     </a>
     
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <div class="dropdown-menu dropdown-menu-right font-nav" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="/home">Home</a>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
@@ -79,6 +79,11 @@
             <main class="py-4">
                 @yield('content')
             </main>
+
+            <footer class="navbar flex-column navbar-expand-md navbar-light gbNav text-center justify-content-center font-nav">
+                <p class="p-1 m-0">All Rights Reserved</p>
+                <p class="p-1 m-0">Site Designed and Developed by <a href="https://blackfrog.tech" target="_blank" rel="noopener noreferrer" class="text-decoration-none"><img src="{{ asset('images/bfLogo.svg') }}" alt="Black Frog Tech Logo" width="25px" height="25px"><span class="px-1 text-dark text-uppercase">Black Frog</span></a></p>
+            </footer>
         </div>
     </div>
 </body>

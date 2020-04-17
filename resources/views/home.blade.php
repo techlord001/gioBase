@@ -5,11 +5,11 @@
 @endphp
 
 @section('dashboard')
-<div class="container mb-4">
+<div class="container-fluid mb-4">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+        <div class="col-10">
+            <div class="card gbCard">
+                <div class="card-header">Menu</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -18,7 +18,7 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    Welcome {{ Auth::user()->name }}
                     <h5 class="text-center">Add</h5>
                     <ul class="list-group list-group-horizontal text-center">
                         <a href="labels/create" class="list-group-item list-group-item-action">Label</a>

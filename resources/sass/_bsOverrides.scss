@@ -1,0 +1,51 @@
+@use 'variables' as var;
+
+.nav-link {
+    color: var.$off-white !important;
+}
+
+.btn-primary {
+    background-color: scale-color(var.$dark-violet, $alpha: -25%) !important;
+    border-color: var.$off-white !important;
+
+    &:hover {
+        background-color: var.$dark-violet !important;
+    }
+}
+
+.btn-secondary {
+    background-color: scale-color(var.$deep-blue, $alpha: -25%) !important;
+    border-color: scale-color(var.$deep-blue, $alpha: -25%) !important;
+
+    &:hover {
+        background-color: var.$deep-blue !important;
+    }
+}
+
+.btn-info {
+    background-color: scale-color(var.$dark-violet, $lightness: 25%) !important;
+    border-color: scale-color(var.$dark-violet, $lightness: 25%) !important;
+
+    &:hover {
+        background-color: var.$dark-violet !important;
+    }
+}
+
+.btn-danger {
+    background-color: var.$soft-red !important;
+
+    &:hover {
+        background-color: scale-color(var.$soft-red, $lightness: -25%) !important;
+    }
+}
+
+.img-thumbnail {
+    padding: 0.1rem;
+    background-color: var.$light-pink;
+    border-color: scale-color(var.$light-pink, $lightness: -25%);
+}
+
+.list-group-item {
+    background-color: scale-color(var.$dark-violet, $lightness: 25%) !important;
+    color: var.$off-white !important;
+}

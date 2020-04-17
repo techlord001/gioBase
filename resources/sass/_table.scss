@@ -6,7 +6,7 @@
 }
 
 .gbTable {
-    color: var.$off-white;
+    color: var.$off-white !important;
 
     > thead {
         background-color: scale-color(var.$soft-red, $alpha: -25%) !important;
