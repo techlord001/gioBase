@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container gbCard p-5">
         <div class="row justify-content-between">
             <div class="col-3">
                 <a href="{{ $url }}">
