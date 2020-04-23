@@ -1,5 +1,24 @@
 @extends('layouts.app')
 
+@php
+    $titleExt = " | ";
+
+    switch (Request::url()) {
+        case (Request::is('labels/*')):
+            $titleExt .= $label->name;
+            break;
+        case (Request::is('artists/*')):
+            $titleExt .= $artist->name;
+            break;
+        case (Request::is('records/*')):
+            $titleExt .= $record->name;
+            break;
+        default:
+            $titleExt .= "Vaporwave Database";
+            break;
+    }
+@endphp
+
 @section('content')
     <div class="container gbCard p-5">
         <div class="row justify-content-between">
@@ -10,11 +29,31 @@
             </div>
             <div class="col-3 text-right">
                 @if (Request::is('records/*'))
+                    @php
+                        $match = "";
+
+                        foreach ($userRecords as $userRecord) {
+                            if ($userRecord->id === $record->id) {
+                                $match = true;
+                                break;
+                            } else {
+                                $match = false;
+                            }
+                        }
+                    @endphp
                     @auth
-                    <form action="/records/{{ $record->id }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-info btn-sm">Add to Collection</button>
-                    </form>
+                    @if ($match)
+                        <form action="/home/{{ $record->id }}" method="post">
+                            @method('delete')
+                            @csrf
+                            <button type="submit" class="btn btn-outline-success btn-sm">Remove from Collection</button>
+                        </form>
+                    @else
+                        <form action="/home/{{ $record->id }}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-info btn-sm">Add to Collection</button>
+                        </form>
+                    @endif
                     @endauth
                 @endif
             </div>

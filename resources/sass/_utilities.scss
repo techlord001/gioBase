@@ -17,6 +17,10 @@ html, body {
     min-height: 100vh;
 }
 
+.footer > p {
+    font-size: 0.8rem;
+}
+
 .font-logo {
     font: {
         family: var.$font-family-sf-aliens;
@@ -29,7 +33,7 @@ html, body {
 }
 
 .font-logo-nav {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
 }
 
 .font-nav {
@@ -37,7 +41,7 @@ html, body {
         family: var.$font-family-sf-aliens-solid;
         size: 1.2rem;
     }
-    color: var.$off-white;
+    color: var.$off-white !important;
 }
 
 .links > a {

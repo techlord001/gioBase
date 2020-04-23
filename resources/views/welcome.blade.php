@@ -4,6 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        {{-- SEO --}}
+        <meta name="description" content="GioBase is the world first & only dedicated database to the musical genre of Vaporwave. GioBase is not only the Wiki of Vaporwave but a must for all Vaporwave record collectors and aficionados keeping digital notes of all Vaporwave records, artists & labels. As a guest you're free to peruse our pages. By signing up however, users can keep track of their personal collections better than before in a clean and concise way all at the touch of a button.">
+        <meta name="keywords" content="giobase, vaporwave, database, collection, collector, music">
+        <meta name="author" content="Black Frog Tech Ltd">
+
         <title>GioBase</title>
 
         <!-- Styles -->

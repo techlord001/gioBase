@@ -7,7 +7,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'GioBase') }}</title>
+    {{-- SEO --}}
+    <meta name="description" content="GioBase is the world first & only dedicated database to the musical genre of Vaporwave. GioBase is not only the Wiki of Vaporwave but a must for all Vaporwave record collectors and aficionados keeping digital notes of all Vaporwave records, artists & labels. As a guest you're free to peruse our pages. By signing up however, users can keep track of their personal collections better than before in a clean and concise way all at the touch of a button.">
+    <meta name="keywords" content="giobase, vaporwave, database, collection, collector, music">
+    <meta name="author" content="Black Frog Tech Ltd">
+
+    <title>{{ config('app.name', 'GioBase') . $titleExt }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -33,11 +38,29 @@
     
                     <div class="collapse navbar-collapse font-nav" id="navbarSupportedContent">
                         <!-- Left Side Of Navbar -->
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item"><a href="/labels" class="nav-link">Labels</a></li>
-                            <li class="nav-item"><a href="/artists" class="nav-link">Artists</a></li>
-                            <li class="nav-item"><a href="/records" class="nav-link">Records</a></li>
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Browse</a>
+                                <div class="dropdown-menu gbNav font-nav">
+                                    <a href="/labels" class="dropdown-item">Labels</a>
+                                    <a href="/artists" class="dropdown-item">Artists</a>
+                                    <a href="/records" class="dropdown-item">Records</a>
+                                </div>
+                            </li>
                         </ul>
+
+                        @auth
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add</a>
+                                    <div class="dropdown-menu gbNav font-nav">
+                                        <a href="/labels/create" class="dropdown-item">Label</a>
+                                        <a href="/artists/create" class="dropdown-item">Artist</a>
+                                        <a href="/records/create" class="dropdown-item">Record</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        @endauth
     
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
@@ -57,7 +80,7 @@
                                         {{ Auth::user()->name }} <span class="caret"></span>
                                     </a>
     
-                                    <div class="dropdown-menu dropdown-menu-right font-nav" aria-labelledby="navbarDropdown">
+                                    <div class="dropdown-menu dropdown-menu-right font-nav gbNav" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="/home">Home</a>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
@@ -80,9 +103,9 @@
                 @yield('content')
             </main>
 
-            <footer class="navbar flex-column navbar-expand-md navbar-light gbNav text-center justify-content-center font-nav">
+            <footer class="navbar flex-column navbar-expand-md navbar-light gbNav text-center justify-content-center font-nav footer">
                 <p class="p-1 m-0">All Rights Reserved</p>
-                <p class="p-1 m-0">Site Designed and Developed by <a href="https://blackfrog.tech" target="_blank" rel="noopener noreferrer" class="text-decoration-none"><img src="{{ asset('images/bfLogo.svg') }}" alt="Black Frog Tech Logo" width="25px" height="25px"><span class="px-1 text-dark text-uppercase">Black Frog</span></a></p>
+                <p class="p-1 m-0">Site Designed and Developed by <a href="https://blackfrog.tech" target="_blank" rel="noopener noreferrer" class="text-decoration-none"><img src="{{ asset('images/bfLogo.svg') }}" alt="Black Frog Tech Logo" width="25px" height="25px"><span class="px-1 text-secondary text-uppercase">Black Frog</span></a></p>
             </footer>
         </div>
     </div>

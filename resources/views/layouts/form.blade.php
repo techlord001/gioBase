@@ -1,7 +1,49 @@
 @extends('layouts.app')
 
+@php
+
+    if (Request::is('*/create')) {
+        $titleExt = " | Add New ";
+        
+        switch (Request::url()) {
+            case (Request::is('labels/create')):
+                $titleExt .= "Label";
+                break;
+            case (Request::is('artists/create')):
+                $titleExt .= "Artist";
+                break;
+            case (Request::is('records/create')):
+                $titleExt .= "Record";
+                break;
+            default:
+                $titleExt .= "Entry";
+                break;
+        }
+    } elseif (Request::is('*/*/edit')) {
+        $titleExt = " | Edit ";
+
+        switch (Request::url()) {
+            case (Request::is('labels/*')):
+                $titleExt .= $label->name;
+                break;
+            case (Request::is('artists/*')):
+                $titleExt .= $artist->name;
+                break;
+            case (Request::is('records/*')):
+                $titleExt .= $record->name;
+                break;
+            default:
+                $titleExt .= "Entry";
+                break;
+        }
+    } else {
+        $titleExt = " | Vaporwave Database";
+    }
+
+@endphp
+
 @section('content')
-<div class="container">
+<div class="container gbCard p-5 rounded">
     <h2>@yield('title')</h2>
     <form action=@yield('route') method="post" enctype="multipart/form-data">
         @if (Request::segment(3) == 'edit')
@@ -103,13 +145,20 @@
         @endif
         <label for="image">Upload @yield('imageLabel')</label>
         <div class="custom-file">
-            <span class="custom-file-label">Choose an image</span>
+            <span class="custom-file-label" for="image">Choose an image</span>
             <input type="file" name="image" id="image" class="custom-file-input">
             @error('image')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
-        <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">Save Edit</button>
+        @if (Request::is('*/*/edit'))
+            <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">Save Edit</button>            
+        @else
+            <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">Add New Entry</button>            
+        @endif
+        <a href="{{ url()->previous() }}" class="text-decoration-none">
+            <button type="button" class="btn btn-danger btn-lg btn-block mt-4">Cancel</button>            
+        </a>
     </form>
 </div>
 @endsection

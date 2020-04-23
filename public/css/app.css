@@ -17006,6 +17006,7 @@ a.text-dark:focus {
 
 .btn-danger {
   background-color: #ff1451 !important;
+  border-color: snow !important;
 }
 
 .btn-danger:hover {
@@ -17021,6 +17022,14 @@ a.text-dark:focus {
 .list-group-item {
   background-color: #6a34f4 !important;
   color: snow !important;
+}
+
+.dropdown-item {
+  color: snow !important;
+}
+
+.dropdown-item:hover {
+  color: #1a1a1a !important;
 }
 
 @font-face {
@@ -17057,6 +17066,10 @@ body {
   min-height: 100vh;
 }
 
+.footer > p {
+  font-size: 0.8rem;
+}
+
 .font-logo {
   font-family: SFAlien, sans-serif;
   font-size: 9rem;
@@ -17068,13 +17081,13 @@ body {
 }
 
 .font-logo-nav {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
 }
 
 .font-nav {
   font-family: SFAlien-Solid, sans-serif;
   font-size: 1.2rem;
-  color: snow;
+  color: snow !important;
 }
 
 .links > a {

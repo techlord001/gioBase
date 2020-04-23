@@ -69,7 +69,12 @@ class RecordController extends Controller
 
     public function show(Record $record)
     {
-        return view('records.show', compact('record'));
+        if (Auth::user()) {
+            $userRecords = User::find(Auth::user()->id)->records()->get();
+            return view('records.show', compact('record'), compact('userRecords'));
+        } else {
+            return view('records.show', compact('record'));
+        }
     }
 
     public function edit(Record $record)

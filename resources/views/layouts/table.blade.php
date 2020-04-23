@@ -1,7 +1,28 @@
 @extends('layouts.app')
 
+@php
+    $titleExt = " | ";
+
+    switch (Request::url()) {
+        case (Request::is('labels')):
+            $titleExt .= "Labels";
+            break;
+        case (Request::is('artists')):
+            $titleExt .= "Artists";
+            break;
+        case (Request::is('records')):
+            $titleExt .= "Records";
+            break;
+        case (Request::is('home')):
+            $titleExt .= "Home";
+            break;
+        default:
+            $titleExt .= "Vaporwave Database";
+            break;
+    }
+@endphp
+
 @section('content')
-    @yield('dashboard')
     <div class="container-fluid px-5 table-responsive">
         <h3 class="text-center">List of {{ $title }}</h3>
         @if (Request::is('labels') || Request::is('artists') || Request::is('records'))
@@ -92,7 +113,7 @@
                             </tr>
                         @empty
                             <tr class="align-middle">
-                                <td>No labels!</td>
+                                <td class="text-center" colspan="100%">No labels!</td>
                             </tr>
                         @endforelse
                         
@@ -149,7 +170,7 @@
                             </tr>
                         @empty
                             <tr class="align-middle">
-                                <td>No artists!</td>
+                                <td class="text-center" colspan="100%">No artists!</td>
                             </tr>
                         @endforelse
                         
@@ -279,8 +300,8 @@
                                 @endauth
                             </tr>
                         @empty
-                            <tr>
-                                <td class="align-middle text-center" colspan="9">No records!</td>
+                            <tr class="align-middle">
+                                <td class="text-center" class="text-center" colspan="100%">No records!</td>
                             </tr>
                         @endforelse
                         
