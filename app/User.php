@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Record::class)->withTimestamps();
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class)->withTimestamps();
+    }
 }
