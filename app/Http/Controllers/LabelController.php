@@ -56,11 +56,15 @@ class LabelController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Label::class);
+        
         return view('labels.create');
     }
 
     public function store()
     {
+        $this->authorize('create', Label::class);
+
         $label = Label::create($this->validateData(null, null));
 
         $this->storeImage($label);

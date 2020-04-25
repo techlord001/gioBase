@@ -24,7 +24,9 @@ class DatabaseSeeder extends Seeder
             $this->call(ColourSeeder::class);
         }
         $this->call(RecordSeeder::class);
-        $this->call(RoleSeeder::class);
+        if (sizeof(Role::all()) === 0) {
+            $this->call(RoleSeeder::class);    
+        }
         // $this->call(UsersTableSeeder::class);
     }
 }
