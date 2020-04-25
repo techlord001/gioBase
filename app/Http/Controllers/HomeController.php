@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $records = User::find(Auth::user()->id)->records()->orderBy('name')->get();
+        $records = User::find(Auth::user()->id)->records()->orderBy('name')->paginate(10);
 
         return view('home', compact('records'));
     }    

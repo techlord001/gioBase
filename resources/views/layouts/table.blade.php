@@ -311,5 +311,16 @@
                 @endswitch
             </tbody>
         </table>
+        <nav>
+            <ul class="pagination justify-content-center pt-4">
+                @if (isset($labels))
+                    {{ $labels->links() }}                    
+                @elseif (isset($artists))
+                    {{ $artists->links() }}               
+                @elseif (isset($records))
+                    {{ $records->links() }}              
+                @endif
+            </ul>
+        </nav>
     </div>
 @endsection

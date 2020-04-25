@@ -17032,6 +17032,20 @@ a.text-dark:focus {
   color: #1a1a1a !important;
 }
 
+.page-link {
+  background-color: #6a34f4 !important;
+  color: snow !important;
+}
+
+.page-link:hover {
+  background-color: #9c77f8 !important;
+  color: #1a1a1a !important;
+}
+
+.active .page-link {
+  border-color: #ff1451 !important;
+}
+
 @font-face {
   font-family: SFAlien;
   src: url(/fonts/SFAlienEncounters.ttf?aeabf9ec279e70633271d6b36a460954);

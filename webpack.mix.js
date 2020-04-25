@@ -13,5 +13,5 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
-   .copy('resources/images/bfLogo.svg', 'public/images')
+   .copy('resources/images/bfLogo.png', 'public/images')
    .browserSync('http://127.0.0.1:8000');

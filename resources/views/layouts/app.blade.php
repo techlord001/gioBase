@@ -105,7 +105,7 @@
 
             <footer class="navbar flex-column navbar-expand-md navbar-light gbNav text-center justify-content-center font-nav footer">
                 <p class="p-1 m-0">All Rights Reserved</p>
-                <p class="p-1 m-0">Site Designed and Developed by <a href="https://blackfrog.tech" target="_blank" rel="noopener noreferrer" class="text-decoration-none"><img src="{{ asset('images/bfLogo.svg') }}" alt="Black Frog Tech Logo" width="25px" height="25px"><span class="px-1 text-secondary text-uppercase">Black Frog</span></a></p>
+                <p class="p-1 m-0">Site Designed and Developed by <a href="https://blackfrog.tech" target="_blank" rel="noopener noreferrer" class="text-decoration-none"><img src="{{ asset('images/bfLogo.png') }}" alt="Black Frog Tech Logo" width="25px" height="25px"><span class="px-1 text-secondary text-uppercase">Black Frog</span></a></p>
             </footer>
         </div>
     </div>

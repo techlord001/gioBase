@@ -39,7 +39,7 @@ class RecordController extends Controller
 
     public function index()
     {
-        $records = Record::orderBy('name')->get();
+        $records = Record::orderBy('name')->paginate(10);
 
         if (Auth::user()) {
             $userRecords = User::find(Auth::user()->id)->records()->get();

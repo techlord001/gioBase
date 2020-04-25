@@ -58,3 +58,17 @@
         color: var.$off-black !important;
     }
 }
+
+.page-link {
+    background-color: scale-color(var.$dark-violet, $lightness: 25%) !important;
+    color: var.$off-white !important;
+
+    &:hover {
+        background-color: scale-color(var.$dark-violet, $lightness: 50%) !important;
+        color: var.$off-black !important;
+    }
+}
+
+.active .page-link {
+    border-color: var.$soft-red !important;
+}

@@ -42,7 +42,7 @@ class ArtistController extends Controller
 
     public function index()
     {
-        $artists = Artist::orderBy('name')->get();
+        $artists = Artist::orderBy('name')->paginate(10);
 
         return view('artists.index', compact('artists'));
     }
