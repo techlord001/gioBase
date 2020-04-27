@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Label;
+use App\Record;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class LabelPolicy
+class RecordPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class LabelPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Label  $label
+     * @param  \App\Record  $record
      * @return mixed
      */
-    public function view(User $user, Label $label)
+    public function view(User $user, Record $record)
     {
         //
     }
@@ -52,7 +52,7 @@ class LabelPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Label  $label
+     * @param  \App\Record  $record
      * @return mixed
      */
     public function update(User $user)
@@ -68,7 +68,7 @@ class LabelPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Label  $label
+     * @param  \App\Record  $record
      * @return mixed
      */
     public function delete(User $user)
@@ -83,10 +83,10 @@ class LabelPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Label  $label
+     * @param  \App\Record  $record
      * @return mixed
      */
-    public function restore(User $user, Label $label)
+    public function restore(User $user, Record $record)
     {
         //
     }
@@ -95,10 +95,10 @@ class LabelPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Label  $label
+     * @param  \App\Record  $record
      * @return mixed
      */
-    public function forceDelete(User $user, Label $label)
+    public function forceDelete(User $user, Record $record)
     {
         //
     }

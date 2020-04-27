@@ -9,7 +9,7 @@
 
     {{-- SEO --}}
     <meta name="description" content="GioBase is the world first & only dedicated database to the musical genre of Vaporwave. GioBase is not only the Wiki of Vaporwave but a must for all Vaporwave record collectors and aficionados keeping digital notes of all Vaporwave records, artists & labels. As a guest you're free to peruse our pages. By signing up however, users can keep track of their personal collections better than before in a clean and concise way all at the touch of a button.">
-    <meta name="keywords" content="giobase, vaporwave, database, collection, collector, music">
+    <meta name="keywords" content="giobase, vaporwave, database, collection, collector, music, future funk, mallsoft">
     <meta name="author" content="Black Frog Tech Ltd">
 
     <title>{{ config('app.name', 'GioBase') . $titleExt }}</title>
@@ -50,16 +50,18 @@
                         </ul>
 
                         @auth
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add</a>
-                                    <div class="dropdown-menu gbNav font-nav">
-                                        <a href="/labels/create" class="dropdown-item">Label</a>
-                                        <a href="/artists/create" class="dropdown-item">Artist</a>
-                                        <a href="/records/create" class="dropdown-item">Record</a>
-                                    </div>
-                                </li>
-                            </ul>
+                            @if (auth()->user()->hasRole('Contributor') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
+                                <ul class="navbar-nav mr-auto">
+                                    <li class="nav-item dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add</a>
+                                        <div class="dropdown-menu gbNav font-nav">
+                                            <a href="/labels/create" class="dropdown-item">Label</a>
+                                            <a href="/artists/create" class="dropdown-item">Artist</a>
+                                            <a href="/records/create" class="dropdown-item">Record</a>
+                                        </div>
+                                    </li>
+                                </ul>                                
+                            @endif
                         @endauth
     
                         <!-- Right Side Of Navbar -->

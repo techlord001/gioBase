@@ -79,11 +79,15 @@ class LabelController extends Controller
 
     public function edit(Label $label)
     {
+        $this->authorize('update', Label::class);
+
         return view('labels.edit', compact('label'));
     }
 
     public function update(Label $label)
     {
+        $this->authorize('update', Label::class);
+
         $oldImage = $label->image;
 
         $label->update($this->validateData('update', $label));
@@ -101,6 +105,8 @@ class LabelController extends Controller
 
     public function destroy(Label $label)
     {
+        $this->authorize('delete', Label::class);
+
         $this->disassociate($label->artists, 'label');
 
         if ($label->image) {
