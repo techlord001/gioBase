@@ -25,9 +25,11 @@
 @section('content')
     <div class="container-fluid px-5 table-responsive">
         <h3 class="text-center">List of {{ $title }}</h3>
-        @if (Request::is('labels') || Request::is('artists') || Request::is('records'))
+        @if (!Request::is('home'))
             @auth
-                <a href="{{ $link }}"><button class="btn btn-primary mb-3 px-2">Add New {{ $btnTitle }}</button></a>
+                @if (auth()->user()->hasRole('Contributor') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
+                    <a href="{{ $link }}"><button class="btn btn-primary mb-3 px-2">Add New {{ $btnTitle }}</button></a>                    
+                @endif
             @endauth
         @endif
         <table class="table table-hover gbTable">
@@ -61,9 +63,17 @@
                         <th class="text-center">Released</th>
                     @endif
                     <th class="text-right">Options</th>
-                    @auth
+                    @if (!Request::is('home'))
+                        @can('delete', App\Label::class)
+                            <th class="text-right">Delete</th>
+                        @elsecan('delete', App\Artist::class)
+                            <th class="text-right">Delete</th>
+                        @elsecan('delete', App\Record::class)
+                            <th class="text-right">Delete</th>
+                        @endcan                        
+                    @else
                         <th class="text-right">Remove</th>
-                    @endauth
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -87,7 +97,7 @@
                                             </span>
                                         </button>
                                     </a>
-                                    @auth
+                                    @can('update', App\Label::class)
                                         <a href="/labels/{{ $label->id }}/edit">
                                             <button type="button" class="btn btn-info btn-sm">
                                                 <span class="icon">
@@ -95,9 +105,9 @@
                                                 </span>
                                             </button>
                                         </a>
-                                    @endauth
+                                    @endcan
                                 </td>
-                                @auth
+                                @can('delete', App\Label::class)
                                     <td class="align-middle text-right">
                                         <form action="/labels/{{ $label->id }}" method="post">
                                             @method('delete')
@@ -109,7 +119,7 @@
                                             </button>
                                         </form>
                                     </td>
-                                @endauth
+                                @endcan
                             </tr>
                         @empty
                             <tr class="align-middle">
@@ -144,29 +154,29 @@
                                             </span>
                                         </button>
                                     </a>
-                                    @auth
+                                    @can('update', App\Artist::class)
                                         <a href="/artists/{{ $artist->id }}/edit">
                                             <button type="button" class="btn btn-info btn-sm">
                                                 <span class="icon">
-                                                    <i class="fas fa-edit"></i>                                                    
+                                                    <i class="fas fa-edit"></i>  
                                                 </span>
                                             </button>
                                         </a>
-                                    @endauth
+                                    @endcan
                                 </td>
-                                @auth
+                                @can('delete', App\Artist::class)
                                     <td class="align-middle text-right">
                                         <form action="/artists/{{ $artist->id }}" method="post">
                                             @method('delete')
                                             @csrf
                                             <button type="submit" class="btn btn-danger btn-sm">
                                                 <span class="icon">
-                                                    <i class="fas fa-trash-alt"></i>                                                    
+                                                    <i class="fas fa-trash-alt"></i>
                                                 </span>
                                             </button>
                                         </form>
                                     </td>
-                                @endauth
+                                @endcan
                             </tr>
                         @empty
                             <tr class="align-middle">
@@ -229,13 +239,15 @@
                                             </button>
                                         </a>
                                         @auth
-                                            <a href="/records/{{ $record->id }}/edit">
-                                                <button type="button" class="btn btn-info btn-sm mx-1">
-                                                    <span class="icon">
-                                                        <i class="fas fa-edit"></i>                                                    
-                                                    </span>
-                                                </button>
-                                            </a>
+                                            @can('update', App\Record::class)
+                                                <a href="/records/{{ $record->id }}/edit">
+                                                    <button type="button" class="btn btn-info btn-sm mx-1">
+                                                        <span class="icon">
+                                                            <i class="fas fa-edit"></i>                                                    
+                                                        </span>
+                                                    </button>
+                                                </a>                                                
+                                            @endcan
                                             @if (Request::is('records'))
                                                 @php
                                                     $match = "";
@@ -273,9 +285,8 @@
                                         @endauth
                                     </div>
                                 </td>
-                                @auth
+                                @if (Request::is('home'))
                                     <td class="text-right align-middle">
-                                        @if (Request::is('home'))
                                         <form action="/home/{{ $record->id }}" method="post">
                                             @method('delete')
                                             @csrf
@@ -285,19 +296,22 @@
                                                 </span>
                                             </button>
                                         </form>
-                                        @else
-                                        <form action="/records/{{ $record->id }}" method="post">
-                                            @method('delete')
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm">
-                                                <span class="icon">
-                                                    <i class="fas fa-trash-alt"></i>                                                    
-                                                </span>
-                                            </button>
-                                        </form>
-                                        @endif
                                     </td>
-                                @endauth
+                                    @else
+                                        @can('delete', App\Record::class)
+                                            <td class="text-right align-middle">
+                                                <form action="/records/{{ $record->id }}" method="post">
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                        <span class="icon">
+                                                            <i class="fas fa-trash-alt"></i>                                                    
+                                                        </span>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        @endcan
+                                @endif
                             </tr>
                         @empty
                             <tr class="align-middle">

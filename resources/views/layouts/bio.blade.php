@@ -32,13 +32,15 @@
                     @php
                         $match = "";
 
-                        foreach ($userRecords as $userRecord) {
-                            if ($userRecord->id === $record->id) {
-                                $match = true;
-                                break;
-                            } else {
-                                $match = false;
-                            }
+                        if (isset($userRecords)) {
+                            foreach ($userRecords as $userRecord) {
+                                if ($userRecord->id === $record->id) {
+                                    $match = true;
+                                    break;
+                                } else {
+                                    $match = false;
+                                }
+                            }                            
                         }
                     @endphp
                     @auth
@@ -169,13 +171,17 @@
             @endswitch
         </div>
         @auth
-            <div class="row justify-content-center mt-4">
-                <div class="col-4">
-                    <a href="{{ $url . $id }}/edit">
-                        <button type="button" class="btn btn-info btn-lg btn-block">Edit</button>
-                    </a>
+            @if (auth()->user()->hasRole('Contributor') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
+                <div class="row justify-content-center mt-4">
+                    <div class="col-4">
+                        <a href="{{ $url . $id }}/edit">
+                            <button type="button" class="btn btn-info btn-lg btn-block">Edit</button>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endif
+        @endauth
+        @can('delete', App\Record::class)
             <div class="row justify-content-center mt-4">
                 <div class="col-4">
                     <form action="{{ $url . $id }}" method="post">
@@ -185,6 +191,6 @@
                     </form>
                 </div>
             </div>
-        @endauth
+        @endcan
     </div>
 @endsection

@@ -51,15 +51,19 @@ class RecordController extends Controller
 
     public function create()
     {
-        $artists = Artist::all();
-        $formats = Format::all();
-        $colours = Colour::all();
+        $this->authorize('create', Record::class);
+
+        $artists = Artist::orderBy('name')->get();
+        $formats = Format::orderBy('format')->get();
+        $colours = Colour::orderBy('colour')->get();
 
         return view('records.create', compact('artists', 'formats', 'colours'));
     }
 
     public function store()
     {
+        $this->authorize('create', Record::class);
+
         $record = Record::create($this->validateData());
 
         $this->storeImage($record);
@@ -79,15 +83,19 @@ class RecordController extends Controller
 
     public function edit(Record $record)
     {
-        $artists = Artist::all();
-        $formats = Format::all();
-        $colours = Colour::all();
+        $this->authorize('update', Record::class);
+
+        $artists = Artist::orderBy('name')->get();
+        $formats = Format::orderBy('format')->get();
+        $colours = Colour::orderBy('colour')->get();
 
         return view('records.edit', compact('record'), compact('artists', 'formats', 'colours'));
     }
 
     public function update(Record $record)
     {
+        $this->authorize('update', Record::class);
+
         $oldImage = $record->image;
 
         $record->update($this->validateData());
@@ -105,6 +113,8 @@ class RecordController extends Controller
 
     public function destroy(Record $record)
     {
+        $this->authorize('delete', Record::class);
+
         if ($record->image) {
             unlink(storage_path('app/public/' . $record->image));
         }

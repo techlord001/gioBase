@@ -49,13 +49,15 @@ class ArtistController extends Controller
 
     public function create()
     {
-        $labels = Label::all();
+        $labels = Label::orderBy('name')->get();
 
         return view('artists.create', compact('labels'));
     }
 
     public function store()
     {
+        $this->authorize('create', Artist::class);
+
         $artist = Artist::create($this->validateData(null, null));
 
         $artist->label()->associate(request('label_id'))->save();
@@ -72,13 +74,17 @@ class ArtistController extends Controller
 
     public function edit(Artist $artist)
     {
-        $labels = Label::all();
+        $this->authorize('update', Artist::class);
+
+        $labels = Label::orderBy('name')->get();
 
         return view('artists.edit', compact('artist'), compact('labels'));
     }
 
     public function update(Artist $artist)
     {
+        $this->authorize('update', Artist::class);
+
         $oldImage = $artist->image;
 
         $artist->update($this->validateData('update', $artist));
@@ -98,6 +104,8 @@ class ArtistController extends Controller
 
     public function destroy(Artist $artist)
     {
+        $this->authorize('delete', Artist::class);
+
         $artist->records()->delete();
 
         if ($artist->image) {

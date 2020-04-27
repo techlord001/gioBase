@@ -56,11 +56,15 @@ class LabelController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Label::class);
+        
         return view('labels.create');
     }
 
     public function store()
     {
+        $this->authorize('create', Label::class);
+
         $label = Label::create($this->validateData(null, null));
 
         $this->storeImage($label);
@@ -75,11 +79,15 @@ class LabelController extends Controller
 
     public function edit(Label $label)
     {
+        $this->authorize('update', Label::class);
+
         return view('labels.edit', compact('label'));
     }
 
     public function update(Label $label)
     {
+        $this->authorize('update', Label::class);
+
         $oldImage = $label->image;
 
         $label->update($this->validateData('update', $label));
@@ -97,6 +105,8 @@ class LabelController extends Controller
 
     public function destroy(Label $label)
     {
+        $this->authorize('delete', Label::class);
+
         $this->disassociate($label->artists, 'label');
 
         if ($label->image) {
