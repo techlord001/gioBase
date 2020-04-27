@@ -2,20 +2,9 @@
 
 @php
     $name = $record->name;
+    $title = "Edit Record";
+    $route = "/records/" . $record->id;
+    $nameLabel = "Title";
+    $imageLabel = "Cover";
+    $homepage = $record->homepage;
 @endphp
-
-@section('title')
-    Edit Record
-@endsection
-
-@section('route')
-"/records/{{ $record->id }}"
-@endsection
-
-@section('nameLabel')
-Title:
-@endsection
-
-@section('imageLabel')
-Cover:
-@endsection

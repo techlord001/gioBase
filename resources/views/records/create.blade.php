@@ -1,21 +1,8 @@
 @extends('layouts.form')
 
-@section('title')
-Add New Record
-@endsection
-
-@section('route')
-"/records"
-@endsection
-
-@section('nameLabel')
-Title
-@endsection
-
-@section('imageLabel')
-Cover
-@endsection
-
-@section('submitLabel')
-Add Record
-@endsection
+@php
+    $title = "Add New Record";
+    $route = "/records";
+    $nameLabel = "Title";
+    $imageLabel = "Cover";
+@endphp

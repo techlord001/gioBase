@@ -7,4 +7,5 @@
     $image = $label->image;
     $url = "/labels/";
     $id = $label->id;
+    $homepage = $label->homepage;
 @endphp

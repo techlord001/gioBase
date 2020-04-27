@@ -16,6 +16,7 @@ class ArtistController extends Controller
                 'name' => 'required|unique:App\Artist,name,' . $artist->id,
                 'description' => 'nullable',
                 'label_id' => 'nullable',
+                'homepage' => 'nullable|url',
                 'image' => 'sometimes|file|image|max:2048'
             ]);
         } else {
@@ -23,6 +24,7 @@ class ArtistController extends Controller
                 'name' => 'required|unique:App\Artist,name',
                 'description' => 'nullable',
                 'label_id' => 'nullable',
+                'homepage' => 'nullable|url',
                 'image' => 'sometimes|file|image|max:2048'
             ]);
         }

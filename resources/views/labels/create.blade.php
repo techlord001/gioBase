@@ -1,25 +1,9 @@
 @extends('layouts.form')
 
-@section('route')
-"/labels"
-@endsection
-
-@section('title')
-Add New Label
-@endsection
-
-@section('nameLabel')
-Name
-@endsection
-
-@section('descriptionLabel')
-Description
-@endsection
-
-@section('imageLabel')
-Logo
-@endsection
-
-@section('submitLabel')
-Add Label
-@endsection
+@php
+    $title = "Add New Label";
+    $route = "/labels";
+    $nameLabel = "Name";
+    $descriptionLabel = "Description";
+    $imageLabel = "Logo";
+@endphp

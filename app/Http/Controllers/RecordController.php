@@ -21,6 +21,7 @@ class RecordController extends Controller
             'format_id' => 'nullable',
             'colour_id' => 'nullable',
             'released' => 'nullable',
+            'homepage' => 'nullable|url',
             'image' => 'sometimes|file|image|max:2048'
         ]);
     }

@@ -7,4 +7,5 @@
     $image = $artist->image;
     $url = "/artists/";
     $id = $artist->id;
+    $homepage = $artist->homepage;
 @endphp

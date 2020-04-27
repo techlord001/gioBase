@@ -12,6 +12,7 @@ class Record extends Model
         'format_id',
         'colour_id',
         'released',
+        'homepage',
         'image'
     ];
 

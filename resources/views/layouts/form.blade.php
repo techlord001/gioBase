@@ -44,15 +44,15 @@
 
 @section('content')
 <div class="container gbCard p-5 rounded">
-    <h2>@yield('title')</h2>
-    <form action=@yield('route') method="post" enctype="multipart/form-data">
+    <h2>{{ $title }}</h2>
+    <form action="{{ $route }}" method="post" enctype="multipart/form-data">
         @if (Request::segment(3) == 'edit')
             @method('patch')
         @endif
             @csrf
             <div class="form-row">
                 <div class="col form-group">
-                    <label for="name">@yield('nameLabel')</label>
+                    <label for="name">{{ $nameLabel }}</label>
                     <input type="text" name="name" id="name" autocomplete="off" value="{{ $name ?? old('name') }}" class="form-control">
                     @error('name')
                         <small class="text-danger">{{ $message }}</small>
@@ -77,7 +77,7 @@
             </div>
         @if (Request::is('labels/*') || Request::is('artists/*'))
             <div class="form-group">
-                <label for="description">Brief @yield('descriptionLabel')</label>
+                <label for="description">Brief {{ $descriptionLabel }}</label>
                 <textarea type="text" name="description" id="description" autocomplete="off" value="{{ $description ?? old('description') }}" class="form-control"></textarea>
             </div>
         @endif
@@ -143,13 +143,24 @@
             </div>
         </div>
         @endif
-        <label for="image">Upload @yield('imageLabel')</label>
-        <div class="custom-file">
-            <span class="custom-file-label" for="image">Choose an image</span>
-            <input type="file" name="image" id="image" class="custom-file-input">
-            @error('image')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
+        <div class="form-row">
+            <div class="col form-group">
+                <label for="image">Upload {{ $imageLabel }}</label>
+                <div class="custom-file">
+                    <span class="custom-file-label" for="image">Choose an image</span>
+                    <input type="file" name="image" id="image" class="custom-file-input">
+                    @error('image')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+            </div>
+            <div class="col form-group">
+                <label for="homepage">Homepage</label>
+                <input type="url" name="homepage" id="homepage" class="form-control" value="{{ $homepage ?? old('released') }}">
+                @error('homepage')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
         </div>
         @if (Request::is('*/*/edit'))
             <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">Save Edit</button>            

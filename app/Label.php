@@ -10,6 +10,7 @@ class Label extends Model
         'name',
         'location',
         'description',
+        'homepage',
         'image'
     ];
 

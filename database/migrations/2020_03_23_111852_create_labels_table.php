@@ -18,6 +18,7 @@ class CreateLabelsTable extends Migration
             $table->string('name', 50)->unique();
             $table->string('location')->nullable();
             $table->text('description')->nullable();
+            $table->string('homepage')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

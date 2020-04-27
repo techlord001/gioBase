@@ -10,6 +10,7 @@ class Artist extends Model
         'name',
         'description',
         'lable_id',
+        'homepage',
         'image'
     ];
 

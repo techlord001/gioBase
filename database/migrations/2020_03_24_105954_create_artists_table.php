@@ -18,6 +18,7 @@ class CreateArtistsTable extends Migration
             $table->string('name', 40)->unique();
             $table->text('description')->nullable();
             $table->foreignId('label_id')->nullable();
+            $table->string('homepage')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

@@ -16984,6 +16984,7 @@ a.text-dark:focus {
 
 .btn-primary:hover {
   background-color: #440bd5 !important;
+  text-decoration: none !important;
 }
 
 .btn-secondary {

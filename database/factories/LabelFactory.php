@@ -9,6 +9,7 @@ $factory->define(Label::class, function (Faker $faker) {
     return [
         'name' => $faker->unique()->company,
         'location' => $faker->city . ', ' . $faker->country,
-        'description' => $faker->optional()->text
+        'description' => $faker->optional()->text,
+        'homepage' => $faker->optional()->url
     ];
 });

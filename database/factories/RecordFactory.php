@@ -18,6 +18,7 @@ $factory->define(Record::class, function (Faker $faker) {
         'artist_id' => $faker->randomElement($artists),
         'format_id' => $faker->optional()->randomElement($formats),
         'colour_id' => $faker->optional()->randomElement($colours),
-        'released'=> $faker->date()
+        'released'=> $faker->date(),
+        'homepage' => $faker->optional()->url
     ];
 });

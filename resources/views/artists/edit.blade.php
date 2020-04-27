@@ -3,24 +3,10 @@
 @php
     $name = $artist->name;
     $description = $artist->description;
+    $title = "Edit Artist";
+    $route = "/artists/" . $artist->id;
+    $nameLabel = "Name";
+    $descriptionLabel = "Bio";
+    $imageLabel = "Portait";
+    $homepage = $artist->homepage;
 @endphp
-
-@section('title')
-    Edit Artist
-@endsection
-
-@section('route')
-"/artists/{{ $artist->id }}"
-@endsection
-
-@section('nameLabel')
-Name:
-@endsection
-
-@section('descriptionLabel')
-Bio:
-@endsection
-
-@section('imageLabel')
-Portrait:
-@endsection

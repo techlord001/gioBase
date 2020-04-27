@@ -73,6 +73,11 @@
                         <p class="lead text-muted">No description!</p>
                     @endif
                 @endif
+                @if (isset($homepage))
+                    <a href="{{ $homepage }}" target="_blank" rel="noopener noreferrer">
+                        <button class="btn btn-outline-info">Homepage</button>
+                    </a>
+                @endif
             </div>
             <div class="col-5 text-right">
                 @if ($image)
@@ -175,7 +180,7 @@
                 <div class="row justify-content-center mt-4">
                     <div class="col-4">
                         <a href="{{ $url . $id }}/edit">
-                            <button type="button" class="btn btn-info btn-lg btn-block">Edit</button>
+                            <button type="button" class="btn btn-primary btn-lg btn-block">Edit</button>
                         </a>
                     </div>
                 </div>

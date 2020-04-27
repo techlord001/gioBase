@@ -6,4 +6,5 @@
     $image = $record->image;
     $url = "/records/";
     $id = $record->id;
+    $homepage = $record->homepage;
 @endphp

@@ -15,6 +15,7 @@ class LabelController extends Controller
                 'name' => 'required|unique:App\Label,name,' . $label->id,
                 'description' => 'nullable',
                 'location' => 'nullable',
+                'homepage' => 'nullable|url',
                 'image' => 'sometimes|file|image|max:2048'
             ]);
         } else {
@@ -22,6 +23,7 @@ class LabelController extends Controller
                 'name' => 'required|unique:App\Label,name',
                 'description' => 'nullable',
                 'location' => 'nullable',
+                'homepage' => 'nullable|url',
                 'image' => 'sometimes|file|image|max:2048'
             ]);
         };
