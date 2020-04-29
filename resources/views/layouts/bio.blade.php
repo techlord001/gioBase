@@ -142,6 +142,17 @@
                                 -
                             @endif
                         </dd>
+                        
+                        <dt class="col-6 text-right">Genre</dt>
+                        <dd class="col-6">
+                            @forelse ($record->genres as $genre)
+                            <button type="button" class="btn btn-outline-success btn-sm my-1">
+                                {{ $genre->genre }}
+                            </button>
+                            @empty
+                                -
+                            @endforelse
+                        </dd>
 
                         <dt class="col-6 text-right">Format</dt>
                         <dd class="col-6">

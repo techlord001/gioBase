@@ -31,6 +31,11 @@ class Record extends Model
         return $this->belongsTo(Colour::class);
     }
 
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class);
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class);

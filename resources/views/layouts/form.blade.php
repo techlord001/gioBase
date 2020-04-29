@@ -101,6 +101,24 @@
         </div>
         <div class="form-row">
             <div class="col form-group">
+                <h6>Genre</h6>
+                @foreach ($genres as $genre)
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" name="genres[{{ $genre->id }}]" id="genres[{{ $genre->id }}]" class="custom-control-input" value="{{ $genre->genre }}"
+                        @if (isset($record->genres))
+                            @foreach ($record->genres as $recordGenre)
+                                @if ($recordGenre->id === $genre->id)
+                                    checked="checked"
+                                @endif
+                            @endforeach                            
+                        @endif> 
+                        <label for="genres[{{ $genre->id }}]" class="custom-control-label">{{ $genre->genre }}</label>
+                    </div>            
+                @endforeach
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col form-group">
                 <label for="format_id">Format</label>
                 <select name="format_id" id="format_id" class="form-control">
                     @foreach ($formats as $format)

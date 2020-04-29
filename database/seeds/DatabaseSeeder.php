@@ -4,6 +4,7 @@ use App\Artist;
 use App\Role;
 use App\Format;
 use App\Colour;
+use App\Genre;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +18,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(LabelSeeder::class);
         $this->call(ArtistSeeder::class);
+        if (sizeof(Genre::all()) === 0) {
+            $this->call(GenreSeeder::class);
+        }
         if (sizeof(Format::all()) === 0) {
             $this->call(FormatSeeder::class);
         }
