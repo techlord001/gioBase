@@ -91,7 +91,7 @@
                                 <td class="align-middle">{{ $label->name }}</td>
                                 <td class="align-middle text-right">
                                     <a href="/labels/{{ $label->id }}">
-                                        <button type="button" class="btn btn-secondary btn-sm">
+                                        <button type="button" class="btn btn-secondary btn-sm" title="View">
                                             <span class="icon">
                                                 <i class="fas fa-eye"></i>
                                             </span>
@@ -99,7 +99,7 @@
                                     </a>
                                     @can('update', App\Label::class)
                                         <a href="/labels/{{ $label->id }}/edit">
-                                            <button type="button" class="btn btn-info btn-sm">
+                                            <button type="button" class="btn btn-info btn-sm" title="Edit">
                                                 <span class="icon">
                                                     <i class="fas fa-edit"></i>                                                    
                                                 </span>
@@ -112,7 +112,7 @@
                                         <form action="/labels/{{ $label->id }}" method="post">
                                             @method('delete')
                                             @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm">
+                                            <button type="submit" class="btn btn-danger btn-sm" title="Delete Entry">
                                                 <span class="icon">
                                                     <i class="fas fa-trash-alt"></i>                                                    
                                                 </span>
@@ -148,7 +148,7 @@
                                 </td>
                                 <td class="align-middle text-right">
                                     <a href="/artists/{{ $artist->id }}">
-                                        <button type="button" class="btn btn-secondary btn-sm">
+                                        <button type="button" class="btn btn-secondary btn-sm" title="View">
                                             <span class="icon">
                                                 <i class="fas fa-eye"></i>                                                    
                                             </span>
@@ -156,7 +156,7 @@
                                     </a>
                                     @can('update', App\Artist::class)
                                         <a href="/artists/{{ $artist->id }}/edit">
-                                            <button type="button" class="btn btn-info btn-sm">
+                                            <button type="button" class="btn btn-info btn-sm" title="Edit">
                                                 <span class="icon">
                                                     <i class="fas fa-edit"></i>  
                                                 </span>
@@ -169,7 +169,7 @@
                                         <form action="/artists/{{ $artist->id }}" method="post">
                                             @method('delete')
                                             @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm">
+                                            <button type="submit" class="btn btn-danger btn-sm" title="Delete Entry">
                                                 <span class="icon">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </span>
@@ -232,7 +232,7 @@
                                 <td class="text-right align-middle">
                                     <div class="d-flex flex-row flex-nowrap justify-content-around">
                                         <a href="/records/{{ $record->id }}">
-                                            <button type="button" class="btn btn-secondary btn-sm mx-1">
+                                            <button type="button" class="btn btn-secondary btn-sm mx-1" title="View">
                                                 <span class="icon">
                                                     <i class="fas fa-eye"></i>                                                    
                                                 </span>
@@ -241,7 +241,7 @@
                                         @auth
                                             @can('update', App\Record::class)
                                                 <a href="/records/{{ $record->id }}/edit">
-                                                    <button type="button" class="btn btn-info btn-sm mx-1">
+                                                    <button type="button" class="btn btn-info btn-sm mx-1" title="Edit">
                                                         <span class="icon">
                                                             <i class="fas fa-edit"></i>                                                    
                                                         </span>
@@ -265,7 +265,7 @@
                                                     <form action="/home/{{ $record->id }}" method="post" class="mx-1">
                                                         @method('delete')
                                                         @csrf
-                                                        <button type="submit" class="btn btn-success btn-sm">
+                                                        <button type="submit" class="btn btn-success btn-sm" title="In Collection">
                                                             <span class="icon">
                                                                 <i class="fas fa-check-square"></i>                                                    
                                                             </span>
@@ -274,7 +274,7 @@
                                                 @else
                                                     <form action="/home/{{ $record->id }}" method="post" class="mx-1">
                                                         @csrf
-                                                        <button type="submit" class="btn btn-success btn-sm btn-dark">
+                                                        <button type="submit" class="btn btn-success btn-sm btn-dark" title="Add To Collection">
                                                             <span class="icon">
                                                                 <i class="fas fa-plus-square"></i>                                                    
                                                             </span>
@@ -290,7 +290,7 @@
                                         <form action="/home/{{ $record->id }}" method="post">
                                             @method('delete')
                                             @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm">
+                                            <button type="submit" class="btn btn-danger btn-sm" title="Remove From Collection">
                                                 <span class="icon">
                                                     <i class="fas fa-minus-square"></i>                                                    
                                                 </span>
@@ -303,7 +303,7 @@
                                                 <form action="/records/{{ $record->id }}" method="post">
                                                     @method('delete')
                                                     @csrf
-                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                    <button type="submit" class="btn btn-danger btn-sm" title="Delete Entry">
                                                         <span class="icon">
                                                             <i class="fas fa-trash-alt"></i>                                                    
                                                         </span>
