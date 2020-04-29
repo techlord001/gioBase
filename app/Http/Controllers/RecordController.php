@@ -40,7 +40,7 @@ class RecordController extends Controller
 
     public function index()
     {
-        $records = Record::orderBy('name')->paginate(10);
+        $records = Record::with(['artist', 'artist.label', 'format', 'colour', 'users'])->orderBy('name')->paginate(10);
 
         if (Auth::user()) {
             $userRecords = User::find(Auth::user()->id)->records()->get();
