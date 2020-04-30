@@ -18,6 +18,14 @@ Route::get('/', function () {
 });
 
 
+/********** Legal Routes **********/
+Route::get('/privacy-policy', function () {
+    return view('legal.privacy-policy');
+});
+Route::get('/terms-conditions', function () {
+    return view('legal.terms-conditions');
+});
+
 /********** Labels Routes **********/
 Route::get('/labels', 'LabelController@index')->name('labels.index');
 Route::get('/labels/create', 'LabelController@create')->name('labels.create')->middleware(['auth', 'verified']);

@@ -19,6 +19,13 @@ html, body {
 
 .footer > p {
     font-size: 0.8rem;
+    > a {
+        color: var.$off-white !important;
+
+        &:hover {
+            color: scale-color(var.$off-white, $alpha: -25%) !important;
+        }
+    }
 }
 
 .font-logo {
@@ -56,6 +63,10 @@ html, body {
         decoration: none;
         transform: uppercase;
     }
+
+    &:hover {
+        color: scale-color(var.$off-white, $alpha: -25%) !important;
+    }
 }
 
 .table-item-thumbnail {
@@ -65,4 +76,8 @@ html, body {
 .icon {
     color: var.$off-white;
     font-size: 1rem;
+}
+
+.lower-roman {
+    list-style: lower-roman;
 }

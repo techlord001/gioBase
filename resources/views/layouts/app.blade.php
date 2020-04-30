@@ -84,9 +84,7 @@
     
                                     <div class="dropdown-menu dropdown-menu-right font-nav gbNav" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="/home">Home</a>
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
+                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
     
@@ -105,9 +103,15 @@
                 @yield('content')
             </main>
 
-            <footer class="navbar flex-column navbar-expand-md navbar-light gbNav text-center justify-content-center font-nav footer">
-                <p class="p-1 m-0">All Rights Reserved</p>
-                <p class="p-1 m-0">Site Designed and Developed by <a href="https://blackfrog.tech" target="_blank" rel="noopener noreferrer" class="text-decoration-none"><img src="{{ asset('images/bfLogo.png') }}" alt="Black Frog Tech Logo" width="25px" height="25px"><span class="px-1 text-secondary text-uppercase">Black Frog</span></a></p>
+            <footer class="navbar flex-row navbar-expand-md navbar-light gbNav text-center justify-content-between font-nav footer">
+                <div class="d-flex flex-column text-left justify-content-center align-content-center footer">
+                    <p class="p-1 m-0"><a href="/privacy-policy" class="text-decoration-none">Privacy Policy</a></p>
+                    <p class="p-1 m-0"><a href="/terms-conditions" class="text-decoration-none">Terms and Conditions</a></p>
+                </div>
+                <div class="d-flex flex-column text-right footer">
+                    <p class="p-1 m-0">All Rights Reserved</p>
+                    <p class="p-1 m-0">Site Designed and Developed by <a href="https://blackfrog.tech" target="_blank" rel="noopener noreferrer" class="text-decoration-none"><img src="{{ asset('images/bfLogo.png') }}" alt="Black Frog Tech Logo" width="25px" height="25px"><span class="px-1 text-secondary text-uppercase">Black Frog</span></a></p>
+                </div>
             </footer>
         </div>
     </div>

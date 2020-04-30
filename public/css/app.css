@@ -17084,6 +17084,14 @@ body {
   font-size: 0.8rem;
 }
 
+.footer > p > a {
+  color: snow !important;
+}
+
+.footer > p > a:hover {
+  color: rgba(255, 250, 250, 0.75) !important;
+}
+
 .font-logo {
   font-family: SFAlien, sans-serif;
   font-size: 9rem;
@@ -17114,6 +17122,10 @@ body {
   text-transform: uppercase;
 }
 
+.links > a:hover {
+  color: rgba(255, 250, 250, 0.75) !important;
+}
+
 .table-item-thumbnail {
   width: 60px;
 }
@@ -17121,6 +17133,10 @@ body {
 .icon {
   color: snow;
   font-size: 1rem;
+}
+
+.lower-roman {
+  list-style: lower-roman;
 }
 
 @font-face {

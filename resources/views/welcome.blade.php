@@ -34,6 +34,15 @@
                 top: 18px;
             }
 
+            .bottom {
+                position: absolute;
+                bottom: 18px;
+            }
+            
+            .bottom > a {
+                font-size: 0.9rem !important;
+            }
+
             .content {
                 text-align: center;
             }
@@ -68,6 +77,11 @@
                         <a href="/artists">Artists</a>
                         <a href="/records">Records</a>
                     </div>
+                </div>
+
+                <div class="links bottom">
+                    <a href="/privacy-policy">Privacy Policy</a>
+                    <a href="/terms-conditions">Terms and Conditions</a>
                 </div>
             </div>
         </div>
