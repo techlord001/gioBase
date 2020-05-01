@@ -33,6 +33,7 @@
             @endauth
         @endif
         <table class="table table-hover gbTable">
+            {{-- ******************** TABLE HEADERS ******************** --}}
             <thead>
                 <tr>
                     <th class="text-center">
@@ -78,6 +79,7 @@
             </thead>
             <tbody>
                 @switch(Request::url())
+                    {{-- ******************** LABELS LAYOUT ******************** --}}
                     @case(Request::is('labels'))
                         @forelse ($labels as $label)
                             <tr>
@@ -128,6 +130,7 @@
                         @endforelse
                         
                         @break
+                    {{-- ******************** ARTIST LAYOUT ******************** --}}
                     @case(Request::is('artists'))
                         @forelse ($artists as $artist)
                             <tr>
@@ -185,6 +188,7 @@
                         @endforelse
                         
                         @break
+                    {{-- ******************** RECORDS/HOME(USER COLLECTION) LAYOUT ******************** --}}
                     @case(Request::is('records') || Request::is('home'))
                         @forelse ($records as $record)
                             <tr>
@@ -231,6 +235,7 @@
                                 </td>
                                 <td class="text-right align-middle">
                                     <div class="d-flex flex-row flex-nowrap justify-content-around">
+                                        {{-- ******************** VIEW BUTTON ******************** --}}
                                         <a href="/records/{{ $record->id }}">
                                             <button type="button" class="btn btn-secondary btn-sm mx-1" title="View">
                                                 <span class="icon">
@@ -240,6 +245,7 @@
                                         </a>
                                         @auth
                                             @can('update', App\Record::class)
+                                                {{-- ******************** EDIT BUTTON ******************** --}}
                                                 <a href="/records/{{ $record->id }}/edit">
                                                     <button type="button" class="btn btn-info btn-sm mx-1" title="Edit">
                                                         <span class="icon">
@@ -262,6 +268,7 @@
                                                     }
                                                 @endphp
                                                 @if ($match)
+                                                    {{-- ******************** REMOVE FROM COLLECTION BUTTON ******************** --}}
                                                     <form action="/home/{{ $record->id }}" method="post" class="mx-1">
                                                         @method('delete')
                                                         @csrf
@@ -272,6 +279,7 @@
                                                         </button>
                                                     </form>
                                                 @else
+                                                    {{-- ******************** ADD TO COLLECTION BUTTON ******************** --}}
                                                     <form action="/home/{{ $record->id }}" method="post" class="mx-1">
                                                         @csrf
                                                         <button type="submit" class="btn btn-success btn-sm btn-dark" title="Add To Collection">
@@ -287,6 +295,7 @@
                                 </td>
                                 @if (Request::is('home'))
                                     <td class="text-right align-middle">
+                                        {{-- ******************** REMOVE FROM COLLECTION BUTTON ******************** --}}
                                         <form action="/home/{{ $record->id }}" method="post">
                                             @method('delete')
                                             @csrf
@@ -300,6 +309,7 @@
                                     @else
                                         @can('delete', App\Record::class)
                                             <td class="text-right align-middle">
+                                                {{-- ******************** DELETE ENTRY BUTTON ******************** --}}
                                                 <form action="/records/{{ $record->id }}" method="post">
                                                     @method('delete')
                                                     @csrf
