@@ -13,6 +13,9 @@
         case (Request::is('records/*')):
             $titleExt .= $record->name;
             break;
+        case (Request::is('users/*')):
+            $titleExt .= $user->name;
+            break;
         default:
             $titleExt .= "Vaporwave Database";
             break;
@@ -28,6 +31,7 @@
                 </a>
             </div>
             <div class="col-3 text-right">
+                {{-- ******************** ADD TO/REMOVE FROM COLLECTION BUTTON ******************** --}}
                 @if (Request::is('records/*'))
                     @php
                         $match = "";
@@ -66,7 +70,7 @@
                 @if (Request::is('artists/*') && $artist->label_id)
                     <h4><a href="/labels/{{ $artist->label->id }}">{{ $artist->label->name }}</a></h4>
                 @endif
-                @if (Request::is('labels/*') || Request::is('artists/*'))
+                @if (Request::is('labels/*', 'artists/*'))
                     @if ($description)
                         <p class="lead">{{ $description }}</p>
                     @else
@@ -182,31 +186,66 @@
                         </dd>
                     </dl>
                     @break
+                @case(Request::is('users/*'))
+                    <div class="col-8">
+                        <h3>My Record Collection</h3>
+                        <div class="list-group list-group-flush">
+                            @forelse ($user->records as $record)
+                                <a href="/records/{{ $record->id }}" class="list-group-item list-group-item-action">{{ $record->name }}</a>
+                            @empty
+                                <p class="list-group-item text-muted">No records in collection!</p>
+                            @endforelse
+                        </div>
+                    </div>
+                    @break
                 @default
                     
             @endswitch
         </div>
-        @auth
-            @if (auth()->user()->hasRole('Contributor') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
+        @if (!Request::is('users/*'))
+            @auth
+                @if (auth()->user()->hasRole('Contributor') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-4">
+                            <a href="{{ $url . $id }}/edit">
+                                <button type="button" class="btn btn-primary btn-lg btn-block">Edit</button>
+                            </a>
+                        </div>
+                    </div>
+                @endif
+            @endauth
+            @can('delete', App\Record::class)
                 <div class="row justify-content-center mt-4">
                     <div class="col-4">
-                        <a href="{{ $url . $id }}/edit">
-                            <button type="button" class="btn btn-primary btn-lg btn-block">Edit</button>
-                        </a>
+                        <form action="{{ $url . $id }}" method="post">
+                            @method('delete')
+                            @csrf
+                            <button type="submit" class="btn btn-danger btn-lg btn-block">Delete</button>
+                        </form>
                     </div>
                 </div>
-            @endif
-        @endauth
-        @can('delete', App\Record::class)
+            @endcan
+        @else
+        @if (Auth::user()->id === $id)
+            <div class="row justify-content-center mt-4">
+                <div class="col-4">
+                    <a href="{{ $url . $id }}/edit">
+                        <button type="button" class="btn btn-primary btn-lg btn-block">Edit Profile</button>
+                    </a>
+                </div>
+            </div>
+        @endif
+        @can('delete', App\User::class)
             <div class="row justify-content-center mt-4">
                 <div class="col-4">
                     <form action="{{ $url . $id }}" method="post">
                         @method('delete')
                         @csrf
-                        <button type="submit" class="btn btn-danger btn-lg btn-block">Delete</button>
+                        <button type="submit" class="btn btn-danger btn-lg btn-block">Delete Account</button>
                     </form>
                 </div>
             </div>
         @endcan
+        @endif
     </div>
 @endsection

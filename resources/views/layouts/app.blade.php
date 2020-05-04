@@ -45,6 +45,9 @@
                                     <a href="/labels" class="dropdown-item">Labels</a>
                                     <a href="/artists" class="dropdown-item">Artists</a>
                                     <a href="/records" class="dropdown-item">Records</a>
+                                    @auth
+                                        <a href="/users" class="dropdown-item">Collectors</a>                                        
+                                    @endauth
                                 </div>
                             </li>
                         </ul>
@@ -79,11 +82,17 @@
                             @else
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        @if (Auth::user()->image)
+                                            <img src="{{ asset('storage/' . Auth::user()->image) }}" alt="" class="img-thumbnail rounded avatar-thumbnail">
+                                        @endif
                                         {{ Auth::user()->name }} <span class="caret"></span>
                                     </a>
     
                                     <div class="dropdown-menu dropdown-menu-right font-nav gbNav" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="/home">Home</a>
+                                        <a class="dropdown-item" href="/users/{{ Auth::user()->id }}">Profile</a>
+                                        <a class="dropdown-item" href="/home">Collection</a>
+                                        <a class="dropdown-item" href="/home">Wishlist</a>
                                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>

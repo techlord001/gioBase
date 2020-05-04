@@ -13,6 +13,9 @@
         case (Request::is('records')):
             $titleExt .= "Records";
             break;
+        case (Request::is('users')):
+            $titleExt .= "Users";
+            break;
         case (Request::is('home')):
             $titleExt .= "Home";
             break;
@@ -25,7 +28,7 @@
 @section('content')
     <div class="container-fluid px-5 table-responsive">
         <h3 class="text-center">List of {{ $title }}</h3>
-        @if (!Request::is('home'))
+        @if (!Request::is('home', 'users'))
             @auth
                 @if (auth()->user()->hasRole('Contributor') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
                     <a href="{{ $link }}"><button class="btn btn-primary mb-3 px-2">Add New {{ $btnTitle }}</button></a>                    
@@ -44,34 +47,60 @@
                             @case(Request::is('artists'))
                                 Portrait
                                 @break
-                            @case(Request::is('records') || Request::is('home'))
+                            @case(Request::is('records', 'home'))
                                 Cover
+                                @break
+                            @case(Request::is('users'))
+                                Avatar
                                 @break
                             @default
                                 -
                         @endswitch
                     </th>
-                    <th>Name</th>
-                    @if (Request::is('records') || Request::is('home'))
+                    @if (!Request::is('users'))
+                        <th>Name</th>                        
+                    @else
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>No. of Records</th>
+                    @endif
+                    @if (Request::is('records', 'home'))
                         <th>Artist</th>
                     @endif
-                    @if (Request::is('artists') || Request::is('records') || Request::is('home'))
+                    @if (Request::is('artists', 'records', 'home'))
                     <th>Label</th>
                     @endif
-                    @if (Request::is('records') || Request::is('home'))
+                    @if (Request::is('records', 'home'))
                         <th class="text-center">Format</th>
                         <th class="text-center">Colour</th>
                         <th class="text-center">Released</th>
                     @endif
                     <th class="text-right">Options</th>
                     @if (!Request::is('home'))
-                        @can('delete', App\Label::class)
-                            <th class="text-right">Delete</th>
-                        @elsecan('delete', App\Artist::class)
-                            <th class="text-right">Delete</th>
-                        @elsecan('delete', App\Record::class)
-                            <th class="text-right">Delete</th>
-                        @endcan                        
+                        @switch(Request::url())
+                            @case(Request::is('labels'))
+                                @can('delete', App\Label::class)
+                                    <th class="text-right">Delete</th>
+                                @endcan
+                                @break
+                            @case(Request::is('artists'))
+                                @can('delete', App\Artist::class)
+                                    <th class="text-right">Delete</th>
+                                @endcan
+                                @break
+                            @case(Request::is('records'))
+                                @can('delete', App\Record::class)
+                                    <th class="text-right">Delete</th>
+                                @endcan
+                                @break
+                            @case(Request::is('users'))
+                                @can('delete', App\User::class)
+                                    <th class="text-right">Delete</th>
+                                @endcan
+                                @break
+                            @default
+                                
+                        @endswitch
                     @else
                         <th class="text-right">Remove</th>
                     @endif
@@ -189,7 +218,7 @@
                         
                         @break
                     {{-- ******************** RECORDS/HOME(USER COLLECTION) LAYOUT ******************** --}}
-                    @case(Request::is('records') || Request::is('home'))
+                    @case(Request::is('records', 'home'))
                         @forelse ($records as $record)
                             <tr>
                                 <td class="align-middle text-center">
@@ -329,6 +358,52 @@
                             </tr>
                         @endforelse
                         
+                        @break
+                    {{-- ******************** USERS LAYOUT ******************** --}}
+                    @case(Request::is('users'))
+                        @forelse ($users as $user)
+                            <tr>
+                                <td class="align-middle text-center">
+                                    @if ($user->image)
+                                        <img src="{{ asset('storage/' . $user->image) }}" alt="" class="img-thumbnail rounded table-item-thumbnail">
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td class="align-middle">{{ $user->name }}</td>
+                                <td class="align-middle">{{ $user->role->role }}</td>
+                                <td class="align-middle">{{ count($user->records) }} Records</td>
+                                <td class="align-middle text-right">
+                                    {{-- ******************** VIEW BUTTON ******************** --}}
+                                    <a href="/users/{{ $user->id }}">
+                                        <button type="button" class="btn btn-secondary btn-sm" title="View">
+                                            <span class="icon">
+                                                <i class="fas fa-eye"></i>                                                    
+                                            </span>
+                                        </button>
+                                    </a>
+                                </td>
+                                @can('delete', App\User::class)
+                                    <td class="text-right align-middle">
+                                        {{-- ******************** DELETE USER BUTTON ******************** --}}
+                                        <form action="/records/{{ $user->id }}" method="post">
+                                            @method('delete')
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger btn-sm" title="Delete Entry">
+                                                <span class="icon">
+                                                    <i class="fas fa-trash-alt"></i>                                                    
+                                                </span>
+                                            </button>
+                                        </form>
+                                    </td>
+                                @endcan
+                            </tr>
+                        @empty
+                            <tr class="align-middle">
+                                <td class="text-center" class="text-center" colspan="100%">No users!</td>
+                            </tr>                            
+                        @endforelse
+                            
                         @break
                     @default
                         

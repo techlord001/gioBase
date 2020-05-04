@@ -17139,6 +17139,10 @@ body {
   list-style: lower-roman;
 }
 
+.avatar-thumbnail {
+  max-height: 40px;
+}
+
 @font-face {
   font-family: SFAlien;
   src: url(/fonts/SFAlienEncounters.ttf?aeabf9ec279e70633271d6b36a460954);

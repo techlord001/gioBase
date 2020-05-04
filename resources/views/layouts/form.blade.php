@@ -32,6 +32,9 @@
             case (Request::is('records/*')):
                 $titleExt .= $record->name;
                 break;
+            case (Request::is('users/*')):
+                $titleExt .= "Profile";
+                break;
             default:
                 $titleExt .= "Entry";
                 break;
@@ -172,13 +175,15 @@
                     @enderror
                 </div>
             </div>
-            <div class="col form-group">
-                <label for="homepage">Homepage</label>
-                <input type="url" name="homepage" id="homepage" class="form-control" value="{{ $homepage ?? old('released') }}">
-                @error('homepage')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
-            </div>
+            @if (!Request::is('users/*/edit'))
+                <div class="col form-group">
+                    <label for="homepage">Homepage</label>
+                    <input type="url" name="homepage" id="homepage" class="form-control" value="{{ $homepage ?? old('released') }}">
+                    @error('homepage')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>                
+            @endif
         </div>
         @if (Request::is('*/*/edit'))
             <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">Save Edit</button>            

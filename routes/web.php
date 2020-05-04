@@ -53,7 +53,14 @@ Route::get('/records/{record}/edit', 'RecordController@edit')->name('records.edi
 Route::patch('/records/{record}', 'RecordController@update')->name('records.update')->middleware(['auth', 'verified']);
 Route::delete('/records/{record}', 'RecordController@destroy')->name('records.destroy')->middleware(['auth', 'verified']);
 
+/********** Users Routes **********/
+Route::get('/users', 'UserController@index')->name('users.index')->middleware(['auth', 'verified']);
+Route::get('/users/{user}', 'UserController@show')->name('users.show')->middleware(['auth', 'verified']);
+Route::get('/users/{user}/edit', 'UserController@edit')->name('users.edit')->middleware(['auth', 'verified']);
+Route::patch('/users/{user}', 'UserController@update')->name('users.update')->middleware(['auth', 'verified']);
+Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy')->middleware(['auth', 'verified']);
 
+// Auth::routes();
 Auth::routes(['verify' => true]);
 
 /********** Home/User Routes **********/
