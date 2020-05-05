@@ -53,7 +53,7 @@ Route::get('/records/{record}/edit', 'RecordController@edit')->name('records.edi
 Route::patch('/records/{record}', 'RecordController@update')->name('records.update')->middleware(['auth', 'verified']);
 Route::delete('/records/{record}', 'RecordController@destroy')->name('records.destroy')->middleware(['auth', 'verified']);
 
-/********** Users Routes **********/
+/********** Collectors Routes **********/
 Route::get('/collectors', 'UserController@index')->name('users.index')->middleware(['auth', 'verified']);
 Route::get('/collectors/{user}', 'UserController@show')->name('users.show')->middleware(['auth', 'verified']);
 Route::get('/collectors/{user}/edit', 'UserController@edit')->name('users.edit')->middleware(['auth', 'verified']);
@@ -63,7 +63,10 @@ Route::delete('/collectors/{user}', 'UserController@destroy')->name('users.destr
 // Auth::routes();
 Auth::routes(['verify' => true]);
 
-/********** Home/User Routes **********/
+/********** Home/Collection/Wishlist Routes **********/
 Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/home/{record}', 'HomeController@store')->name('home.store')->middleware(['auth', 'verified']);
+Route::get('/home/collection', 'HomeController@collectionIndex')->name('collector.collection.index');
+Route::get('/home/wishlist', 'HomeController@wishlistIndex')->name('collector.wishlist.index');
+Route::post('/home/collection/{record}', 'HomeController@collectionstore')->name('collector.collection.store')->middleware(['auth', 'verified']);
+Route::post('/home/wishlist/{record}', 'HomeController@wishliststore')->name('collector.wishlist.store')->middleware(['auth', 'verified']);
 Route::delete('/home/{record}', 'HomeController@destroy')->name('home.destroy')->middleware(['auth', 'verified']);

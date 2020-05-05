@@ -16,6 +16,12 @@
         case (Request::is('collectors')):
             $titleExt .= "Collectors";
             break;
+        case (Request::is('home/collection')):
+            $titleExt .= "My Collection";
+            break;
+        case (Request::is('home/Wishlist')):
+            $titleExt .= "My Wishlist";
+            break;
         case (Request::is('home')):
             $titleExt .= "Home";
             break;
@@ -28,7 +34,7 @@
 @section('content')
     <div class="container-fluid px-5 table-responsive">
         <h3 class="text-center">List of {{ $title }}</h3>
-        @if (!Request::is('home', 'collectors'))
+        @if (!Request::is('home', 'collectors', 'home/*'))
             @auth
                 @if (auth()->user()->hasRole('Contributor') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
                     <a href="{{ $link }}"><button class="btn btn-primary mb-3 px-2">Add New {{ $btnTitle }}</button></a>                    
@@ -47,7 +53,7 @@
                             @case(Request::is('artists'))
                                 Portrait
                                 @break
-                            @case(Request::is('records', 'home'))
+                            @case(Request::is('records', 'home', 'home/*'))
                                 Cover
                                 @break
                             @case(Request::is('collectors'))
@@ -64,19 +70,19 @@
                         <th>Role</th>
                         <th>No. of Records</th>
                     @endif
-                    @if (Request::is('records', 'home'))
+                    @if (Request::is('records', 'home', 'home/*'))
                         <th>Artist</th>
                     @endif
-                    @if (Request::is('artists', 'records', 'home'))
+                    @if (Request::is('artists', 'records', 'home', 'home/*'))
                     <th>Label</th>
                     @endif
-                    @if (Request::is('records', 'home'))
+                    @if (Request::is('records', 'home', 'home/*'))
                         <th class="text-center">Format</th>
                         <th class="text-center">Colour</th>
                         <th class="text-center">Released</th>
                     @endif
                     <th class="text-right">Options</th>
-                    @if (!Request::is('home'))
+                    @if (!Request::is('home', 'home/*'))
                         @switch(Request::url())
                             @case(Request::is('labels'))
                                 @can('delete', App\Label::class)
@@ -217,8 +223,8 @@
                         @endforelse
                         
                         @break
-                    {{-- ******************** RECORDS/HOME(USER COLLECTION) LAYOUT ******************** --}}
-                    @case(Request::is('records', 'home'))
+                    {{-- ******************** RECORDS/HOME(USER COLLECTION/WISHLIST) LAYOUT ******************** --}}
+                    @case(Request::is('records', 'home', 'home/*'))
                         @forelse ($records as $record)
                             <tr>
                                 <td class="align-middle text-center">
@@ -285,31 +291,34 @@
                                             @endcan
                                             @if (Request::is('records'))
                                                 @php
-                                                    $match = "";
+                                                    $inWishlist = "";
+                                                    $inCollection = "";
     
                                                     foreach ($userRecords as $userRecord) {
                                                         if ($userRecord->id === $record->id) {
-                                                            $match = true;
+                                                            if ($userRecord->pivot->wishlist == true) {
+                                                                $inWishlist = true;
+                                                            } elseif ($userRecord->pivot->wishlist == false) {
+                                                                $inCollection = true;
+                                                            }
                                                             break;
                                                         } else {
-                                                            $match = false;
+                                                            $inWishlist = false;
+                                                            $inCollection = false;
                                                         }
                                                     }
                                                 @endphp
-                                                @if ($match)
-                                                    {{-- ******************** REMOVE FROM COLLECTION BUTTON ******************** --}}
-                                                    <form action="/home/{{ $record->id }}" method="post" class="mx-1">
-                                                        @method('delete')
+                                                @if (!$inCollection && !$inWishlist)
+                                                    {{-- ******************** ADD TO WISHLIST/COLLECTION BUTTONS ******************** --}}
+                                                    <form action="/home/wishlist/{{ $record->id }}" method="post" class="mx-1">
                                                         @csrf
-                                                        <button type="submit" class="btn btn-success btn-sm" title="In Collection">
+                                                        <button type="submit" class="btn btn-success btn-sm btn-dark" title="Add To Wishlist" name="wishlist" value="true">
                                                             <span class="icon">
-                                                                <i class="fas fa-check-square"></i>                                                    
+                                                                <i class="far fa-heart"></i>                                                    
                                                             </span>
                                                         </button>
-                                                    </form>
-                                                @else
-                                                    {{-- ******************** ADD TO COLLECTION BUTTON ******************** --}}
-                                                    <form action="/home/{{ $record->id }}" method="post" class="mx-1">
+                                                    </form>                                                
+                                                    <form action="/home/collection/{{ $record->id }}" method="post" class="mx-1">
                                                         @csrf
                                                         <button type="submit" class="btn btn-success btn-sm btn-dark" title="Add To Collection">
                                                             <span class="icon">
@@ -317,39 +326,95 @@
                                                             </span>
                                                         </button>
                                                     </form>                                                
+                                                @else
+                                                    @if ($inWishlist)
+                                                        {{-- ******************** REMOVE FROM WISHLIST BUTTON & ADD TO COLLECTION BUTTON ******************** --}}
+                                                        <form action="/home/{{ $record->id }}" method="post" class="mx-1">
+                                                            @method('delete')
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-success btn-sm" title="In Wishlist">
+                                                                <span class="icon">
+                                                                    <i class="fas fa-heart"></i>                                                    
+                                                                </span>
+                                                            </button>
+                                                        </form>                                                
+                                                        <form action="/home/collection/{{ $record->id }}" method="post" class="mx-1">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-success btn-sm btn-dark" title="Add To Collection">
+                                                                <span class="icon">
+                                                                    <i class="fas fa-plus-square"></i>                                                    
+                                                                </span>
+                                                            </button>
+                                                        </form> 
+                                                    @endif
+                                                    @if ($inCollection)
+                                                        {{-- ******************** REMOVE FROM COLLECTION BUTTON & ADD TO WISHLIST BUTTON ******************** --}}
+                                                        <form action="/home/wishlist/{{ $record->id }}" method="post" class="mx-1">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-success btn-sm btn-dark" title="Add To Wishlist" name="wishlist" value="true">
+                                                                <span class="icon">
+                                                                    <i class="far fa-heart"></i>                                                    
+                                                                </span>
+                                                            </button>
+                                                        </form>
+                                                        <form action="/home/{{ $record->id }}" method="post" class="mx-1">
+                                                            @method('delete')
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-success btn-sm" title="In Collection">
+                                                                <span class="icon">
+                                                                    <i class="fas fa-check-square"></i>                                                    
+                                                                </span>
+                                                            </button>
+                                                        </form>                                                        
+                                                    @endif
                                                 @endif
                                             @endif
                                         @endauth
                                     </div>
                                 </td>
-                                @if (Request::is('home'))
-                                    <td class="text-right align-middle">
-                                        {{-- ******************** REMOVE FROM COLLECTION BUTTON ******************** --}}
-                                        <form action="/home/{{ $record->id }}" method="post">
-                                            @method('delete')
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm" title="Remove From Collection">
-                                                <span class="icon">
-                                                    <i class="fas fa-minus-square"></i>                                                    
-                                                </span>
-                                            </button>
-                                        </form>
-                                    </td>
-                                    @else
-                                        @can('delete', App\Record::class)
-                                            <td class="text-right align-middle">
-                                                {{-- ******************** DELETE ENTRY BUTTON ******************** --}}
-                                                <form action="/records/{{ $record->id }}" method="post">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-danger btn-sm" title="Delete Entry">
-                                                        <span class="icon">
-                                                            <i class="fas fa-trash-alt"></i>                                                    
-                                                        </span>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        @endcan
+                                @if (Request::is('home', 'home/*'))
+                                    {{-- ******************** REMOVE FROM WISHLIST/COLLECTION BUTTON ******************** --}}
+                                    @if (Request::is('home/wishlist'))
+                                        <td class="text-right align-middle">
+                                            <form action="/home/{{ $record->id }}" method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger btn-sm" title="Remove From Wishlist">
+                                                    <span class="icon">
+                                                        <i class="far fa-heart"></i>                                                    
+                                                    </span>
+                                                </button>
+                                            </form>
+                                        </td>                                        
+                                    @endif
+                                    @if (Request::is('home/collection'))
+                                        <td class="text-right align-middle">
+                                            <form action="/home/{{ $record->id }}" method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger btn-sm" title="Remove From Collection">
+                                                    <span class="icon">
+                                                        <i class="fas fa-minus-square"></i>                                                    
+                                                    </span>
+                                                </button>
+                                            </form>
+                                        </td>                                        
+                                    @endif
+                                @else
+                                    @can('delete', App\Record::class)
+                                        <td class="text-right align-middle">
+                                            {{-- ******************** DELETE ENTRY BUTTON ******************** --}}
+                                            <form action="/records/{{ $record->id }}" method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger btn-sm" title="Delete Entry">
+                                                    <span class="icon">
+                                                        <i class="fas fa-trash-alt"></i>                                                    
+                                                    </span>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    @endcan
                                 @endif
                             </tr>
                         @empty
@@ -359,7 +424,7 @@
                         @endforelse
                         
                         @break
-                    {{-- ******************** USERS LAYOUT ******************** --}}
+                    {{-- ******************** COLLECTORS LAYOUT ******************** --}}
                     @case(Request::is('collectors'))
                         @forelse ($users as $user)
                             <tr>
@@ -428,6 +493,8 @@
                     {{ $artists->links() }}               
                 @elseif (isset($records))
                     {{ $records->links() }}              
+                @elseif (isset($users))
+                    {{ $users->links() }}              
                 @endif
             </ul>
         </nav>

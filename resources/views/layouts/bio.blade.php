@@ -34,31 +34,56 @@
                 {{-- ******************** ADD TO/REMOVE FROM COLLECTION BUTTON ******************** --}}
                 @if (Request::is('records/*'))
                     @php
-                        $match = "";
+                        $inWishlist = "";
+                        $inCollection = "";
 
-                        if (isset($userRecords)) {
-                            foreach ($userRecords as $userRecord) {
-                                if ($userRecord->id === $record->id) {
-                                    $match = true;
-                                    break;
-                                } else {
-                                    $match = false;
+                        foreach ($userRecords as $userRecord) {
+                            if ($userRecord->id === $record->id) {
+                                if ($userRecord->pivot->wishlist == true) {
+                                    $inWishlist = true;
+                                } elseif ($userRecord->pivot->wishlist == false) {
+                                    $inCollection = true;
                                 }
-                            }                            
+                                break;
+                            } else {
+                                $inWishlist = false;
+                                $inCollection = false;
+                            }
                         }
                     @endphp
                     @auth
-                    @if ($match)
-                        <form action="/home/{{ $record->id }}" method="post">
-                            @method('delete')
+                    @if (!$inCollection && !$inWishlist)
+                        <form action="/home/wishlist/{{ $record->id }}" method="post">
                             @csrf
-                            <button type="submit" class="btn btn-outline-success btn-sm">Remove from Collection</button>
+                            <button type="submit" class="btn btn-outline-info btn-sm my-2">Add to Wishlist</button>
+                        </form>
+                        <form action="/home/collection/{{ $record->id }}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-info btn-sm my-2">Add to Collection</button>
                         </form>
                     @else
-                        <form action="/home/{{ $record->id }}" method="post">
-                            @csrf
-                            <button type="submit" class="btn btn-outline-info btn-sm">Add to Collection</button>
-                        </form>
+                        @if ($inWishlist)
+                            <form action="/home/{{ $record->id }}" method="post">
+                                @method('delete')
+                                @csrf
+                                <button type="submit" class="btn btn-outline-success btn-sm my-2">Remove from Wishlist</button>
+                            </form>
+                            <form action="/home/collection/{{ $record->id }}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-info btn-sm my-2">Add to Collection</button>
+                            </form>                            
+                        @endif
+                        @if ($inCollection)
+                            <form action="/home/wishlist/{{ $record->id }}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-info btn-sm my-2">Add to Wishlist</button>
+                            </form>
+                            <form action="/home/{{ $record->id }}" method="post">
+                                @method('delete')
+                                @csrf
+                                <button type="submit" class="btn btn-outline-success btn-sm my-2">Remove from Collection</button>
+                            </form>                            
+                        @endif
                     @endif
                     @endauth
                 @endif
@@ -205,7 +230,7 @@
                     <div class="col-8">
                         <h3>My Record Collection</h3>
                         <div class="list-group list-group-flush">
-                            @forelse ($user->records as $record)
+                            @forelse ($userRecords as $record)
                                 <a href="/records/{{ $record->id }}" class="list-group-item list-group-item-action">{{ $record->name }}</a>
                             @empty
                                 <p class="list-group-item text-muted">No records in collection!</p>

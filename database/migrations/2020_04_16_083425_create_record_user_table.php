@@ -17,6 +17,7 @@ class CreateRecordUserTable extends Migration
             $table->id('id');
             $table->foreignId('record_id');
             $table->foreignId('user_id');
+            $table->boolean('wishlist');
             $table->timestamps();
         });
     }

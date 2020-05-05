@@ -52,7 +52,7 @@ class UserController extends Controller
         $user = User::select('id', 'name', 'image', 'role_id')->with('records')->find($user->id);
         
         if (Auth::user()) {
-            $userRecords = User::find(Auth::user()->id)->records()->get();
+            $userRecords = User::select('id', 'name')->find(Auth::user()->id)->records()->where('wishlist', 0)->get();
             return view('users.show', compact('user'), compact('userRecords'));
         } else {
             return view('users.show', compact('user'));

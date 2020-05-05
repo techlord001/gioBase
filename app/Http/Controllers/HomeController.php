@@ -24,20 +24,52 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        $records = User::find(Auth::user()->id)->records()->orderBy('name')->paginate(10);
+    // public function index()
+    // {
+    //     $records = User::select('id', 'name')->find(Auth::user()->id)->records()->orderBy('name')->paginate(10);
 
-        return view('home', compact('records'));
+    //     return view('home', compact('records'));
+    // }
+
+    public function collectionIndex()
+    {
+        $records = User::select('id', 'name')->find(Auth::user()->id)->records()->where('wishlist', 0)->orderBy('name')->paginate(10);
+
+        return view('collector.collection.index', compact('records'));
+    } 
+
+    public function wishlistIndex()
+    {
+        $records = User::select('id', 'name')->find(Auth::user()->id)->records()->where('wishlist', 1)->orderBy('name')->paginate(10);
+
+        return view('collector.wishlist.index', compact('records'));
     }    
 
-    public function store(Record $record, User $user)
-    {
-        $user = User::findOrFail(Auth::user()->id);
+    // public function store(Record $record, User $user)
+    // {
+    //     $user = User::select('id', 'name')->findOrFail(Auth::user()->id);
 
-        $user->records()->syncWithoutDetaching($record->id);
+    //     $user->records()->syncWithoutDetaching([$record->id => [ 'wishlist' => true ]]);
         
-        return redirect('/records/');
+    //     return redirect('/records/');
+    // }
+
+    public function collectionStore(Record $record, User $user)
+    {
+        $user = User::select('id', 'name')->findOrFail(Auth::user()->id);
+
+        $user->records()->syncWithoutDetaching([$record->id => [ 'wishlist' => false ]]);
+        
+        return redirect()->back();
+    }
+
+    public function wishlistStore(Record $record, User $user)
+    {
+        $user = User::select('id', 'name')->findOrFail(Auth::user()->id);
+
+        $user->records()->syncWithoutDetaching([$record->id => [ 'wishlist' => true ]]);
+        
+        return redirect()->back();
     }
 
     public function destroy(Record $record, User $user)
@@ -46,6 +78,6 @@ class HomeController extends Controller
 
         $user->records()->detach($record->id);
         
-        return redirect('/home/');
+        return redirect()->back();
     }
 }

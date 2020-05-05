@@ -45,7 +45,7 @@ class RecordController extends Controller
         $records = Record::with(['artist', 'artist.label', 'genres', 'format', 'colour', 'users'])->orderBy('name')->paginate(10);
 
         if (Auth::user()) {
-            $userRecords = User::find(Auth::user()->id)->records()->get();
+            $userRecords = User::select('id', 'name')->find(Auth::user()->id)->records()->get();
             return view('records.index', compact('records'), compact('userRecords'));
         } else {
             return view('records.index', compact('records'));
@@ -82,7 +82,7 @@ class RecordController extends Controller
     public function show(Record $record)
     {
         if (Auth::user()) {
-            $userRecords = User::find(Auth::user()->id)->records()->get();
+            $userRecords = User::select('id', 'name')->find(Auth::user()->id)->records()->get();
             return view('records.show', compact('record'), compact('userRecords'));
         } else {
             return view('records.show', compact('record'));

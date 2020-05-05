@@ -39,7 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function records()
     {
-        return $this->belongsToMany(Record::class)->withTimestamps();
+        return $this->belongsToMany(Record::class)->withPivot('wishlist')->withTimestamps();
     }
 
     public function role()

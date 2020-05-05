@@ -90,8 +90,8 @@
     
                                     <div class="dropdown-menu dropdown-menu-right font-nav gbNav" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="/collectors/{{ Auth::user()->id }}">Profile</a>
-                                        <a class="dropdown-item" href="/home">Collection</a>
-                                        <a class="dropdown-item" href="/home">Wishlist</a>
+                                        <a class="dropdown-item" href="/home/collection">Collection</a>
+                                        <a class="dropdown-item" href="/home/wishlist">Wishlist</a>
                                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             {{ __('Logout') }}
                                         </a>
