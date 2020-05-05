@@ -3,7 +3,7 @@
 @php
     $name = $user->name;
     $title = "Update My Profile";
-    $route = "/users/" . $user->id;
+    $route = "/collectors/" . $user->id;
     $nameLabel = "Username";
     $imageLabel = "Avatar";
     // $homepage = "";

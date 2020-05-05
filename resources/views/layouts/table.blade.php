@@ -13,8 +13,8 @@
         case (Request::is('records')):
             $titleExt .= "Records";
             break;
-        case (Request::is('users')):
-            $titleExt .= "Users";
+        case (Request::is('collectors')):
+            $titleExt .= "Collectors";
             break;
         case (Request::is('home')):
             $titleExt .= "Home";
@@ -28,7 +28,7 @@
 @section('content')
     <div class="container-fluid px-5 table-responsive">
         <h3 class="text-center">List of {{ $title }}</h3>
-        @if (!Request::is('home', 'users'))
+        @if (!Request::is('home', 'collectors'))
             @auth
                 @if (auth()->user()->hasRole('Contributor') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
                     <a href="{{ $link }}"><button class="btn btn-primary mb-3 px-2">Add New {{ $btnTitle }}</button></a>                    
@@ -50,14 +50,14 @@
                             @case(Request::is('records', 'home'))
                                 Cover
                                 @break
-                            @case(Request::is('users'))
+                            @case(Request::is('collectors'))
                                 Avatar
                                 @break
                             @default
                                 -
                         @endswitch
                     </th>
-                    @if (!Request::is('users'))
+                    @if (!Request::is('collectors'))
                         <th>Name</th>                        
                     @else
                         <th>Username</th>
@@ -93,7 +93,7 @@
                                     <th class="text-right">Delete</th>
                                 @endcan
                                 @break
-                            @case(Request::is('users'))
+                            @case(Request::is('collectors'))
                                 @can('delete', App\User::class)
                                     <th class="text-right">Delete</th>
                                 @endcan
@@ -360,7 +360,7 @@
                         
                         @break
                     {{-- ******************** USERS LAYOUT ******************** --}}
-                    @case(Request::is('users'))
+                    @case(Request::is('collectors'))
                         @forelse ($users as $user)
                             <tr>
                                 <td class="align-middle text-center">
@@ -375,13 +375,23 @@
                                 <td class="align-middle">{{ count($user->records) }} Records</td>
                                 <td class="align-middle text-right">
                                     {{-- ******************** VIEW BUTTON ******************** --}}
-                                    <a href="/users/{{ $user->id }}">
+                                    <a href="/collectors/{{ $user->id }}">
                                         <button type="button" class="btn btn-secondary btn-sm" title="View">
                                             <span class="icon">
                                                 <i class="fas fa-eye"></i>                                                    
                                             </span>
                                         </button>
                                     </a>
+                                    {{-- ******************** EDIT BUTTON ******************** --}}
+                                    @if (Auth::user()->hasRole('Master'))
+                                    <a href="/collectors/{{ $user->id }}/edit">
+                                        <button type="button" class="btn btn-info btn-sm mx-1" title="Edit">
+                                            <span class="icon">
+                                                <i class="fas fa-edit"></i>                                                    
+                                            </span>
+                                        </button>
+                                    </a> 
+                                    @endif
                                 </td>
                                 @can('delete', App\User::class)
                                     <td class="text-right align-middle">
@@ -400,7 +410,7 @@
                             </tr>
                         @empty
                             <tr class="align-middle">
-                                <td class="text-center" class="text-center" colspan="100%">No users!</td>
+                                <td class="text-center" class="text-center" colspan="100%">No collectors!</td>
                             </tr>                            
                         @endforelse
                             

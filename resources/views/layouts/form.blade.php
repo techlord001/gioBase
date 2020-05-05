@@ -32,7 +32,7 @@
             case (Request::is('records/*')):
                 $titleExt .= $record->name;
                 break;
-            case (Request::is('users/*')):
+            case (Request::is('collectors/*')):
                 $titleExt .= "Profile";
                 break;
             default:
@@ -56,7 +56,10 @@
             <div class="form-row">
                 <div class="col form-group">
                     <label for="name">{{ $nameLabel }}</label>
-                    <input type="text" name="name" id="name" autocomplete="off" value="{{ $name ?? old('name') }}" class="form-control">
+                    <input type="text" name="name" id="name" autocomplete="off" value="{{ $name ?? old('name') }}" class="form-control"
+                    @if (Request::is('collectors/*') && Auth::user()->id !== $user->id)
+                        disabled
+                    @endif>
                     @error('name')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -169,20 +172,41 @@
                 <label for="image">Upload {{ $imageLabel }}</label>
                 <div class="custom-file">
                     <span class="custom-file-label" for="image">Choose an image</span>
-                    <input type="file" name="image" id="image" class="custom-file-input">
+                    <input type="file" name="image" id="image" class="custom-file-input"
+                    @if (Request::is('collectors/*') && Auth::user()->id !== $user->id)
+                        disabled
+                    @endif>
                     @error('image')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
             </div>
-            @if (!Request::is('users/*/edit'))
+            @if (!Request::is('collectors/*/edit'))
                 <div class="col form-group">
                     <label for="homepage">Homepage</label>
                     <input type="url" name="homepage" id="homepage" class="form-control" value="{{ $homepage ?? old('released') }}">
                     @error('homepage')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
-                </div>                
+                </div>
+            @else
+                @if (Auth::user()->hasRole('Master') && Auth::user()->id !== $user->id)
+                    <div class="col form-group">
+                        <label for="role_id">Role</label>
+                        <select name="role_id" id="role_id" class="form-control">
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->id }}"
+                                    @if ($role->id === $user->role->id)
+                                        selected
+                                    @endif
+                                    >{{ $role->role }}</option>
+                            @endforeach
+                        </select>
+                        @error('homepage')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div> 
+                @endif                            
             @endif
         </div>
         @if (Request::is('*/*/edit'))

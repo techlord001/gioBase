@@ -13,7 +13,7 @@
         case (Request::is('records/*')):
             $titleExt .= $record->name;
             break;
-        case (Request::is('users/*')):
+        case (Request::is('collectors/*')):
             $titleExt .= $user->name;
             break;
         default:
@@ -67,6 +67,9 @@
         <div class="row justify-content-center mt-3">
             <div class="col-5">
                 <h1>{{ $name }}</h1>
+                @if (Request::is('collectors/*'))
+                    <h5>{{ $user->role->role }}</h5>
+                @endif
                 @if (Request::is('artists/*') && $artist->label_id)
                     <h4><a href="/labels/{{ $artist->label->id }}">{{ $artist->label->name }}</a></h4>
                 @endif
@@ -90,7 +93,16 @@
             </div>
         </div>
         <div class="row justify-content-center mt-3">
+            {{-- ******************** MIDDLE LAYOUT ******************** 
+                /
+                /
+                /   Display lists relevant to each page 
+                /   e.g. for a Label page will list all associated artists
+                /
+                / 
+                /   ******************** ******************** --}}
             @switch(Request::url())
+                {{-- ******************** LABELS MIDDLE LAYOUT ******************** --}}
                 @case(Request::is('labels/*'))
                     <div class="col-5">
                         <h3>Artists</h3>
@@ -115,6 +127,7 @@
                         </div>
                     </div>                   
                     @break
+                {{-- ******************** ARTISTS MIDDLE LAYOUT ******************** --}}
                 @case(Request::is('artists/*'))
                     <div class="col-8">
                         <h3>Records</h3>
@@ -127,6 +140,7 @@
                         </div>
                     </div>
                     @break
+                {{-- ******************** RECORDS MIDDLE LAYOUT ******************** --}}
                 @case(Request::is('records/*'))
                     <dl class="row">
                         <dt class="col-6 text-right">Artist</dt>
@@ -186,7 +200,8 @@
                         </dd>
                     </dl>
                     @break
-                @case(Request::is('users/*'))
+                {{-- ******************** USERS MIDDLE LAYOUT ******************** --}}
+                @case(Request::is('collectors/*'))
                     <div class="col-8">
                         <h3>My Record Collection</h3>
                         <div class="list-group list-group-flush">
@@ -202,7 +217,15 @@
                     
             @endswitch
         </div>
-        @if (!Request::is('users/*'))
+        {{-- ******************** BOTTOM LAYOUT ******************** 
+            /
+            /
+            /   Display functional buttons to edit and/or delete 
+            /   (based on role)
+            /
+            / 
+            /   ******************** ******************** --}}
+        @if (!Request::is('collectors/*'))
             @auth
                 @if (auth()->user()->hasRole('Contributor') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
                     <div class="row justify-content-center mt-4">
@@ -226,7 +249,7 @@
                 </div>
             @endcan
         @else
-        @if (Auth::user()->id === $id)
+        @if (Auth::user()->id === $id || auth()->user()->hasRole('Master'))
             <div class="row justify-content-center mt-4">
                 <div class="col-4">
                     <a href="{{ $url . $id }}/edit">

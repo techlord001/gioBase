@@ -4,7 +4,7 @@
     $section = "Users";
     $name = $user->name;
     $image = $user->image;
-    $url = "/users/";
+    $url = "/collectors/";
     $id = $user->id;
     // $homepage = "";
 @endphp

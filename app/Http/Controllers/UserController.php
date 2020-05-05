@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Role;
 use Illuminate\Database\Console\Migrations\StatusCommand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,12 +11,19 @@ use Intervention\Image\Facades\Image;
 
 class UserController extends Controller
 {
-    protected function validateData($user)
+    protected function validateData($command, $user)
     {
-        return request()->validate([
-            'name' => 'required|unique:App\User,name,' . $user->id,
-            'image' => 'sometimes|file|image|max:2048'
-        ]);
+        if ($command === 'userEdit') {
+            return request()->validate([
+                'name' => 'required|unique:App\User,name,' . $user->id,
+                'image' => 'sometimes|file|image|max:2048'
+            ]);
+        } elseif ($command === 'masterEdit') {
+            return request()->validate([
+                'role_id' => 'required|integer|digits_between:1,4'
+            ]);
+        }
+        
     }
 
     protected function storeImage($user)
@@ -55,6 +63,9 @@ class UserController extends Controller
     {
         if (Auth::user()->id === $user->id) {
             return view('users.edit', compact('user'));
+        } elseif (Auth::user()->hasRole('Master')) {
+            $roles = Role::all();
+            return view('users.edit', compact('user'), compact('roles'));
         } else {
             return abort(403);
         }
@@ -65,7 +76,7 @@ class UserController extends Controller
         if (Auth::user()->id === $user->id) {
             $oldImage = $user->image;
     
-            $user->update($this->validateData($user));
+            $user->update($this->validateData('userEdit', $user));
     
             $this->storeImage($user);
     
@@ -75,7 +86,12 @@ class UserController extends Controller
                 }
             }
     
-            return redirect('/users/' . $user->id);
+            return redirect('/collectors/' . $user->id);
+        } elseif (Auth::user()->hasRole('Master')) {
+
+            $user->update($this->validateData('masterEdit', $user));
+
+            return redirect('/collectors/' . $user->id);
         } else {
             return abort(403);
         }
@@ -91,6 +107,6 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect('/users');
+        return redirect('/collectors');
     }
 }
