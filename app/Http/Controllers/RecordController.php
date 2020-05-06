@@ -111,7 +111,9 @@ class RecordController extends Controller
         
         $genres = request("genres");
 
-        $record->genres()->sync(array_keys($genres));
+        if (isset($genres)) {
+            $record->genres()->sync(array_keys($genres));
+        }
 
         $this->storeImage($record);
 

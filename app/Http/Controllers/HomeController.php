@@ -24,12 +24,19 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    // public function index()
-    // {
-    //     $records = User::select('id', 'name')->find(Auth::user()->id)->records()->orderBy('name')->paginate(10);
+    public function index()
+    {
+        // $records = User::select('id', 'name')->find(Auth::user()->id)->records()->orderBy('name')->paginate(10);
 
-    //     return view('home', compact('records'));
-    // }
+        return redirect('home/profile');
+    }
+
+    public function profileIndex()
+    {
+        $user = User::select('id', 'name', 'image', 'role_id')->find(Auth::user()->id);
+        
+        return view('collector.profile.index', compact('user'));
+    }
 
     public function collectionIndex()
     {

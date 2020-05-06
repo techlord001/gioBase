@@ -60,13 +60,30 @@ Route::get('/collectors/{user}/edit', 'UserController@edit')->name('users.edit')
 Route::patch('/collectors/{user}', 'UserController@update')->name('users.update')->middleware(['auth', 'verified']);
 Route::delete('/collectors/{user}', 'UserController@destroy')->name('users.destroy')->middleware(['auth', 'verified']);
 
+/********** Colours Routes **********/
+Route::get('/colours', 'ColourController@index')->name('colours.index')->middleware(['auth', 'verified']);
+Route::get('/colours/create', 'ColourController@create')->name('colours.create')->middleware(['auth', 'verified']);
+Route::post('/colours', 'ColourController@store')->name('colours.store')->middleware(['auth', 'verified']);
+Route::get('/colours/{colour}/edit', 'ColourController@edit')->name('colours.edit')->middleware(['auth', 'verified']);
+Route::patch('/colours/{colour}', 'ColourController@update')->name('colours.update')->middleware(['auth', 'verified']);
+Route::delete('/colours/{colour}', 'ColourController@destroy')->name('colours.destroy')->middleware(['auth', 'verified']);
+
+/********** Formats Routes **********/
+Route::get('/formats', 'FormatController@index')->name('formats.index')->middleware(['auth', 'verified']);
+Route::get('/formats/create', 'FormatController@create')->name('formats.create')->middleware(['auth', 'verified']);
+Route::post('/formats', 'FormatController@store')->name('formats.store')->middleware(['auth', 'verified']);
+Route::get('/formats/{format}/edit', 'FormatController@edit')->name('formats.edit')->middleware(['auth', 'verified']);
+Route::patch('/formats/{format}', 'FormatController@update')->name('formats.update')->middleware(['auth', 'verified']);
+Route::delete('/formats/{format}', 'FormatController@destroy')->name('formats.destroy')->middleware(['auth', 'verified']);
+
 // Auth::routes();
 Auth::routes(['verify' => true]);
 
 /********** Home/Collection/Wishlist Routes **********/
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home/collection', 'HomeController@collectionIndex')->name('collector.collection.index');
-Route::get('/home/wishlist', 'HomeController@wishlistIndex')->name('collector.wishlist.index');
+Route::get('/home/profile', 'HomeController@profileIndex')->name('collector.profile.index')->middleware(['auth', 'verified']);
+Route::get('/home/collection', 'HomeController@collectionIndex')->name('collector.collection.index')->middleware(['auth', 'verified']);
+Route::get('/home/wishlist', 'HomeController@wishlistIndex')->name('collector.wishlist.index')->middleware(['auth', 'verified']);
 Route::post('/home/collection/{record}', 'HomeController@collectionstore')->name('collector.collection.store')->middleware(['auth', 'verified']);
 Route::post('/home/wishlist/{record}', 'HomeController@wishliststore')->name('collector.wishlist.store')->middleware(['auth', 'verified']);
 Route::delete('/home/{record}', 'HomeController@destroy')->name('home.destroy')->middleware(['auth', 'verified']);

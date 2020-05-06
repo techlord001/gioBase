@@ -1,0 +1,5 @@
+@use 'variables' as var;
+
+.gbList-item {
+    background-color:  scale-color(var.$hot-pink, $alpha: -50%) !important;;
+}

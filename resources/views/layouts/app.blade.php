@@ -46,7 +46,12 @@
                                     <a href="/artists" class="dropdown-item">Artists</a>
                                     <a href="/records" class="dropdown-item">Records</a>
                                     @auth
-                                        <a href="/collectors" class="dropdown-item">Collectors</a>                                        
+                                        <a href="/collectors" class="dropdown-item">Collectors</a>
+                                        @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
+                                            <div class="dropdown-divider"></div>
+                                            <a href="/colours" class="dropdown-item">Colours</a>
+                                            <a href="/formats" class="dropdown-item">Formats</a>
+                                        @endif                                      
                                     @endauth
                                 </div>
                             </li>
@@ -61,6 +66,11 @@
                                             <a href="/labels/create" class="dropdown-item">Label</a>
                                             <a href="/artists/create" class="dropdown-item">Artist</a>
                                             <a href="/records/create" class="dropdown-item">Record</a>
+                                            @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
+                                                <div class="dropdown-divider"></div>
+                                                <a href="/colours/create" class="dropdown-item">Colour</a>
+                                                <a href="/formats/create" class="dropdown-item">Format</a>
+                                            @endif 
                                         </div>
                                     </li>
                                 </ul>                                
@@ -89,7 +99,7 @@
                                     </a>
     
                                     <div class="dropdown-menu dropdown-menu-right font-nav gbNav" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="/collectors/{{ Auth::user()->id }}">Profile</a>
+                                        <a class="dropdown-item" href="/home/profile">Profile</a>
                                         <a class="dropdown-item" href="/home/collection">Collection</a>
                                         <a class="dropdown-item" href="/home/wishlist">Wishlist</a>
                                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

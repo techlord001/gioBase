@@ -16,6 +16,9 @@
         case (Request::is('collectors/*')):
             $titleExt .= $user->name;
             break;
+        case (Request::is('home/profile')):
+            $titleExt .= "My Profile";
+            break;
         default:
             $titleExt .= "Vaporwave Database";
             break;
@@ -24,6 +27,14 @@
 
 @section('content')
     <div class="container gbCard p-5">
+        {{-- ******************** HEADER BUTTON LAYOUT ******************** 
+                /
+                /
+                /   Buttons to link to index pages, back buttons,
+                /   or add to/remove from personal lists 
+                /
+                / 
+                /   ******************** ******************** --}}
         <div class="row justify-content-between">
             <div class="col-3">
                 <a href="{{ $url }}">
@@ -32,67 +43,74 @@
             </div>
             <div class="col-3 text-right">
                 {{-- ******************** ADD TO/REMOVE FROM COLLECTION BUTTON ******************** --}}
-                @if (Request::is('records/*'))
-                    @php
-                        $inWishlist = "";
-                        $inCollection = "";
+                @auth                    
+                    @if (Request::is('records/*'))
+                        @php
+                            $inWishlist = "";
+                            $inCollection = "";
 
-                        foreach ($userRecords as $userRecord) {
-                            if ($userRecord->id === $record->id) {
-                                if ($userRecord->pivot->wishlist == true) {
-                                    $inWishlist = true;
-                                } elseif ($userRecord->pivot->wishlist == false) {
-                                    $inCollection = true;
+                            foreach ($userRecords as $userRecord) {
+                                if ($userRecord->id === $record->id) {
+                                    if ($userRecord->pivot->wishlist == true) {
+                                        $inWishlist = true;
+                                    } elseif ($userRecord->pivot->wishlist == false) {
+                                        $inCollection = true;
+                                    }
+                                    break;
+                                } else {
+                                    $inWishlist = false;
+                                    $inCollection = false;
                                 }
-                                break;
-                            } else {
-                                $inWishlist = false;
-                                $inCollection = false;
                             }
-                        }
-                    @endphp
-                    @auth
-                    @if (!$inCollection && !$inWishlist)
-                        <form action="/home/wishlist/{{ $record->id }}" method="post">
-                            @csrf
-                            <button type="submit" class="btn btn-outline-info btn-sm my-2">Add to Wishlist</button>
-                        </form>
-                        <form action="/home/collection/{{ $record->id }}" method="post">
-                            @csrf
-                            <button type="submit" class="btn btn-outline-info btn-sm my-2">Add to Collection</button>
-                        </form>
-                    @else
-                        @if ($inWishlist)
-                            <form action="/home/{{ $record->id }}" method="post">
-                                @method('delete')
-                                @csrf
-                                <button type="submit" class="btn btn-outline-success btn-sm my-2">Remove from Wishlist</button>
-                            </form>
-                            <form action="/home/collection/{{ $record->id }}" method="post">
-                                @csrf
-                                <button type="submit" class="btn btn-outline-info btn-sm my-2">Add to Collection</button>
-                            </form>                            
-                        @endif
-                        @if ($inCollection)
+                        @endphp
+                        @if (!$inCollection && !$inWishlist)
                             <form action="/home/wishlist/{{ $record->id }}" method="post">
                                 @csrf
                                 <button type="submit" class="btn btn-outline-info btn-sm my-2">Add to Wishlist</button>
                             </form>
-                            <form action="/home/{{ $record->id }}" method="post">
-                                @method('delete')
+                            <form action="/home/collection/{{ $record->id }}" method="post">
                                 @csrf
-                                <button type="submit" class="btn btn-outline-success btn-sm my-2">Remove from Collection</button>
-                            </form>                            
+                                <button type="submit" class="btn btn-outline-info btn-sm my-2">Add to Collection</button>
+                            </form>
+                        @else
+                            @if ($inWishlist)
+                                <form action="/home/{{ $record->id }}" method="post">
+                                    @method('delete')
+                                    @csrf
+                                    <button type="submit" class="btn btn-outline-success btn-sm my-2">Remove from Wishlist</button>
+                                </form>
+                                <form action="/home/collection/{{ $record->id }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-outline-info btn-sm my-2">Add to Collection</button>
+                                </form>                            
+                            @endif
+                            @if ($inCollection)
+                                <form action="/home/wishlist/{{ $record->id }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-outline-info btn-sm my-2">Add to Wishlist</button>
+                                </form>
+                                <form action="/home/{{ $record->id }}" method="post">
+                                    @method('delete')
+                                    @csrf
+                                    <button type="submit" class="btn btn-outline-success btn-sm my-2">Remove from Collection</button>
+                                </form>                            
+                            @endif
                         @endif
                     @endif
-                    @endauth
-                @endif
+                @endauth
             </div>
         </div>
+        {{-- ******************** TOP LAYOUT ******************** 
+                /
+                /
+                /   Displays name, bio, and/or homepage link 
+                /
+                / 
+                /   ******************** ******************** --}}
         <div class="row justify-content-center mt-3">
             <div class="col-5">
                 <h1>{{ $name }}</h1>
-                @if (Request::is('collectors/*'))
+                @if (Request::is('collectors/*', 'home/profile'))
                     <h5>{{ $user->role->role }}</h5>
                 @endif
                 @if (Request::is('artists/*') && $artist->label_id)
@@ -225,7 +243,7 @@
                         </dd>
                     </dl>
                     @break
-                {{-- ******************** USERS MIDDLE LAYOUT ******************** --}}
+                {{-- ******************** COLLECTORS MIDDLE LAYOUT ******************** --}}
                 @case(Request::is('collectors/*'))
                     <div class="col-8">
                         <h3>My Record Collection</h3>
@@ -274,7 +292,7 @@
                 </div>
             @endcan
         @else
-        @if (Auth::user()->id === $id || auth()->user()->hasRole('Master'))
+        @if ((Auth::user()->id === $id && Request::is('home/profile')) || auth()->user()->hasRole('Master'))
             <div class="row justify-content-center mt-4">
                 <div class="col-4">
                     <a href="{{ $url . $id }}/edit">

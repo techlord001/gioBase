@@ -1,10 +1,10 @@
 @extends('layouts.bio')
 
 @php
-    $section = "Collectors";
+    $section = "My Collection";
     $name = $user->name;
     $image = $user->image;
-    $url = "/collectors/";
+    $url = "/home/collection";
     $id = $user->id;
     // $homepage = "";
 @endphp

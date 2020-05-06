@@ -17203,3 +17203,22 @@ body {
   background-color: rgba(0, 33, 138, 0.5) !important;
 }
 
+@font-face {
+  font-family: SFAlien;
+  src: url(/fonts/SFAlienEncounters.ttf?aeabf9ec279e70633271d6b36a460954);
+}
+
+@font-face {
+  font-family: SFAlien-Solid;
+  src: url(/fonts/SFAlienEncountersSolid.ttf?84468c2fd5a034a76b7adbf7916760d8);
+}
+
+@font-face {
+  font-family: Chargen;
+  src: url(/fonts/Chargen.ttf?bbb7d2b62a23670e4e5f7c3ca922ac65);
+}
+
+.gbList-item {
+  background-color: rgba(255, 0, 160, 0.5) !important;
+}
+
