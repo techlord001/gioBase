@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Genre extends Model
 {
     protected $fillable = [
-        'genre'
+        'genre',
+        'description'
     ];
 
     public function records()

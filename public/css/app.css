@@ -17222,3 +17222,15 @@ body {
   background-color: rgba(255, 0, 160, 0.5) !important;
 }
 
+.gbListGroup-item {
+  background-color: rgba(122, 4, 236, 0.9) !important;
+}
+
+.gbListGroup-item:hover {
+  background-color: rgba(122, 4, 236, 0.75) !important;
+}
+
+.gbListGroup-content {
+  background-color: rgba(255, 0, 160, 0.75) !important;
+}
+

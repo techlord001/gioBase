@@ -76,6 +76,7 @@
                         <a href="/labels">Labels</a>
                         <a href="/artists">Artists</a>
                         <a href="/records">Records</a>
+                        <a href="/genres">Genres</a>
                     </div>
                 </div>
 

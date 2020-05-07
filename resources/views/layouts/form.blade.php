@@ -15,6 +15,9 @@
             case (Request::is('records/create')):
                 $titleExt .= "Record";
                 break;
+            case (Request::is('genres/create')):
+                $titleExt .= "Genre";
+                break;
             case (Request::is('colours/create')):
                 $titleExt .= "Colour";
                 break;
@@ -37,6 +40,9 @@
                 break;
             case (Request::is('records/*')):
                 $titleExt .= $record->name;
+                break;
+            case (Request::is('genres/*')):
+                $titleExt .= $genre->genre;
                 break;
             case (Request::is('colours/*')):
                 $titleExt .= $colour->colour;
@@ -99,10 +105,10 @@
                     </div>
                 @endif
             </div>
-        @if (Request::is('labels/*') || Request::is('artists/*'))
+        @if (Request::is('labels/*', 'artists/*', 'genres/*'))
             <div class="form-group">
                 <label for="description">Brief {{ $descriptionLabel }}</label>
-                <textarea type="text" name="description" id="description" autocomplete="off" value="{{ $description ?? old('description') }}" class="form-control"></textarea>
+                <textarea type="text" name="description" id="description" autocomplete="off" class="form-control">{{ $description ?? old('description') }}</textarea>
             </div>
         @endif
         @if (Request::is('records/*'))
@@ -186,7 +192,7 @@
         </div>
         @endif
         <div class="form-row">
-            @if (!Request::is('formats/*', 'colours/*', 'formats/*/edit', 'colours/*/edit'))
+            @if (!Request::is('formats/*', 'colours/*', 'genres/*', 'formats/*/edit', 'colours/*/edit', 'genres/*/edit'))
                 <div class="col form-group">
                     <label for="image">Upload {{ $imageLabel }}</label>
                     <div class="custom-file">

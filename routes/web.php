@@ -76,6 +76,15 @@ Route::get('/formats/{format}/edit', 'FormatController@edit')->name('formats.edi
 Route::patch('/formats/{format}', 'FormatController@update')->name('formats.update')->middleware(['auth', 'verified']);
 Route::delete('/formats/{format}', 'FormatController@destroy')->name('formats.destroy')->middleware(['auth', 'verified']);
 
+/********** Genres Routes **********/
+Route::get('/genres', 'GenreController@index')->name('genres.index');
+Route::get('/genres/create', 'GenreController@create')->name('genres.create')->middleware(['auth', 'verified']);
+Route::post('/genres', 'GenreController@store')->name('genres.store')->middleware(['auth', 'verified']);
+Route::get('/genres/{genre}', 'GenreController@show')->name('genres.show');
+Route::get('/genres/{genre}/edit', 'GenreController@edit')->name('genres.edit')->middleware(['auth', 'verified']);
+Route::patch('/genres/{genre}', 'GenreController@update')->name('genres.update')->middleware(['auth', 'verified']);
+Route::delete('/genres/{genre}', 'GenreController@destroy')->name('genres.destroy')->middleware(['auth', 'verified']);
+
 // Auth::routes();
 Auth::routes(['verify' => true]);
 

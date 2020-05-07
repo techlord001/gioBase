@@ -1,5 +1,17 @@
 @use 'variables' as var;
 
 .gbList-item {
-    background-color:  scale-color(var.$hot-pink, $alpha: -50%) !important;;
+    background-color:  scale-color(var.$hot-pink, $alpha: -50%) !important;
+}
+
+.gbListGroup-item {
+    background-color:  scale-color(var.$violet, $alpha: -10%) !important;
+    
+    &:hover {
+        background-color:  scale-color(var.$violet, $alpha: -25%) !important;
+    }
+}
+
+.gbListGroup-content {
+    background-color:  scale-color(var.$hot-pink, $alpha: -25%) !important;
 }

@@ -45,6 +45,7 @@
                                     <a href="/labels" class="dropdown-item">Labels</a>
                                     <a href="/artists" class="dropdown-item">Artists</a>
                                     <a href="/records" class="dropdown-item">Records</a>
+                                    <a href="/genres" class="dropdown-item">Genres</a>
                                     @auth
                                         <a href="/collectors" class="dropdown-item">Collectors</a>
                                         @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
@@ -68,6 +69,7 @@
                                             <a href="/records/create" class="dropdown-item">Record</a>
                                             @if (auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
                                                 <div class="dropdown-divider"></div>
+                                                <a href="/genres/create" class="dropdown-item">Genre</a>
                                                 <a href="/colours/create" class="dropdown-item">Colour</a>
                                                 <a href="/formats/create" class="dropdown-item">Format</a>
                                             @endif 

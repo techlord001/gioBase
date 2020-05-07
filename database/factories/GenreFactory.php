@@ -22,6 +22,7 @@ $GLOBALS['genres'] = [
 
 $factory->define(Genre::class, function (Faker $faker) {
     return [
-        'genre' => $faker->unique()->randomElement($GLOBALS['genres'])
+        'genre' => $faker->unique()->randomElement($GLOBALS['genres']),
+        'description' => $faker->optional()->text
     ];
 });
