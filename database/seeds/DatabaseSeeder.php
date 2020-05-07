@@ -1,6 +1,5 @@
 <?php
 
-use App\Artist;
 use App\Role;
 use App\Format;
 use App\Colour;
