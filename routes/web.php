@@ -96,3 +96,6 @@ Route::get('/home/wishlist', 'HomeController@wishlistIndex')->name('collector.wi
 Route::post('/home/collection/{record}', 'HomeController@collectionstore')->name('collector.collection.store')->middleware(['auth', 'verified']);
 Route::post('/home/wishlist/{record}', 'HomeController@wishliststore')->name('collector.wishlist.store')->middleware(['auth', 'verified']);
 Route::delete('/home/{record}', 'HomeController@destroy')->name('home.destroy')->middleware(['auth', 'verified']);
+
+/********** About Routes **********/
+Route::get('/about/faq', 'AboutController@faqIndex')->name('about.faq.index');

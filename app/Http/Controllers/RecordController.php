@@ -8,6 +8,7 @@ use App\Format;
 use App\Colour;
 use App\Genre;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
@@ -22,7 +23,7 @@ class RecordController extends Controller
             'genres' => 'nullable',
             'format_id' => 'nullable',
             'colour_id' => 'nullable',
-            'released' => 'nullable',
+            'released' => 'nullable|before_or_equal:' . Carbon::now(),
             'homepage' => 'nullable|url',
             'image' => 'sometimes|file|image|max:2048'
         ]);

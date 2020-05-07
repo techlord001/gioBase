@@ -184,7 +184,7 @@
             </div>
             <div class="col form-group">
                 <label for="released">Released</label>
-                <input type="date" name="released" id="released" class="form-control" value="{{ $record->released ?? old('released') }}">
+                <input type="date" name="released" id="released" class="form-control" value="{{ $record->released ?? old('released') }}" max="{{ Carbon\Carbon::now()->toDateString() }}">
                 @error('released')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
@@ -209,7 +209,7 @@
                 @if (!Request::is('collectors/*/edit'))
                     <div class="col form-group">
                         <label for="homepage">Homepage</label>
-                        <input type="url" name="homepage" id="homepage" class="form-control" value="{{ $homepage ?? old('released') }}">
+                        <input type="url" name="homepage" id="homepage" class="form-control" value="{{ $homepage ?? old('homepage') }}">
                         @error('homepage')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror

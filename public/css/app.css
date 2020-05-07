@@ -17203,6 +17203,19 @@ body {
   background-color: rgba(0, 33, 138, 0.5) !important;
 }
 
+.gbCard-header {
+  background-color: rgba(68, 11, 213, 0.5) !important;
+}
+
+.gbCard-header-link {
+  text-decoration: none !important;
+  color: snow !important;
+}
+
+.gbCard-body {
+  background-color: rgba(0, 33, 138, 0.5) !important;
+}
+
 @font-face {
   font-family: SFAlien;
   src: url(/fonts/SFAlienEncounters.ttf?aeabf9ec279e70633271d6b36a460954);

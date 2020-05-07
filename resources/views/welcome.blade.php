@@ -31,12 +31,12 @@
             .top-right {
                 position: absolute;
                 right: 10px;
-                top: 18px;
+                top: 20px;
             }
 
             .bottom {
                 position: absolute;
-                bottom: 18px;
+                bottom: 20px;
             }
             
             .bottom > a {
@@ -80,9 +80,10 @@
                     </div>
                 </div>
 
-                <div class="links bottom">
-                    <a href="/privacy-policy">Privacy Policy</a>
-                    <a href="/terms-conditions">Terms and Conditions</a>
+                <div class="links bottom w-75 row justify-content-around">
+                    <a href="/privacy-policy" class="w-25 text-center">Privacy Policy</a>
+                    <a href="/about/faq" class="w-25 text-center">FAQ</a>
+                    <a href="/terms-conditions" class="w-25 text-center">Terms and Conditions</a>
                 </div>
             </div>
         </div>

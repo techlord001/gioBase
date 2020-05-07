@@ -1,5 +1,18 @@
 @use 'variables' as var;
 
 .gbCard {
-    background-color:  scale-color(var.$deep-blue, $alpha: -50%) !important;;
+    background-color: scale-color(var.$deep-blue, $alpha: -50%) !important;
+}
+
+.gbCard-header {
+    background-color: scale-color(var.$dark-violet, $alpha: -50%) !important;
+}
+
+.gbCard-header-link {
+    text-decoration: none !important;
+    color: var.$off-white !important;
+}
+
+.gbCard-body {
+    background-color: scale-color(var.$deep-blue, $alpha: -50%) !important;
 }
