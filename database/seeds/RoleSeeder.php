@@ -12,6 +12,25 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        factory(Role::class, sizeof($GLOBALS['roles']))->create();
+        // factory(Role::class, sizeof($GLOBALS['roles']))->create();
+
+        $roles = [
+            [
+                'role' => 'Member'
+            ],
+            [
+                'role' => 'Contributor'
+            ],
+            [
+                'role' => 'Admin'
+            ],
+            [
+                'role' => 'Master'
+            ]
+        ];
+
+        foreach ($roles as $role) {
+            Role::create($role);
+        }
     }
 }

@@ -4,6 +4,7 @@ use App\Role;
 use App\Format;
 use App\Colour;
 use App\Genre;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -30,6 +31,8 @@ class DatabaseSeeder extends Seeder
         if (sizeof(Role::all()) === 0) {
             $this->call(RoleSeeder::class);    
         }
-        $this->call(UserSeeder::class);
+        if (sizeOf(User::all()) === 0) {
+            $this->call(UserSeeder::class);
+        }
     }
 }
