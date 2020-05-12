@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Record extends Model
 {
+    use Searchable;
+
     protected $fillable = [
         'name',
         'artist_id',
@@ -15,6 +18,13 @@ class Record extends Model
         'homepage',
         'image'
     ];
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        return $array;
+    }
 
     public function artist()
     {

@@ -14,8 +14,10 @@
         "guzzlehttp/guzzle": "^6.3",
         "intervention/image": "^2.5",
         "laravel/framework": "^7.0",
+        "laravel/scout": "^8.0",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.0"
+        "laravel/ui": "^2.0",
+        "teamtnt/laravel-scout-tntsearch-driver": "^8.1"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

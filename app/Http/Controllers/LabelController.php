@@ -119,4 +119,13 @@ class LabelController extends Controller
 
         return redirect('/labels');
     }
+
+    public function searchResults(Request $query)
+    {
+        $query = request('query');
+
+        $labels = Label::search($query)->get();
+
+        return view('labels.search', compact('labels'));
+    }
 }

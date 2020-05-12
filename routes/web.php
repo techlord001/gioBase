@@ -30,6 +30,7 @@ Route::get('/terms-conditions', function () {
 Route::get('/labels', 'LabelController@index')->name('labels.index');
 Route::get('/labels/create', 'LabelController@create')->name('labels.create')->middleware(['auth', 'verified']);
 Route::post('/labels', 'LabelController@store')->name('labels.store')->middleware(['auth', 'verified']);
+Route::post('/labels/search', 'LabelController@searchResults')->name('labels.search');
 Route::get('/labels/{label}', 'LabelController@show')->name('labels.show');
 Route::get('/labels/{label}/edit', 'LabelController@edit')->name('labels.edit')->middleware(['auth', 'verified']);
 Route::patch('/labels/{label}', 'LabelController@update')->name('labels.update')->middleware(['auth', 'verified']);
@@ -39,6 +40,7 @@ Route::delete('/labels/{label}', 'LabelController@destroy')->name('labels.destro
 Route::get('/artists', 'ArtistController@index')->name('artists.index');
 Route::get('/artists/create', 'ArtistController@create')->name('artists.create')->middleware(['auth', 'verified']);
 Route::post('/artists', 'ArtistController@store')->name('artists.store')->middleware(['auth', 'verified']);
+Route::post('/artists/search', 'ArtistController@searchResults')->name('artists.search');
 Route::get('/artists/{artist}', 'ArtistController@show')->name('artists.show');
 Route::get('/artists/{artist}/edit', 'ArtistController@edit')->name('artists.edit')->middleware(['auth', 'verified']);
 Route::patch('/artists/{artist}', 'ArtistController@update')->name('artists.update')->middleware(['auth', 'verified']);
@@ -48,6 +50,7 @@ Route::delete('/artists/{artist}', 'ArtistController@destroy')->name('artists.de
 Route::get('/records', 'RecordController@index')->name('records.index');
 Route::get('/records/create', 'RecordController@create')->name('records.create')->middleware(['auth', 'verified']);
 Route::post('/records', 'RecordController@store')->name('records.store')->middleware(['auth', 'verified']);
+Route::post('/records/search', 'RecordController@searchResults')->name('records.search');
 Route::get('/records/{record}', 'RecordController@show')->name('records.show');
 Route::get('/records/{record}/edit', 'RecordController@edit')->name('records.edit')->middleware(['auth', 'verified']);
 Route::patch('/records/{record}', 'RecordController@update')->name('records.update')->middleware(['auth', 'verified']);
@@ -92,7 +95,9 @@ Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/profile', 'HomeController@profileIndex')->name('collector.profile.index')->middleware(['auth', 'verified']);
 Route::get('/home/collection', 'HomeController@collectionIndex')->name('collector.collection.index')->middleware(['auth', 'verified']);
+// Route::post('/home/collection/search', 'HomeController@collectionSearchResults')->name('collector.collection.search')->middleware(['auth', 'verified']);
 Route::get('/home/wishlist', 'HomeController@wishlistIndex')->name('collector.wishlist.index')->middleware(['auth', 'verified']);
+// Route::post('/home/wishlist/search', 'HomeController@wishlistSearchResults')->name('collector.wishlist.search')->middleware(['auth', 'verified']);
 Route::post('/home/collection/{record}', 'HomeController@collectionstore')->name('collector.collection.store')->middleware(['auth', 'verified']);
 Route::post('/home/wishlist/{record}', 'HomeController@wishliststore')->name('collector.wishlist.store')->middleware(['auth', 'verified']);
 Route::delete('/home/{record}', 'HomeController@destroy')->name('home.destroy')->middleware(['auth', 'verified']);

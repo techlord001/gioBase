@@ -139,4 +139,27 @@ class RecordController extends Controller
 
         return redirect('/records');
     }
+
+    public function search()
+    {    
+        // dd($search);
+
+        // return $search;
+
+        return view('records.search');
+    }
+
+    public function searchResults(Request $query)
+    {
+        $query = request('query');
+
+        $records = Record::search($query)->get();
+        
+        if (Auth::user()) {
+            $userRecords = User::select('id', 'name')->find(Auth::user()->id)->records()->get();
+            return view('records.search', compact('records'), compact('userRecords'));
+        } else {
+            return view('records.search', compact('records'));
+        }
+    }
 }

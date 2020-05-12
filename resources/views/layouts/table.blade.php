@@ -25,6 +25,9 @@
         case (Request::is('home')):
             $titleExt .= "Home";
             break;
+        case (Request::is('*/search')):
+            $titleExt .= "Search Results";
+            break;
         default:
             $titleExt .= "Vaporwave Database";
             break;
@@ -34,26 +37,47 @@
 @section('content')
     <div class="container-fluid px-5 table-responsive">
         <h3 class="text-center">List of {{ $title }}</h3>
-        @if (!Request::is('home', 'collectors', 'home/*'))
-            @auth
-                @if (auth()->user()->hasRole('Contributor') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
-                    <a href="{{ $link }}"><button class="btn btn-primary mb-3 px-2">Add New {{ $btnTitle }}</button></a>                    
+        <div class="row justify-content-between align-content-center py-3">
+            <div class="col-3 d-flex align-content-center">
+                @if (!Request::is('home', 'collectors', 'home/*'))
+                    @auth
+                        @if (auth()->user()->hasRole('Contributor') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
+                            <a href="{{ $link }}"><button class="btn btn-primary">Add New {{ $btnTitle }}</button></a>                    
+                        @endif
+                    @endauth
                 @endif
-            @endauth
-        @endif
+            </div>
+            <div class="col-3 d-flex align-content-center justify-content-end">
+                @if (!Request::is('home', 'collectors', 'home/*'))
+                    <form action="{{ $searchLink }}" method="post" class="align-self-center">
+                        @csrf
+                        <div class="input-group">
+                            <input type="search" name="query" id="query" class="form-control text-light bg-secondary border border-light font-body">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-sm btn-outline-light">
+                                    <span class="icon">
+                                        <i class="fas fa-search"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>                    
+                @endif
+            </div>
+        </div>
         <table class="table table-hover gbTable">
             {{-- ******************** TABLE HEADERS ******************** --}}
             <thead>
                 <tr>
                     <th class="text-center">
                         @switch(Request::url())
-                            @case(Request::is('labels'))
+                            @case(Request::is('labels', 'labels/*'))
                                 Logo
                                 @break
-                            @case(Request::is('artists'))
+                            @case(Request::is('artists', 'artists/*'))
                                 Portrait
                                 @break
-                            @case(Request::is('records', 'home', 'home/*'))
+                            @case(Request::is('records', 'records/*', 'home', 'home/*'))
                                 Cover
                                 @break
                             @case(Request::is('collectors'))
@@ -70,13 +94,13 @@
                         <th>Role</th>
                         <th>No. of Records</th>
                     @endif
-                    @if (Request::is('records', 'home', 'home/*'))
+                    @if (Request::is('records', 'records/*', 'home', 'home/*'))
                         <th>Artist</th>
                     @endif
-                    @if (Request::is('artists', 'records', 'home', 'home/*'))
+                    @if (Request::is('artists', 'artists/*', 'records', 'records/*', 'home', 'home/*'))
                     <th>Label</th>
                     @endif
-                    @if (Request::is('records', 'home', 'home/*'))
+                    @if (Request::is('records', 'records/*', 'home', 'home/*'))
                         <th class="text-center">Format</th>
                         <th class="text-center">Colour</th>
                         <th class="text-center">Released</th>
@@ -84,17 +108,17 @@
                     <th class="text-right">Options</th>
                     @if (!Request::is('home', 'home/*'))
                         @switch(Request::url())
-                            @case(Request::is('labels'))
+                            @case(Request::is('labels', 'labels/*'))
                                 @can('delete', App\Label::class)
                                     <th class="text-right">Delete</th>
                                 @endcan
                                 @break
-                            @case(Request::is('artists'))
+                            @case(Request::is('artists', 'artists/*'))
                                 @can('delete', App\Artist::class)
                                     <th class="text-right">Delete</th>
                                 @endcan
                                 @break
-                            @case(Request::is('records'))
+                            @case(Request::is('records', 'records/*'))
                                 @can('delete', App\Record::class)
                                     <th class="text-right">Delete</th>
                                 @endcan
@@ -115,7 +139,7 @@
             <tbody>
                 @switch(Request::url())
                     {{-- ******************** LABELS LAYOUT ******************** --}}
-                    @case(Request::is('labels'))
+                    @case(Request::is('labels', 'labels/*'))
                         @forelse ($labels as $label)
                             <tr>
                                 <td class="align-middle text-center">
@@ -166,7 +190,7 @@
                         
                         @break
                     {{-- ******************** ARTIST LAYOUT ******************** --}}
-                    @case(Request::is('artists'))
+                    @case(Request::is('artists', 'artists/*'))
                         @forelse ($artists as $artist)
                             <tr>
                                 <td class="align-middle text-center">
@@ -224,7 +248,7 @@
                         
                         @break
                     {{-- ******************** RECORDS/HOME(USER COLLECTION/WISHLIST) LAYOUT ******************** --}}
-                    @case(Request::is('records', 'home', 'home/*'))
+                    @case(Request::is('records', 'records/*', 'home', 'home/*'))
                         @forelse ($records as $record)
                             <tr>
                                 <td class="align-middle text-center">
@@ -289,7 +313,7 @@
                                                     </button>
                                                 </a>                                                
                                             @endcan
-                                            @if (Request::is('records'))
+                                            @if (Request::is('records', 'records/*'))
                                                 @php
                                                     $inWishlist = "";
                                                     $inCollection = "";
@@ -485,18 +509,20 @@
                 @endswitch
             </tbody>
         </table>
-        <nav>
-            <ul class="pagination justify-content-center pt-4">
-                @if (isset($labels))
-                    {{ $labels->links() }}                    
-                @elseif (isset($artists))
-                    {{ $artists->links() }}               
-                @elseif (isset($records))
-                    {{ $records->links() }}              
-                @elseif (isset($users))
-                    {{ $users->links() }}              
-                @endif
-            </ul>
-        </nav>
+        @if (Request::is('artists', 'labels', 'records', 'home', 'home/*'))
+            <nav>
+                <ul class="pagination justify-content-center pt-4">
+                    @if (isset($labels))
+                        {{ $labels->links() }}                    
+                    @elseif (isset($artists))
+                        {{ $artists->links() }}               
+                    @elseif (isset($records))
+                        {{ $records->links() }}              
+                    @elseif (isset($users))
+                        {{ $users->links() }}              
+                    @endif
+                </ul>
+            </nav>
+        @endif
     </div>
 @endsection

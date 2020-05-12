@@ -118,4 +118,13 @@ class ArtistController extends Controller
 
         return redirect('/artists');
     }
+
+    public function searchResults(Request $query)
+    {
+        $query = request('query');
+
+        $artists = Artist::search($query)->get();
+
+        return view('artists.search', compact('artists'));
+    }
 }

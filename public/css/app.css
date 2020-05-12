@@ -17112,6 +17112,11 @@ body {
   color: snow !important;
 }
 
+.font-body {
+  font-family: Chargen, monospace;
+  font-size: 0.9rem;
+}
+
 .links > a {
   font-family: SFAlien-Solid, sans-serif;
   font-size: 1.2rem;

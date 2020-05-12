@@ -51,6 +51,13 @@ html, body {
     color: var.$off-white !important;
 }
 
+.font-body {
+    font: {
+        family: var.$font-family-chargen;
+        size: 0.9rem;
+    }
+}
+
 .links > a {
     font: {
         family: var.$font-family-sf-aliens-solid;
