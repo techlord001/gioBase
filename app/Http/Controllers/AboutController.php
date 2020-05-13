@@ -10,4 +10,9 @@ class AboutController extends Controller
     {
         return view('about.faq.index');
     }
+
+    public function updateIndex()
+    {
+        return view('about.update.index');
+    }
 }

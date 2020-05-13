@@ -82,7 +82,7 @@
 
                 <div class="links bottom w-75 row justify-content-around">
                     <a href="/privacy-policy" class="w-25 text-center">Privacy Policy</a>
-                    <a href="/about/faq" class="w-25 text-center">FAQ</a>
+                    {{-- <a href="/about/faq" class="w-25 text-center">FAQ</a> --}}
                     <a href="/terms-conditions" class="w-25 text-center">Terms and Conditions</a>
                 </div>
             </div>

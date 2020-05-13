@@ -79,14 +79,14 @@
                             @endif
                         @endauth
 
-                        <ul class="navbar-nav mr-auto">
+                        {{-- <ul class="navbar-nav mr-auto">
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About</a>
                                 <div class="dropdown-menu gbNav font-nav">
                                     <a href="/about/faq" class="dropdown-item">FAQ</a>
                                 </div>
                             </li>
-                        </ul>
+                        </ul> --}}
     
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">

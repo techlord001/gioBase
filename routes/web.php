@@ -103,4 +103,5 @@ Route::post('/home/wishlist/{record}', 'HomeController@wishliststore')->name('co
 Route::delete('/home/{record}', 'HomeController@destroy')->name('home.destroy')->middleware(['auth', 'verified']);
 
 /********** About Routes **********/
-Route::get('/about/faq', 'AboutController@faqIndex')->name('about.faq.index');
+// Route::get('/about/faq', 'AboutController@faqIndex')->name('about.faq.index');
+// Route::get('/about/updates', 'AboutController@updateIndex')->name('about.update.index');
