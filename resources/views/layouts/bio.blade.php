@@ -268,7 +268,7 @@
             /
             / 
             /   ******************** ******************** --}}
-        @if (!Request::is('collectors/*'))
+        @if (Request::is('collectors/*'))
             @auth
                 @if (auth()->user()->hasRole('Contributor') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
                     <div class="row justify-content-center mt-4">
@@ -292,15 +292,15 @@
                 </div>
             @endcan
         @else
-        @if ((Auth::user()->id === $id && Request::is('home/profile')) || auth()->user()->hasRole('Master'))
-            <div class="row justify-content-center mt-4">
-                <div class="col-4">
-                    <a href="{{ $url . $id }}/edit">
-                        <button type="button" class="btn btn-primary btn-lg btn-block">Edit Profile</button>
-                    </a>
+            @if ((Auth::user()->id === $id && Request::is('home/profile')) || auth()->user()->hasRole('Master'))
+                <div class="row justify-content-center mt-4">
+                    <div class="col-4">
+                        <a href="/collectors/{{ $id }}/edit">
+                            <button type="button" class="btn btn-primary btn-lg btn-block">Edit Profile</button>
+                        </a>
+                    </div>
                 </div>
-            </div>
-        @endif
+            @endif
         @can('delete', App\User::class)
             <div class="row justify-content-center mt-4">
                 <div class="col-4">
