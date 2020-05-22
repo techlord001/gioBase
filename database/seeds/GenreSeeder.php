@@ -3,6 +3,20 @@
 use App\Genre;
 use Illuminate\Database\Seeder;
 
+$GLOBALS['genres'] = [
+    'Eccojams',
+    'Utopian Virtual',
+    'Faux-Utopian',
+    'Hypnagogic Drift',
+    'Broken Transmission',
+    'Mallsoft',
+    'Futurevisions',
+    'Late Night Lo-Fi',
+    'VHS Pop',
+    'Future Funk',
+    'Vapormeme',
+    'Vaportrap'
+];
 class GenreSeeder extends Seeder
 {
     /**

@@ -31,8 +31,8 @@ class DatabaseSeeder extends Seeder
         if (sizeof(Role::all()) === 0) {
             $this->call(RoleSeeder::class);    
         }
-        if (sizeOf(User::all()) === 0) {
-            $this->call(UserSeeder::class);
-        }
+        // if (sizeOf(User::all()) === 0) {
+        //     $this->call(UserSeeder::class);
+        // }
     }
 }
