@@ -7,6 +7,7 @@ use App\Artist;
 use App\Format;
 use App\Colour;
 use App\Genre;
+use App\Label;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ class RecordController extends Controller
         return request()->validate([
             'name' => 'required',
             'artist_id' => 'required',
+            'label_id' => 'required',
             'genres' => 'nullable',
             'format_id' => 'nullable',
             'colour_id' => 'nullable',
@@ -43,7 +45,7 @@ class RecordController extends Controller
 
     public function index()
     {
-        $records = Record::with(['artist', 'artist.label', 'genres', 'format', 'colour', 'users'])->orderBy('name')->paginate(10);
+        $records = Record::with(['artist', 'label', 'genres', 'format', 'colour', 'users'])->orderBy('name')->paginate(10);
 
         if (Auth::user()) {
             $userRecords = User::select('id', 'name')->find(Auth::user()->id)->records()->get();
@@ -58,11 +60,12 @@ class RecordController extends Controller
         $this->authorize('create', Record::class);
 
         $artists = Artist::orderBy('name')->get();
+        $labels = Label::orderBy('name')->get();
         $genres = Genre::orderBy('genre')->get();
         $formats = Format::orderBy('format')->get();
         $colours = Colour::orderBy('colour')->get();
 
-        return view('records.create', compact('artists', 'genres', 'formats', 'colours'));
+        return view('records.create', compact('artists', 'labels', 'genres', 'formats', 'colours'));
     }
 
     public function store()
@@ -70,10 +73,16 @@ class RecordController extends Controller
         $this->authorize('create', Record::class);
         
         $record = Record::create($this->validateData());
+
+        $artist = Artist::findOrFail($record->artist_id);
+
+        $artist->labels()->sync($record->label_id);
         
         $genres = request("genres");
 
-        $record->genres()->sync(array_keys($genres));
+        if ($genres) {
+            $record->genres()->sync(array_keys($genres));
+        }
 
         $this->storeImage($record);
 
@@ -95,11 +104,12 @@ class RecordController extends Controller
         $this->authorize('update', Record::class);
 
         $artists = Artist::orderBy('name')->get();
+        $labels = Label::orderBy('name')->get();
         $genres = Genre::orderBy('genre')->get();
         $formats = Format::orderBy('format')->get();
         $colours = Colour::orderBy('colour')->get();
 
-        return view('records.edit', compact('record'), compact('artists', 'genres', 'formats', 'colours'));
+        return view('records.edit', compact('record'), compact('artists', 'labels', 'genres', 'formats', 'colours'));
     }
 
     public function update(Record $record)

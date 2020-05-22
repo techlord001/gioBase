@@ -17,6 +17,7 @@ class CreateRecordsTable extends Migration
             $table->id('id');
             $table->string('name');
             $table->foreignId('artist_id');
+            $table->foreignId('label_id');
             $table->foreignId('format_id')->nullable();
             $table->foreignId('colour_id')->nullable();
             $table->date('released')->nullable();

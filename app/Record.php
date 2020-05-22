@@ -12,6 +12,7 @@ class Record extends Model
     protected $fillable = [
         'name',
         'artist_id',
+        'label_id',
         'format_id',
         'colour_id',
         'released',
@@ -29,6 +30,11 @@ class Record extends Model
     public function artist()
     {
         return $this->belongsTo(Artist::class);
+    }
+
+    public function label()
+    {
+        return $this->belongsTo(Label::class);
     }
 
     public function format()
