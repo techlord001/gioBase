@@ -97,7 +97,7 @@
                     @if (Request::is('records', 'records/*', 'home', 'home/*'))
                         <th>Artist</th>
                     @endif
-                    @if (Request::is('artists', 'artists/*', 'records', 'records/*', 'home', 'home/*'))
+                    @if (Request::is('records', 'records/*', 'home', 'home/*'))
                     <th>Label</th>
                     @endif
                     @if (Request::is('records', 'records/*', 'home', 'home/*'))
@@ -201,13 +201,6 @@
                                     @endif
                                 </td>
                                 <td class="align-middle">{{ $artist->name }}</td>
-                                <td class="align-middle">
-                                    @if ($artist->label_id)
-                                        {{ $artist->label->name }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
                                 <td class="align-middle text-right">
                                     <a href="/artists/{{ $artist->id }}">
                                         <button type="button" class="btn btn-secondary btn-sm" title="View">
@@ -265,8 +258,8 @@
                                     {{ $record->artist->name }}
                                 </td>
                                 <td class="align-middle">
-                                    @if ($record->artist->label)
-                                        {{ $record->artist->label->name }}
+                                    @if ($record->label)
+                                        {{ $record->label->name }}
                                     @else
                                         -
                                     @endif

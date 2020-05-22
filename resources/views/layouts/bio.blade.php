@@ -131,7 +131,7 @@
             </div>
             <div class="col-5 text-right">
                 @if ($image)
-                    <img src="{{ asset('storage/' . $image) }}" alt="">
+                    <img src="{{ asset('storage/' . $image) }}" alt="" class="w-75">
                 @endif
             </div>
         </div>
@@ -182,6 +182,16 @@
                             @endforelse
                         </div>
                     </div>
+                    <div class="col-4 text-right">
+                        <h3>Labels</h3>
+                        <div class="list-group list-group-flush">
+                            @forelse ($artist->labels as $label)
+                                <a href="/labels/{{ $label->id }}" class="list-group-item list-group-item-action">{{ $label->name }}</a>
+                            @empty
+                                <p class="list-group-item text-muted">-</p>
+                            @endforelse
+                        </div>
+                    </div>
                     @break
                 {{-- ******************** RECORDS MIDDLE LAYOUT ******************** --}}
                 @case(Request::is('records/*'))
@@ -195,9 +205,9 @@
 
                         <dt class="col-6 text-right">Label</dt>
                         <dd class="col-6">
-                            @if ($record->artist->label_id)
-                                <a href="/labels/{{ $record->artist->label->id }}">
-                                    {{ $record->artist->label->name }}
+                            @if ($record->label_id)
+                                <a href="/labels/{{ $record->label->id }}">
+                                    {{ $record->label->name }}
                                 </a>
                             @else
                                 -
@@ -268,7 +278,7 @@
             /
             / 
             /   ******************** ******************** --}}
-        @if (Request::is('collectors/*'))
+        @if (!Request::is('collectors/*', 'home/profile'))
             @auth
                 @if (auth()->user()->hasRole('Contributor') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
                     <div class="row justify-content-center mt-4">

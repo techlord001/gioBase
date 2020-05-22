@@ -88,23 +88,29 @@
                         @enderror                        
                     @endif
                 </div>
-                @if (Request::is('artists/*'))
-                    <div class="col form-group">
-                        <label for="label_id">Label</label>
-                        <select name="label_id" id="label_id" class="form-control">
-                            @foreach ($labels as $label)
-                            <option value="{{ $label->id }}"
-                                @if (isset($artist->label_id))
-                                    @if ($label->id === $artist->label_id)
-                                        selected
-                                    @endif
-                                @endif
-                                >{{ $label->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                @endif
             </div>
+            @if (Request::is('artists/*'))
+                <div class="form-row">
+                    <div class="col form-group">
+                        <h6>Label</h6>
+                        <div class="d-flex flex-wrap flex-row justify-content-between align-content-between">
+                            @foreach ($labels as $label)
+                                <div class="custom-control custom-switch mx-2 my-1">
+                                    <input type="checkbox" name="labels[{{ $label->id }}]" id="labels[{{ $label->id }}]" class="custom-control-input" value="{{ $label->name }}"
+                                    @if (isset($artist->labels))
+                                        @foreach ($artist->labels as $artistLabel)
+                                            @if ($artistLabel->id === $label->id)
+                                                checked="checked"
+                                            @endif
+                                        @endforeach                            
+                                    @endif> 
+                                    <label for="labels[{{ $label->id }}]" class="custom-control-label">{{ $label->name }}</label>
+                                </div>            
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endif
         @if (Request::is('labels/*', 'artists/*', 'genres/*'))
             <div class="form-group">
                 <label for="description">Brief {{ $descriptionLabel }}</label>
@@ -131,20 +137,38 @@
         </div>
         <div class="form-row">
             <div class="col form-group">
+                <h6>Label</h6>
+                <select name="label_id" id="label_id" class="form-control">
+                    @foreach ($labels as $label)
+                    <option value="{{ $label->id }}"
+                        @if (isset($record->label_id))
+                            @if ($label->id === $record->label_id)
+                                selected
+                            @endif
+                        @endif
+                        >{{ $label->name }}</option>           
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col form-group">
                 <h6>Genre</h6>
-                @foreach ($genres as $genre)
-                    <div class="custom-control custom-switch">
-                        <input type="checkbox" name="genres[{{ $genre->id }}]" id="genres[{{ $genre->id }}]" class="custom-control-input" value="{{ $genre->genre }}"
-                        @if (isset($record->genres))
-                            @foreach ($record->genres as $recordGenre)
-                                @if ($recordGenre->id === $genre->id)
-                                    checked="checked"
-                                @endif
-                            @endforeach                            
-                        @endif> 
-                        <label for="genres[{{ $genre->id }}]" class="custom-control-label">{{ $genre->genre }}</label>
-                    </div>            
-                @endforeach
+                <div class="d-flex flex-wrap flex-row justify-content-between align-content-between">                
+                    @foreach ($genres as $genre)
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" name="genres[{{ $genre->id }}]" id="genres[{{ $genre->id }}]" class="custom-control-input" value="{{ $genre->genre }}"
+                            @if (isset($record->genres))
+                                @foreach ($record->genres as $recordGenre)
+                                    @if ($recordGenre->id === $genre->id)
+                                        checked="checked"
+                                    @endif
+                                @endforeach                            
+                            @endif> 
+                            <label for="genres[{{ $genre->id }}]" class="custom-control-label">{{ $genre->genre }}</label>
+                        </div>            
+                    @endforeach
+                </div>
             </div>
         </div>
         <div class="form-row">
