@@ -12,7 +12,6 @@ class Artist extends Model
     protected $fillable = [
         'name',
         'description',
-        'label_id',
         'homepage',
         'image'
     ];
@@ -24,9 +23,9 @@ class Artist extends Model
         return $array;
     }
 
-    public function label()
+    public function labels()
     {
-        return $this->belongsTo(Label::class);
+        return $this->belongsToMany(Label::class);
     }
 
     public function records()

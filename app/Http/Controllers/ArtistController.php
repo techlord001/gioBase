@@ -15,7 +15,7 @@ class ArtistController extends Controller
             return request()->validate([
                 'name' => 'required|unique:App\Artist,name,' . $artist->id,
                 'description' => 'nullable',
-                'label_id' => 'nullable',
+                'labels' => 'nullable',
                 'homepage' => 'nullable|url',
                 'image' => 'sometimes|file|image|max:2048'
             ]);
@@ -23,7 +23,7 @@ class ArtistController extends Controller
             return request()->validate([
                 'name' => 'required|unique:App\Artist,name',
                 'description' => 'nullable',
-                'label_id' => 'nullable',
+                'labels' => 'nullable',
                 'homepage' => 'nullable|url',
                 'image' => 'sometimes|file|image|max:2048'
             ]);
@@ -44,7 +44,7 @@ class ArtistController extends Controller
 
     public function index()
     {
-        $artists = Artist::with('label', 'records')->orderBy('name')->paginate(10);
+        $artists = Artist::with('labels', 'records')->orderBy('name')->paginate(10);
 
         return view('artists.index', compact('artists'));
     }
@@ -62,7 +62,9 @@ class ArtistController extends Controller
 
         $artist = Artist::create($this->validateData(null, null));
 
-        $artist->label()->associate(request('label_id'))->save();
+        $labels = request("labels");
+
+        $artist->labels()->sync(array_keys($labels));
 
         $this->storeImage($artist);
 
@@ -91,7 +93,11 @@ class ArtistController extends Controller
 
         $artist->update($this->validateData('update', $artist));
         
-        $artist->label()->associate(request('label_id'))->save();
+        $labels = request("labels");
+
+        if (isset($labels)) {
+            $artist->labels()->sync(array_keys($labels));
+        }
 
         $this->storeImage($artist);
 
@@ -107,6 +113,8 @@ class ArtistController extends Controller
     public function destroy(Artist $artist)
     {
         $this->authorize('delete', Artist::class);
+
+        $artist->labels()->detach();
 
         $artist->records()->delete();
 
