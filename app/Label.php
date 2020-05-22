@@ -24,8 +24,13 @@ class Label extends Model
         return $array;
     }
 
+    public function records()
+    {
+        return $this->hasMany(Record::class);
+    }
+
     public function artists()
     {
-        return $this->hasMany(Artist::class);
+        return $this->belongsToMany(Artist::class);
     }
 }

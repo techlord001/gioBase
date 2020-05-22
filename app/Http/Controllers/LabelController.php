@@ -109,7 +109,7 @@ class LabelController extends Controller
     {
         $this->authorize('delete', Label::class);
 
-        $this->disassociate($label->artists, 'label');
+        $label->artists()->detach();
 
         if ($label->image) {
             unlink(storage_path('app/public/' . $label->image));
