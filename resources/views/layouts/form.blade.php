@@ -237,16 +237,13 @@
             @if (!Request::is('formats/*', 'colours/*', 'genres/*', 'formats/*/edit', 'colours/*/edit', 'genres/*/edit'))
                 <div class="col form-group">
                     <label for="image">Upload {{ $imageLabel }}</label>
-                    <div class="custom-file">
-                        <span class="custom-file-label" for="image">Choose an image</span>
-                        <input type="file" name="image" id="image" class="custom-file-input"
-                        @if (Request::is('collectors/*') && Auth::user()->id !== $user->id)
-                            disabled
-                        @endif>
-                        @error('image')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
+                    <input type="file" class="form-control-file" name="image" id="image"
+                    @if (Request::is('collectors/*') && Auth::user()->id !== $user->id)
+                        disabled
+                    @endif>
+                    @error('image')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
                 </div>
                 @if (!Request::is('collectors/*/edit'))
                     <div class="col form-group">

@@ -5,6 +5,7 @@ html, body {
     font-family: var.$font-family-unifont;
     color: $off-white;
     letter-spacing: 0.1rem !important;
+    text-shadow: -1px 1px 2px #000, 1px 1px 2px #000, 1px -1px 0 #000, -1px -1px 0 #000;
 }
 
 .background {
@@ -38,10 +39,12 @@ html, body {
     background: linear-gradient(to right, $soft-red, $hot-pink, $light-pink, $violet, $dark-violet, $deep-blue);
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    text-shadow: none !important;
 }
 
 .font-logo-nav {
     font-size: 1.5rem;
+    text-shadow: none !important;
 }
 
 .font-nav {
@@ -50,6 +53,7 @@ html, body {
         size: 1.2rem;
     }
     color: var.$off-white !important;
+    text-shadow: none !important;
 }
 
 .font-body {
@@ -70,6 +74,7 @@ html, body {
     text: {
         decoration: none;
         transform: uppercase;
+        shadow: none !important;
     }
 
     &:hover {

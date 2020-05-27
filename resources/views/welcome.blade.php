@@ -41,6 +41,7 @@
             
             .bottom > a {
                 font-size: 0.9rem !important;
+                text-shadow: none !important;
             }
 
             .content {
