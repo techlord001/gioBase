@@ -14,17 +14,17 @@ $bg-wallpaper: url('images/gioBaseBG.jpg');
 }
 
 @font-face {
-    font-family: Chargen;
-    src: url('fonts/Chargen.ttf');
+    font-family: Unifont;
+    src: url('fonts/Unifont.ttf');
 }
 
 $font-family-sans-serif: 'Nunito', sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
+$font-size-base: 1rem;
+$line-height-base: 1.4;
 
 $font-family-sf-aliens: SFAlien, sans-serif;
 $font-family-sf-aliens-solid: SFAlien-Solid, sans-serif;
-$font-family-chargen: Chargen, monospace;
+$font-family-unifont: Unifont, monospace;
 
 // Colors
 $blue: #3490dc;

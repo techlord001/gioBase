@@ -2,8 +2,9 @@
 @use 'mixins';
 
 html, body {
-    font-family: var.$font-family-chargen;
+    font-family: var.$font-family-unifont;
     color: $off-white;
+    letter-spacing: 0.1rem !important;
 }
 
 .background {
@@ -53,8 +54,8 @@ html, body {
 
 .font-body {
     font: {
-        family: var.$font-family-chargen;
-        size: 0.9rem;
+        family: var.$font-family-unifont;
+        size: 1.2rem !important;
     }
 }
 
