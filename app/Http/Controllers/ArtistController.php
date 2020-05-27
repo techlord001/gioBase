@@ -64,7 +64,9 @@ class ArtistController extends Controller
 
         $labels = request("labels");
 
-        $artist->labels()->sync(array_keys($labels));
+        if (isset($labels)) {
+            $artist->labels()->sync(array_keys($labels));
+        }
 
         $this->storeImage($artist);
 
