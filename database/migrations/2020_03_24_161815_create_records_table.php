@@ -20,7 +20,7 @@ class CreateRecordsTable extends Migration
             $table->foreignId('label_id');
             $table->foreignId('format_id')->nullable();
             $table->foreignId('colour_id')->nullable();
-            $table->date('released')->nullable();
+            $table->year('released')->nullable();
             $table->string('homepage')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();

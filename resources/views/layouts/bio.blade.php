@@ -246,7 +246,7 @@
                         <dt class="col-6 text-right">Released</dt>
                         <dd class="col-6">
                             @if ($record->released)
-                                {{ date('jS M Y', strtotime($record->released)) }}
+                                {{ $record->released }}
                             @else
                                 -
                             @endif

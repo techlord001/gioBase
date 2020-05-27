@@ -280,7 +280,7 @@
                                 </td>
                                 <td class="text-center align-middle">
                                     @if ($record->released)
-                                        {{ date('jS M Y', strtotime($record->released)) }}
+                                        {{ $record->released }}
                                     @else
                                         -
                                     @endif

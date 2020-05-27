@@ -21,7 +21,7 @@ $factory->define(Record::class, function (Faker $faker) {
         'label_id' => $faker->randomElement($labels),
         'format_id' => $faker->optional()->randomElement($formats),
         'colour_id' => $faker->optional()->randomElement($colours),
-        'released'=> $faker->date(),
+        'released'=> $faker->year($min = 2010, $max = 'now'),
         'homepage' => $faker->optional()->url
     ];
 });

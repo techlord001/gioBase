@@ -25,7 +25,7 @@ class RecordController extends Controller
             'genres' => 'nullable',
             'format_id' => 'nullable',
             'colour_id' => 'nullable',
-            'released' => 'nullable|before_or_equal:' . Carbon::now(),
+            'released' => 'nullable|before_or_equal:' . Carbon::now()->year,
             'homepage' => 'nullable|url',
             'image' => 'sometimes|file|image|max:2048'
         ]);

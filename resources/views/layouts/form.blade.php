@@ -208,7 +208,25 @@
             </div>
             <div class="col form-group">
                 <label for="released">Released</label>
-                <input type="date" name="released" id="released" class="form-control" value="{{ $record->released ?? old('released') }}" max="{{ Carbon\Carbon::now()->toDateString() }}">
+                {{-- <input type="date" name="released" id="released" class="form-control" value="{{ $record->released ?? old('released') }}" max="{{ Carbon\Carbon::now()->toDateString() }}"> --}}
+                <select name="released" id="released" class="form-control">
+                    <option value="">-</option>
+                    @php
+                        $currentYear = Carbon\Carbon::now()->year;
+                        $baseYear = 2010;
+                    @endphp
+                    @while ($currentYear !== $baseYear)
+                        <option value="{{ $currentYear }}"
+                        @if (isset($record->released))
+                            @if ($record->released === $currentYear)
+                                selected
+                            @endif                           
+                        @endif>{{ $currentYear }}</option>
+                        @php
+                            --$currentYear;
+                        @endphp
+                    @endwhile
+                </select>
                 @error('released')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
