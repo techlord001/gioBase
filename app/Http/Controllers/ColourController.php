@@ -11,11 +11,11 @@ class ColourController extends Controller
     {
         if ($command === 'update') {
             return request()->validate([
-                'colour' => 'required|unique:App\Colour,colour,' . $colour->id
+                'colour' => 'required|string|max:50|unique:App\Colour,colour,' . $colour->id
             ]);
         } else {
             return request()->validate([
-                'colour' => 'required|unique:App\Colour,colour'
+                'colour' => 'required|string|max:50|unique:App\Colour,colour'
             ]);            
         }
     }

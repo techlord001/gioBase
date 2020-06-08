@@ -97,8 +97,11 @@
                     @if (Request::is('records', 'records/*', 'home', 'home/*'))
                         <th>Artist</th>
                     @endif
-                    @if (Request::is('records', 'records/*', 'home', 'home/*'))
+                    @if (Request::is('artists', 'records', 'records/*', 'home', 'home/*'))
                     <th>Label</th>
+                    @endif
+                    @if (Request::is('records', 'records/*', 'home', 'home/*'))
+                    <th class="text-center">Catalog #</th>
                     @endif
                     @if (Request::is('records', 'records/*', 'home', 'home/*'))
                         <th class="text-center">Format</th>
@@ -201,6 +204,17 @@
                                     @endif
                                 </td>
                                 <td class="align-middle">{{ $artist->name }}</td>
+                                <td class="align-middle">
+                                    @forelse ($artist->labels as $label)
+                                        <a href="/labels/{{ $label->id }}">
+                                            <button type="button" class="btn btn-primary btn-sm my-1">
+                                                {{ $label->name }}
+                                            </button>
+                                        </a>
+                                    @empty
+                                        -
+                                    @endforelse
+                                </td>
                                 <td class="align-middle text-right">
                                     <a href="/artists/{{ $artist->id }}">
                                         <button type="button" class="btn btn-secondary btn-sm" title="View">
@@ -260,6 +274,13 @@
                                 <td class="align-middle">
                                     @if ($record->label)
                                         {{ $record->label->name }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td class="text-center align-middle">
+                                    @if ($record->catalog_num)
+                                        {{ $record->catalog_num }}
                                     @else
                                         -
                                     @endif

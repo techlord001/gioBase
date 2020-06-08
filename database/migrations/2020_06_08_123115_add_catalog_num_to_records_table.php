@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateColoursTable extends Migration
+class AddCatalogNumToRecordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateColoursTable extends Migration
      */
     public function up()
     {
-        Schema::create('colours', function (Blueprint $table) {
-            $table->id('id');
-            $table->string('colour', 50)->required()->unique();
-            $table->timestamps();
+        Schema::table('records', function (Blueprint $table) {
+            $table->string('catalog_num', 10)->nullable();
         });
     }
 
@@ -27,6 +25,8 @@ class CreateColoursTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('colours');
+        Schema::table('records', function (Blueprint $table) {
+            //
+        });
     }
 }

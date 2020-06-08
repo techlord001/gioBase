@@ -118,120 +118,127 @@
             </div>
         @endif
         @if (Request::is('records/*'))
-        <div class="form-group">
-            <label for="artist_id">Artist</label>
-            <select name="artist_id" id="artist_id" class="form-control">
-                @foreach ($artists as $artist)
-                <option value="{{ $artist->id }}"
-                    @if (isset($record->artist_id))
-                        @if ($artist->id === $record->artist_id)
-                            selected
-                        @endif
-                    @endif
-                    >{{ $artist->name }}</option>
-                @endforeach
-            </select>
-            @error('artist_id')
-                <small class="text-danger">{{ $message }}</small>
-            @enderror
-        </div>
-        <div class="form-row">
-            <div class="col form-group">
-                <h6>Label</h6>
-                <select name="label_id" id="label_id" class="form-control">
-                    @foreach ($labels as $label)
-                    <option value="{{ $label->id }}"
-                        @if (isset($record->label_id))
-                            @if ($label->id === $record->label_id)
+            <div class="form-group">
+                <label for="artist_id">Artist</label>
+                <select name="artist_id" id="artist_id" class="form-control">
+                    @foreach ($artists as $artist)
+                    <option value="{{ $artist->id }}"
+                        @if (isset($record->artist_id))
+                            @if ($artist->id === $record->artist_id)
                                 selected
                             @endif
                         @endif
-                        >{{ $label->name }}</option>           
+                        >{{ $artist->name }}</option>
                     @endforeach
                 </select>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col form-group">
-                <h6>Genre</h6>
-                <div class="d-flex flex-wrap flex-row justify-content-between align-content-between">                
-                    @foreach ($genres as $genre)
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" name="genres[{{ $genre->id }}]" id="genres[{{ $genre->id }}]" class="custom-control-input" value="{{ $genre->genre }}"
-                            @if (isset($record->genres))
-                                @foreach ($record->genres as $recordGenre)
-                                    @if ($recordGenre->id === $genre->id)
-                                        checked="checked"
-                                    @endif
-                                @endforeach                            
-                            @endif> 
-                            <label for="genres[{{ $genre->id }}]" class="custom-control-label">{{ $genre->genre }}</label>
-                        </div>            
-                    @endforeach
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col form-group">
-                <label for="format_id">Format</label>
-                <select name="format_id" id="format_id" class="form-control">
-                    @foreach ($formats as $format)
-                    <option value="{{ $format->id }}"
-                        @if (isset($record->format_id))
-                            @if ($format->id === $record->format_id)
-                                selected
-                            @endif
-                        @endif
-                        >{{ $format->format }}</option>
-                    @endforeach
-                </select>
-                @error('format_id')
+                @error('artist_id')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-            <div class="col form-group">
-                <label for="colour_id">Colour</label>
-                <select name="colour_id" id="colour_id" class="form-control">
-                    @foreach ($colours as $colour)
-                        <option value="{{ $colour->id }}"
-                            @if (isset($record->colour_id))
-                                @if ($colour->id === $record->colour_id)
+            <div class="form-row">
+                <div class="col form-group">
+                    <h6>Label</h6>
+                    <select name="label_id" id="label_id" class="form-control">
+                        @foreach ($labels as $label)
+                        <option value="{{ $label->id }}"
+                            @if (isset($record->label_id))
+                                @if ($label->id === $record->label_id)
                                     selected
                                 @endif
                             @endif
-                            >{{ $colour->colour }}</option>
-                    @endforeach
-                </select>
-                @error('colours')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
+                            >{{ $label->name }}</option>           
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col form-group">
+                    <h6>Catalog #</h6>
+                    <input type="text" name="catalog_num" id="catalog_num" class="form-control" value="{{ $record->catalog_num ?? old('catalog_num') }}">
+                    @error('catalog_num')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
             </div>
-            <div class="col form-group">
-                <label for="released">Released</label>
-                {{-- <input type="date" name="released" id="released" class="form-control" value="{{ $record->released ?? old('released') }}" max="{{ Carbon\Carbon::now()->toDateString() }}"> --}}
-                <select name="released" id="released" class="form-control">
-                    <option value="">-</option>
-                    @php
-                        $currentYear = Carbon\Carbon::now()->year;
-                        $baseYear = 2010;
-                    @endphp
-                    @while ($currentYear !== $baseYear)
-                        <option value="{{ $currentYear }}"
-                        @if (isset($record->released))
-                            @if ($record->released === $currentYear)
-                                selected
-                            @endif                           
-                        @endif>{{ $currentYear }}</option>
+            <div class="form-row">
+                <div class="col form-group">
+                    <h6>Genre</h6>
+                    <div class="d-flex flex-wrap flex-row justify-content-between align-content-between">                
+                        @foreach ($genres as $genre)
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" name="genres[{{ $genre->id }}]" id="genres[{{ $genre->id }}]" class="custom-control-input" value="{{ $genre->genre }}"
+                                @if (isset($record->genres))
+                                    @foreach ($record->genres as $recordGenre)
+                                        @if ($recordGenre->id === $genre->id)
+                                            checked="checked"
+                                        @endif
+                                    @endforeach                            
+                                @endif> 
+                                <label for="genres[{{ $genre->id }}]" class="custom-control-label">{{ $genre->genre }}</label>
+                            </div>            
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col form-group">
+                    <label for="format_id">Format</label>
+                    <select name="format_id" id="format_id" class="form-control">
+                        @foreach ($formats as $format)
+                        <option value="{{ $format->id }}"
+                            @if (isset($record->format_id))
+                                @if ($format->id === $record->format_id)
+                                    selected
+                                @endif
+                            @endif
+                            >{{ $format->format }}</option>
+                        @endforeach
+                    </select>
+                    @error('format_id')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="col form-group">
+                    <label for="colour_id">Colour</label>
+                    <select name="colour_id" id="colour_id" class="form-control">
+                        @foreach ($colours as $colour)
+                            <option value="{{ $colour->id }}"
+                                @if (isset($record->colour_id))
+                                    @if ($colour->id === $record->colour_id)
+                                        selected
+                                    @endif
+                                @endif
+                                >{{ $colour->colour }}</option>
+                        @endforeach
+                    </select>
+                    @error('colours')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="col form-group">
+                    <label for="released">Released</label>
+                    {{-- <input type="date" name="released" id="released" class="form-control" value="{{ $record->released ?? old('released') }}" max="{{ Carbon\Carbon::now()->toDateString() }}"> --}}
+                    <select name="released" id="released" class="form-control">
+                        <option value="">-</option>
                         @php
-                            --$currentYear;
+                            $currentYear = Carbon\Carbon::now()->year;
+                            $baseYear = 2010;
                         @endphp
-                    @endwhile
-                </select>
-                @error('released')
-                    <small class="text-danger">{{ $message }}</small>
-                @enderror
+                        @while ($currentYear !== $baseYear)
+                            <option value="{{ $currentYear }}"
+                            @if (isset($record->released))
+                                @if ($record->released === $currentYear)
+                                    selected
+                                @endif                           
+                            @endif>{{ $currentYear }}</option>
+                            @php
+                                --$currentYear;
+                            @endphp
+                        @endwhile
+                    </select>
+                    @error('released')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
             </div>
-        </div>
         @endif
         <div class="form-row">
             @if (!Request::is('formats/*', 'colours/*', 'genres/*', 'formats/*/edit', 'colours/*/edit', 'genres/*/edit'))

@@ -17,7 +17,8 @@ class Record extends Model
         'colour_id',
         'released',
         'homepage',
-        'image'
+        'image',
+        'catalog_num'
     ];
 
     public function toSearchableArray()

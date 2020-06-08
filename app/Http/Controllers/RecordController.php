@@ -27,7 +27,8 @@ class RecordController extends Controller
             'colour_id' => 'nullable',
             'released' => 'nullable|before_or_equal:' . Carbon::now()->year,
             'homepage' => 'nullable|url',
-            'image' => 'sometimes|file|image|max:2048'
+            'image' => 'sometimes|file|image|max:2048',
+            'catalog_num' => 'nullable|string|max:10'
         ]);
     }
 

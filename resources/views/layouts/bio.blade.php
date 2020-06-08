@@ -135,8 +135,61 @@
                 @endif
             </div>
         </div>
+        {{-- ******************** MIDDLE LAYOUT ******************** 
+            /
+            /
+            /   Display functional buttons to edit and/or delete 
+            /   (based on role)
+            /
+            / 
+            /   ******************** ******************** --}}
+        @if (!Request::is('collectors/*', 'home/profile'))
+            @auth
+                @if (auth()->user()->hasRole('Contributor') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
+                    <div class="row justify-content-center mt-4">
+                        <div class="col-4">
+                            <a href="{{ $url . $id }}/edit">
+                                <button type="button" class="btn btn-primary btn-lg btn-block">Edit</button>
+                            </a>
+                        </div>
+                    </div>
+                @endif
+            @endauth
+            @can('delete', App\Record::class)
+                <div class="row justify-content-center mt-4">
+                    <div class="col-4">
+                        <form action="{{ $url . $id }}" method="post">
+                            @method('delete')
+                            @csrf
+                            <button type="submit" class="btn btn-danger btn-lg btn-block">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            @endcan
+        @else
+            @if ((Auth::user()->id === $id && Request::is('home/profile')) || auth()->user()->hasRole('Master'))
+                <div class="row justify-content-center mt-4">
+                    <div class="col-4">
+                        <a href="/collectors/{{ $id }}/edit">
+                            <button type="button" class="btn btn-primary btn-lg btn-block">Edit Profile</button>
+                        </a>
+                    </div>
+                </div>
+            @endif
+        @can('delete', App\User::class)
+            <div class="row justify-content-center mt-4">
+                <div class="col-4">
+                    <form action="{{ $url . $id }}" method="post">
+                        @method('delete')
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-lg btn-block">Delete Account</button>
+                    </form>
+                </div>
+            </div>
+        @endcan
+        @endif
         <div class="row justify-content-center mt-3">
-            {{-- ******************** MIDDLE LAYOUT ******************** 
+            {{-- ******************** BOTTOM LAYOUT ******************** 
                 /
                 /
                 /   Display lists relevant to each page 
@@ -145,7 +198,7 @@
                 / 
                 /   ******************** ******************** --}}
             @switch(Request::url())
-                {{-- ******************** LABELS MIDDLE LAYOUT ******************** --}}
+                {{-- ******************** LABELS BOTTOM LAYOUT ******************** --}}
                 @case(Request::is('labels/*'))
                     <div class="col-5">
                         <h3>Artists</h3>
@@ -202,13 +255,22 @@
                                 {{ $record->artist->name }}
                             </a>
                         </dd>
-
+                        
                         <dt class="col-6 text-right">Label</dt>
                         <dd class="col-6">
                             @if ($record->label_id)
-                                <a href="/labels/{{ $record->label->id }}">
-                                    {{ $record->label->name }}
-                                </a>
+                            <a href="/labels/{{ $record->label->id }}">
+                                {{ $record->label->name }}
+                            </a>
+                            @else
+                            -
+                            @endif
+                        </dd>
+
+                        <dt class="col-6 text-right">Catalog #</dt>
+                        <dd class="col-6">
+                            @if ($record->catalog_num)
+                                {{ $record->catalog_num }}
                             @else
                                 -
                             @endif
@@ -270,58 +332,5 @@
                     
             @endswitch
         </div>
-        {{-- ******************** BOTTOM LAYOUT ******************** 
-            /
-            /
-            /   Display functional buttons to edit and/or delete 
-            /   (based on role)
-            /
-            / 
-            /   ******************** ******************** --}}
-        @if (!Request::is('collectors/*', 'home/profile'))
-            @auth
-                @if (auth()->user()->hasRole('Contributor') || auth()->user()->hasRole('Admin') || auth()->user()->hasRole('Master'))
-                    <div class="row justify-content-center mt-4">
-                        <div class="col-4">
-                            <a href="{{ $url . $id }}/edit">
-                                <button type="button" class="btn btn-primary btn-lg btn-block">Edit</button>
-                            </a>
-                        </div>
-                    </div>
-                @endif
-            @endauth
-            @can('delete', App\Record::class)
-                <div class="row justify-content-center mt-4">
-                    <div class="col-4">
-                        <form action="{{ $url . $id }}" method="post">
-                            @method('delete')
-                            @csrf
-                            <button type="submit" class="btn btn-danger btn-lg btn-block">Delete</button>
-                        </form>
-                    </div>
-                </div>
-            @endcan
-        @else
-            @if ((Auth::user()->id === $id && Request::is('home/profile')) || auth()->user()->hasRole('Master'))
-                <div class="row justify-content-center mt-4">
-                    <div class="col-4">
-                        <a href="/collectors/{{ $id }}/edit">
-                            <button type="button" class="btn btn-primary btn-lg btn-block">Edit Profile</button>
-                        </a>
-                    </div>
-                </div>
-            @endif
-        @can('delete', App\User::class)
-            <div class="row justify-content-center mt-4">
-                <div class="col-4">
-                    <form action="{{ $url . $id }}" method="post">
-                        @method('delete')
-                        @csrf
-                        <button type="submit" class="btn btn-danger btn-lg btn-block">Delete Account</button>
-                    </form>
-                </div>
-            </div>
-        @endcan
-        @endif
     </div>
 @endsection
